@@ -31,7 +31,7 @@
                             {{ user.name }}
                             {% if user.owner %}👑{% endif %}
                         </div>
-                        <div class="user-last-change">{{ user.last_change or 0 }}</div>
+                        <div class="user-last-change">{% if user.last_change > 0 %}+{% endif %}{{ user.last_change or 0 }}</div>
                         <div class="user-score">{{ user.score }}</div>
                         <div class="user-rank"></div>
                     </div>
@@ -166,7 +166,8 @@
                         
                         // Update score and last change
                         item.querySelector('.user-score').textContent = updatedUser.score;
-                        item.querySelector('.user-last-change').textContent = updatedUser.last_change || 0;
+                        const lastChange = updatedUser.last_change || 0;
+                        item.querySelector('.user-last-change').textContent = lastChange > 0 ? `+${lastChange}` : lastChange;
                         
                         // Update rank
                         const rank = sortedUsers.findIndex(u => u.id === userId) + 1;

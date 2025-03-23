@@ -1,0 +1,32 @@
+{
+  "created_at": "2025-03-23 17:36:10",
+  "initial_score": 50,
+  "users": [
+    {
+      "id": "dc76b3a3-ce7e-4efc-b50b-e23cbcc35eaa",
+      "name": "哈哈哈哈哈哈哈",
+      "score": 70,
+      "last_change": 20,
+      "owner": true
+    },
+    {
+      "id": "8d3c87df-bb23-4480-a882-c2e4abb935d5",
+      "name": "很好",
+      "score": 30,
+      "last_change": -20,
+      "owner": false
+    }
+  ],
+  "baseline": {
+    "dc76b3a3-ce7e-4efc-b50b-e23cbcc35eaa": 70,
+    "8d3c87df-bb23-4480-a882-c2e4abb935d5": 30
+  },
+  "settlement_reports": [
+    {
+      "count": 1,
+      "report": "【结算汇总】\n• 总结算金额：20 积分\n• 盈利玩家：1 人\n• 亏损玩家：1 人\n\n【盈利玩家】\n• 哈哈哈哈哈哈哈：+20 积分\n\n【亏损玩家】\n• 很好：-20 积分\n\n【转账明细】\n• 很好需要支付：\n    - 20 积分给 哈哈哈哈哈哈哈",
+      "timestamp": "2025-03-23 17:37:14"
+    }
+  ],
+  "settlement_count": 1
+}
