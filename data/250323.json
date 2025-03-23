@@ -1,0 +1,37 @@
+{
+  "created_at": "2025-03-23 22:44:19",
+  "initial_score": 50,
+  "users": [
+    {
+      "id": "59c57080-93bd-44d7-8d3f-7ff8094f273d",
+      "name": "哈哈哈哈",
+      "score": 50,
+      "last_change": 0,
+      "owner": true
+    },
+    {
+      "id": "78259eac-ba71-4f67-b829-7171d0283239",
+      "name": "qwe",
+      "score": 50,
+      "last_change": 0,
+      "owner": false
+    }
+  ],
+  "baseline": {
+    "59c57080-93bd-44d7-8d3f-7ff8094f273d": 50,
+    "78259eac-ba71-4f67-b829-7171d0283239": 50
+  },
+  "settlement_reports": [
+    {
+      "count": 1,
+      "report": "【结算汇总】<br>\n• 总结算金额：20 积分<br>\n• 盈利玩家：1 人<br>\n• 亏损玩家：1 人<br>\n<br>\n【盈利玩家】<br>\n• 哈哈哈哈：+20 积分<br>\n<br>\n【亏损玩家】<br>\n• qwe：-20 积分<br>\n<br>\n【转账明细】<br>\n• qwe 需要支付：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 20 积分给 哈哈哈哈<br>",
+      "timestamp": "2025-03-23 22:44:47"
+    },
+    {
+      "count": 2,
+      "report": "【结算汇总】<br>\n• 总结算金额：20 积分<br>\n• 盈利玩家：1 人<br>\n• 亏损玩家：1 人<br>\n<br>\n【盈利玩家】<br>\n• 哈哈哈哈：+20 积分<br>\n<br>\n【亏损玩家】<br>\n• qwe：-20 积分<br>\n<br>\n【转账明细】<br>\n• qwe 需要支付：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 20 积分给 哈哈哈哈<br>",
+      "timestamp": "2025-03-23 22:47:01"
+    }
+  ],
+  "settlement_count": 2
+}

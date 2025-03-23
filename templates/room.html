@@ -46,13 +46,16 @@
             </div>
             {% endif %}
 
-            <div id="settlement-reports" class="settlement-reports">
-                {% for report in room_data.get('settlement_reports', []) %}
-                <div class="settlement-report">
-                    <div class="settlement-header">房间号：{{ room_id }}的第{{ report.count }}次结算报告 ({{ report.timestamp }})</div>
-                    <div class="settlement-content">{{ report.report | replace('\n', '<br>') | safe }}</div>
+            <div id="settlement-reports-section" style="display: none;">
+                <h2>结算报告</h2>
+                <div id="settlement-reports" class="settlement-reports">
+                    {% for report in room_data.get('settlement_reports', []) %}
+                    <div class="settlement-report">
+                        <div class="settlement-header">房间号：{{ room_id }}的第{{ report.count }}次结算报告 ({{ report.timestamp }})</div>
+                        <div class="settlement-content">{{ report.report | replace('\n', '<br>') | safe }}</div>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
@@ -192,6 +195,15 @@
                         else rankElement.textContent = rank;
                     }
                 });
+
+                // 控制结算报告区域的显示
+                const reportsSection = document.getElementById('settlement-reports-section');
+                const reports = document.getElementById('settlement-reports');
+                if (reports && reports.children.length > 0) {
+                    reportsSection.style.display = 'block';
+                } else {
+                    reportsSection.style.display = 'none';
+                }
             }
             
             // Handle next round button
