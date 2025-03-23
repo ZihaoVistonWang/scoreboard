@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>房间 {{ room_id }} - 赛事积分板</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>房间: {{ room_id }}</h1>
+            <a href="/" class="btn back-btn">返回首页</a>
+        </header>
+        
+        <div class="card">
+            <h2>积分列表</h2>
+            <div class="score-table">
+                <div class="table-header">
+                    <div class="header-name">用户名</div>
+                    <div class="header-change">上局变化</div>
+                    <div class="header-score">总积分</div>
+                    <div class="header-rank">排名</div>
+                </div>
+                <div class="user-list" id="user-list">
+                    {% for user in users %}
+                    <div class="user-item {% if user.id == current_user.id %}current-user{% endif %}" 
+                         data-user-id="{{ user.id }}" 
+                         data-username="{{ user.name }}">
+                        <div class="user-name">
+                            {{ user.name }}
+                            {% if user.owner %}👑{% endif %}
+                        </div>
+                        <div class="user-last-change">{{ user.last_change or 0 }}</div>
+                        <div class="user-score">{{ user.score }}</div>
+                        <div class="user-rank"></div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            {% if current_user.owner %}
+            <div class="owner-controls">
+                <button id="next-round" class="btn">下一局</button>
+                <button id="settlement" class="btn">结算</button>
+            </div>
+            {% endif %}
+            
+            <div id="settlement-reports" class="settlement-reports">
+                {% for report in room_data.get('settlement_reports', []) %}
+                <div class="settlement-report">
+                    <div class="settlement-header">房间号：{{ room_id }}的第{{ report.count }}次结算报告</div>
+                    <div class="settlement-content">{{ report.report | replace('\n', '<br>') | safe }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Transfer modal -->
+    <div id="transfer-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>转账给 <span id="recipient-name"></span></h2>
+            <div class="form-group">
+                <label for="transfer-amount">金额</label>
+                <input type="number" id="transfer-amount" min="1" value="1">
+            </div>
+            <div class="button-group">
+                <button id="confirm-transfer" class="btn">确认</button>
+                <button id="cancel-transfer" class="btn btn-secondary">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userList = document.getElementById('user-list');
+            const transferModal = document.getElementById('transfer-modal');
+            const closeModal = document.querySelector('.close-modal');
+            const cancelTransfer = document.getElementById('cancel-transfer');
+            const confirmTransfer = document.getElementById('confirm-transfer');
+            const recipientName = document.getElementById('recipient-name');
+            const transferAmount = document.getElementById('transfer-amount');
+            
+            const currentUserId = '{{ current_user.id }}';
+            const roomId = '{{ room_id }}';
+            
+            let selectedUserId = null;
+            let lastUpdateTime = Date.now();
+            let updateInterval;
+            
+            // Show transfer modal when clicking on another user
+            userList.addEventListener('click', function(event) {
+                const userItem = event.target.closest('.user-item');
+                if (!userItem) return;
+                
+                const userId = userItem.dataset.userId;
+                
+                // Don't allow transfers to self
+                if (userId === currentUserId) return;
+                
+                selectedUserId = userId;
+                recipientName.textContent = userItem.dataset.username;
+                transferModal.style.display = 'block';
+                transferAmount.focus();
+            });
+            
+            // Close modal
+            function closeTransferModal() {
+                transferModal.style.display = 'none';
+                selectedUserId = null;
+            }
+            
+            closeModal.addEventListener('click', closeTransferModal);
+            cancelTransfer.addEventListener('click', closeTransferModal);
+            
+            // Handle transfer submission
+            confirmTransfer.addEventListener('click', function() {
+                const amount = parseInt(transferAmount.value, 10);
+                if (isNaN(amount) || amount <= 0) {
+                    alert('请输入有效金额');
+                    return;
+                }
+                
+                fetch('/transfer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `room_id=${encodeURIComponent(roomId)}&from_user_id=${encodeURIComponent(currentUserId)}&to_user_id=${encodeURIComponent(selectedUserId)}&amount=${encodeURIComponent(amount)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update UI with new scores
+                        updateScores(data.users);
+                        closeTransferModal();
+                        lastUpdateTime = Date.now();
+                    } else {
+                        alert('转账失败: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during transfer:', error);
+                    alert('转账过程中出错，请重试');
+                });
+            });
+            
+            // Update scores and ranks in the UI
+            function updateScores(users) {
+                // Sort users by score
+                const sortedUsers = [...users].sort((a, b) => b.score - a.score);
+                
+                const userItems = userList.querySelectorAll('.user-item');
+                userItems.forEach(item => {
+                    const userId = item.dataset.userId;
+                    const updatedUser = users.find(u => u.id === userId);
+                    if (updatedUser) {
+                        // Update user name and owner status
+                        const nameElement = item.querySelector('.user-name');
+                        nameElement.textContent = updatedUser.name;
+                        if (updatedUser.owner) {
+                            nameElement.textContent += '👑';
+                        }
+                        
+                        // Update score and last change
+                        item.querySelector('.user-score').textContent = updatedUser.score;
+                        item.querySelector('.user-last-change').textContent = updatedUser.last_change || 0;
+                        
+                        // Update rank
+                        const rank = sortedUsers.findIndex(u => u.id === userId) + 1;
+                        const rankElement = item.querySelector('.user-rank');
+                        if (rank === 1) rankElement.textContent = '🥇';
+                        else if (rank === 2) rankElement.textContent = '🥈';
+                        else if (rank === 3) rankElement.textContent = '🥉';
+                        else rankElement.textContent = rank;
+                    }
+                });
+            }
+            
+            // Handle next round button
+            const nextRoundBtn = document.getElementById('next-round');
+            if (nextRoundBtn) {
+                nextRoundBtn.addEventListener('click', function() {
+                    fetch('/next_round', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `room_id=${encodeURIComponent(roomId)}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            updateScores(data.users);
+                        } else {
+                            alert('操作失败: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('操作失败，请重试');
+                    });
+                });
+            }
+            
+            // Handle settlement button
+            const settlementBtn = document.getElementById('settlement');
+            if (settlementBtn) {
+                settlementBtn.addEventListener('click', function() {
+                    fetch('/settle', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `room_id=${encodeURIComponent(roomId)}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Update scores
+                            updateScores(data.users);
+                            
+                            // Add new settlement report
+                            const reportsDiv = document.getElementById('settlement-reports');
+                            const reportDiv = document.createElement('div');
+                            reportDiv.className = 'settlement-report';
+                            
+                            const header = document.createElement('div');
+                            header.className = 'settlement-header';
+                            header.textContent = `房间号：${roomId}的第${data.settlement_count}次结算报告`;
+                            
+                            const content = document.createElement('div');
+                            content.className = 'settlement-content';
+                            content.innerHTML = data.report.replace(/\n/g, '<br>');
+                            
+                            reportDiv.appendChild(header);
+                            reportDiv.appendChild(content);
+                            reportsDiv.insertBefore(reportDiv, reportsDiv.firstChild);
+                        } else {
+                            alert('结算失败: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('结算失败，请重试');
+                    });
+                });
+            }
+            
+            // Fetch updated room data periodically
+            function startPolling() {
+                updateInterval = setInterval(fetchRoomData, 5000); // Check for updates every 5 seconds (changed from 3)
+            }
+            
+            function fetchRoomData() {
+                fetch(`/get_room_data/${roomId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Check if user count has changed, which means someone joined or left
+                            const currentUserCount = userList.querySelectorAll('.user-item').length;
+                            
+                            if (data.user_count !== currentUserCount) {
+                                // If the number of users has changed, reload the page to get the updated user list
+                                location.reload();
+                            } else {
+                                // Update scores
+                                updateScores(data.users);
+                                
+                                // Update settlement reports if they've changed
+                                if (data.settlement_reports) {
+                                    const reportsDiv = document.getElementById('settlement-reports');
+                                    reportsDiv.innerHTML = '';  // Clear existing reports
+                                    data.settlement_reports.forEach(report => {
+                                        const reportDiv = document.createElement('div');
+                                        reportDiv.className = 'settlement-report';
+                                        
+                                        const header = document.createElement('div');
+                                        header.className = 'settlement-header';
+                                        header.textContent = `房间号：${roomId}的第${report.count}次结算报告`;
+                                        
+                                        const content = document.createElement('div');
+                                        content.className = 'settlement-content';
+                                        content.innerHTML = report.report.replace(/\n/g, '<br>');
+                                        
+                                        reportDiv.appendChild(header);
+                                        reportDiv.appendChild(content);
+                                        reportsDiv.insertBefore(reportDiv, reportsDiv.firstChild);
+                                    });
+                                }
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Error fetching room data:', error));
+            }
+            
+            // Start polling for updates
+            startPolling();
+        });
+    </script>
+</body>
+</html>
