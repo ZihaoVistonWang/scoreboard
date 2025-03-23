@@ -5,21 +5,21 @@
     {
       "id": "f19c7846-2b62-4083-a3eb-589609c4984f",
       "name": "admin",
-      "score": 50,
-      "last_change": 0,
+      "score": 49,
+      "last_change": -1,
       "owner": true
     },
     {
       "id": "adce5290-7393-4350-b1f7-d83958885d0b",
       "name": "小帅",
-      "score": 50,
-      "last_change": 0,
+      "score": 51,
+      "last_change": 1,
       "owner": false
     }
   ],
   "baseline": {
-    "f19c7846-2b62-4083-a3eb-589609c4984f": 50,
-    "adce5290-7393-4350-b1f7-d83958885d0b": 50
+    "f19c7846-2b62-4083-a3eb-589609c4984f": 49,
+    "adce5290-7393-4350-b1f7-d83958885d0b": 51
   },
   "settlement_reports": [
     {
