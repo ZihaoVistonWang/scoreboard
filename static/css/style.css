@@ -329,4 +329,27 @@ header {
         width: 95%;
         margin: 20% auto;
     }
+
+    .table-header,
+    .user-item {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+
+    .user-item > div,
+    .table-header > div {
+        min-width: 60px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .user-name {
+        flex: 1.5;
+        word-break: break-word;
+        padding: 0 5px;
+    }
+
+    .user-last-change {
+        flex: 1.2;
+    }
 }
