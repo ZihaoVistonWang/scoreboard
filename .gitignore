@@ -1,0 +1,9 @@
+.history/
+bak/
+# 常见Python项目忽略项
+__pycache__/
+*.py[cod]
+*.log
+*.sqlite3
+.env
+.venv/
