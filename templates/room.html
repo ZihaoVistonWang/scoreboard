@@ -49,7 +49,7 @@
             <div id="settlement-reports" class="settlement-reports">
                 {% for report in room_data.get('settlement_reports', []) %}
                 <div class="settlement-report">
-                    <div class="settlement-header">房间号：{{ room_id }}的第{{ report.count }}次结算报告</div>
+                    <div class="settlement-header">房间号：{{ room_id }}的第{{ report.count }}次结算报告 ({{ report.timestamp }})</div>
                     <div class="settlement-content">{{ report.report | replace('\n', '<br>') | safe }}</div>
                 </div>
                 {% endfor %}
@@ -244,7 +244,7 @@
                             
                             const header = document.createElement('div');
                             header.className = 'settlement-header collapsed';
-                            header.textContent = `房间号：${roomId}的第${data.settlement_count}次结算报告`;
+                            header.textContent = `房间号：${roomId}的第${data.settlement_count}次结算报告 (${data.timestamp})`;
                             
                             const content = document.createElement('div');
                             content.className = 'settlement-content';
@@ -301,7 +301,7 @@
                                         
                                         const header = document.createElement('div');
                                         header.className = 'settlement-header collapsed';
-                                        header.textContent = `房间号：${roomId}的第${report.count}次结算报告`;
+                                        header.textContent = `房间号：${roomId}的第${report.count}次结算报告 (${report.timestamp})`;
                                         
                                         const content = document.createElement('div');
                                         content.className = 'settlement-content';
