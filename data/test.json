@@ -1,0 +1,32 @@
+{
+  "created_at": "2025-03-23 21:10:33",
+  "initial_score": 50,
+  "users": [
+    {
+      "id": "f19c7846-2b62-4083-a3eb-589609c4984f",
+      "name": "admin",
+      "score": 50,
+      "last_change": 0,
+      "owner": true
+    },
+    {
+      "id": "adce5290-7393-4350-b1f7-d83958885d0b",
+      "name": "小帅",
+      "score": 50,
+      "last_change": 0,
+      "owner": false
+    }
+  ],
+  "baseline": {
+    "f19c7846-2b62-4083-a3eb-589609c4984f": 50,
+    "adce5290-7393-4350-b1f7-d83958885d0b": 50
+  },
+  "settlement_reports": [
+    {
+      "count": 1,
+      "report": "【结算汇总】\n• 总结算金额：30 积分\n• 盈利玩家：1 人\n• 亏损玩家：1 人\n\n【盈利玩家】\n• admin：+30 积分\n\n【亏损玩家】\n• 小帅：-30 积分\n\n【转账明细】\n• 小帅需要支付：\n    - 30 积分给 admin",
+      "timestamp": "2025-03-23 21:11:33"
+    }
+  ],
+  "settlement_count": 1
+}
