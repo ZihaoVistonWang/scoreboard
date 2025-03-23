@@ -117,6 +117,9 @@ def room(room_id):
     if not current_user:
         return redirect(url_for('index'))
 
+    # Sort settlement reports by count in descending order
+    room_data['settlement_reports'].sort(key=lambda x: x['count'], reverse=True)
+
     return render_template('room.html',
                           room_id=room_id,
                           users=room_data['users'],
@@ -219,28 +222,28 @@ def settle():
 
     # Add summary section
     total_amount = sum(winner['amount'] for winner in winners)
-    report_lines.append("【结算汇总】")
-    report_lines.append(f"• 总结算金额：{total_amount} 积分")
-    report_lines.append(f"• 盈利玩家：{len(winners)} 人")
-    report_lines.append(f"• 亏损玩家：{len(losers)} 人")
-    report_lines.append("")
+    report_lines.append("【结算汇总】<br>")
+    report_lines.append(f"• 总结算金额：{total_amount} 积分<br>")
+    report_lines.append(f"• 盈利玩家：{len(winners)} 人<br>")
+    report_lines.append(f"• 亏损玩家：{len(losers)} 人<br>")
+    report_lines.append("<br>")
 
     # Add winners section
     if winners:
-        report_lines.append("【盈利玩家】")
+        report_lines.append("【盈利玩家】<br>")
         for winner in winners:
-            report_lines.append(f"• {winner['name']}：+{winner['amount']} 积分")
-        report_lines.append("")
+            report_lines.append(f"• {winner['name']}：+{winner['amount']} 积分<br>")
+        report_lines.append("<br>")
 
     # Add losers section
     if losers:
-        report_lines.append("【亏损玩家】")
+        report_lines.append("【亏损玩家】<br>")
         for loser in losers:
-            report_lines.append(f"• {loser['name']}：-{loser['amount']} 积分")
-        report_lines.append("")
+            report_lines.append(f"• {loser['name']}：-{loser['amount']} 积分<br>")
+        report_lines.append("<br>")
 
     # Process settlements
-    report_lines.append("【转账明细】")
+    report_lines.append("【转账明细】<br>")
     # Process each loser
     for loser in losers:
         remaining_amount = loser['amount']
@@ -266,9 +269,9 @@ def settle():
 
         # Add to report
         if loser_settlements:
-            report_lines.append(f"• {loser['name']}需要支付：")
+            report_lines.append(f"• {loser['name']} 需要支付：<br>")
             for settlement in loser_settlements:
-                report_lines.append(f"    - {settlement['amount']} 积分给 {settlement['to']}")
+                report_lines.append(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {settlement['amount']} 积分给 {settlement['to']}<br>")
 
     # Create the settlement report
     room_data['settlement_count'] += 1

@@ -152,6 +152,20 @@
                 // Sort users by score
                 const sortedUsers = [...users].sort((a, b) => b.score - a.score);
                 
+                // Get all user items and convert to array for sorting
+                const userItemsArray = Array.from(userList.querySelectorAll('.user-item'));
+                
+                // Sort user items based on user scores
+                userItemsArray.sort((a, b) => {
+                    const userA = users.find(u => u.id === a.dataset.userId);
+                    const userB = users.find(u => u.id === b.dataset.userId);
+                    return userB.score - userA.score;
+                });
+                
+                // Reorder DOM elements
+                userItemsArray.forEach(item => userList.appendChild(item));
+                
+                // Update user information
                 const userItems = userList.querySelectorAll('.user-item');
                 userItems.forEach(item => {
                     const userId = item.dataset.userId;
@@ -229,12 +243,19 @@
                             reportDiv.className = 'settlement-report';
                             
                             const header = document.createElement('div');
-                            header.className = 'settlement-header';
+                            header.className = 'settlement-header collapsed';
                             header.textContent = `房间号：${roomId}的第${data.settlement_count}次结算报告`;
                             
                             const content = document.createElement('div');
                             content.className = 'settlement-content';
                             content.innerHTML = data.report.replace(/\n/g, '<br>');
+                            
+                            // 检查localStorage中保存的状态
+                            const isExpanded = localStorage.getItem(`settlement_${data.settlement_count}`) === 'expanded';
+                            if (!isExpanded) {
+                                header.classList.add('collapsed');
+                                content.classList.add('collapsed');
+                            }
                             
                             reportDiv.appendChild(header);
                             reportDiv.appendChild(content);
@@ -279,12 +300,19 @@
                                         reportDiv.className = 'settlement-report';
                                         
                                         const header = document.createElement('div');
-                                        header.className = 'settlement-header';
+                                        header.className = 'settlement-header collapsed';
                                         header.textContent = `房间号：${roomId}的第${report.count}次结算报告`;
                                         
                                         const content = document.createElement('div');
                                         content.className = 'settlement-content';
                                         content.innerHTML = report.report.replace(/\n/g, '<br>');
+                                        
+                                        // 检查localStorage中保存的状态
+                                        const isExpanded = localStorage.getItem(`settlement_${report.count}`) === 'expanded';
+                                        if (!isExpanded) {
+                                            header.classList.add('collapsed');
+                                            content.classList.add('collapsed');
+                                        }
                                         
                                         reportDiv.appendChild(header);
                                         reportDiv.appendChild(content);
@@ -301,5 +329,6 @@
             startPolling();
         });
     </script>
+<script src="{{ url_for('static', filename='js/settlement.js') }}"></script>
 </body>
 </html>

@@ -207,6 +207,8 @@ header {
 
 .user-list {
     margin-top: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .user-item {
@@ -292,12 +294,46 @@ header {
     margin: -20px -20px 15px -20px;
     padding: 15px 20px;
     border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.settlement-header::after {
+    content: "▼";
+    font-size: 0.8em;
+    transition: transform 0.3s ease;
+}
+
+.settlement-header.collapsed::after {
+    transform: rotate(-90deg);
 }
 
 .settlement-content {
     color: #444;
-    line-height: 1.8;
+    line-height: 1;
     padding-left: 15px;
+    max-height: 1000px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.settlement-content.collapsed {
+    max-height: 0;
+}
+
+/* Settlement Report Styles */
+.settlement-report {
+    margin-bottom: 20px;
+}
+
+.settlement-report.collapsed .settlement-content {
+    display: none;
+}
+
+.settlement-report .settlement-header:hover {
+    background-color: #f0f0f0;
 }
 
 .settlement-content br {
