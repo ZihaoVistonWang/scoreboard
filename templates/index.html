@@ -39,6 +39,7 @@
             </div>
             
             <div class="button-group">
+                <button id="watch-btn" class="btn" disabled>观看赛事</button>
                 <button id="join-btn" class="btn" disabled>加入赛事</button>
                 <button id="create-btn" class="btn" disabled>创建赛事</button>
             </div>
@@ -66,6 +67,7 @@
             const usernameInput = document.getElementById('username');
             const usernameDropdown = document.getElementById('username-dropdown');
             const addNewUserItem = document.getElementById('add-new-user');
+            const watchBtn = document.getElementById('watch-btn');
             const joinBtn = document.getElementById('join-btn');
             const createBtn = document.getElementById('create-btn');
             
@@ -138,6 +140,11 @@
                 updateButtons();
             }
             
+            // Watch room action
+            watchBtn.addEventListener('click', function() {
+                submitForm('watch_room');
+            });
+            
             // Join room action
             joinBtn.addEventListener('click', function() {
                 submitForm('join_room');
@@ -181,21 +188,30 @@
             
             function updateButtons() {
                 const initialScoreContainer = document.getElementById('initial-score-container');
+                const roomId = roomIdInput.value.trim();
                 
-                if (selectedUsername) {
-                    if (roomExists) {
+                // Reset all buttons to disabled state
+                watchBtn.setAttribute('disabled', true);
+                joinBtn.setAttribute('disabled', true);
+                createBtn.setAttribute('disabled', true);
+                initialScoreContainer.style.display = 'none';
+                
+                if (!roomId) {
+                    return;
+                }
+                
+                if (roomExists) {
+                    // Enable watch button if room exists, regardless of username
+                    watchBtn.removeAttribute('disabled');
+                    
+                    // Enable join button only if username is selected
+                    if (selectedUsername) {
                         joinBtn.removeAttribute('disabled');
-                        createBtn.setAttribute('disabled', true);
-                        initialScoreContainer.style.display = 'none';
-                    } else {
-                        createBtn.removeAttribute('disabled');
-                        joinBtn.setAttribute('disabled', true);
-                        initialScoreContainer.style.display = 'block';
                     }
-                } else {
-                    joinBtn.setAttribute('disabled', true);
-                    createBtn.setAttribute('disabled', true);
-                    initialScoreContainer.style.display = 'none';
+                } else if (selectedUsername) {
+                    // Enable create button if room doesn't exist and username is selected
+                    createBtn.removeAttribute('disabled');
+                    initialScoreContainer.style.display = 'block';
                 }
             }
             

@@ -100,6 +100,17 @@ def join_room():
 
     return redirect(url_for('room', room_id=room_id, user_id=new_user['id']))
 
+@app.route('/watch_room', methods=['POST'])
+def watch_room():
+    room_id = request.form.get('room_id')
+    room_data = load_room_data(room_id)
+
+    if not room_data:
+        return redirect(url_for('index'))
+
+    # For spectators, we'll pass a special user_id 'spectator'
+    return redirect(url_for('room', room_id=room_id, user_id='spectator'))
+
 @app.route('/room/<room_id>')
 def room(room_id):
     user_id = request.args.get('user_id')
@@ -107,6 +118,17 @@ def room(room_id):
 
     if not room_data:
         return redirect(url_for('index'))
+
+    # Handle spectator mode
+    if user_id == 'spectator':
+        # Sort settlement reports by count in descending order
+        room_data['settlement_reports'].sort(key=lambda x: x['count'], reverse=True)
+        return render_template('room.html',
+                            room_id=room_id,
+                            users=room_data['users'],
+                            current_user={'id': 'spectator', 'name': '观看者', 'owner': False},
+                            room_data=room_data,
+                            is_spectator=True)
 
     current_user = None
     for user in room_data['users']:
@@ -124,7 +146,8 @@ def room(room_id):
                           room_id=room_id,
                           users=room_data['users'],
                           current_user=current_user,
-                          room_data=room_data)
+                          room_data=room_data,
+                          is_spectator=False)
 
 @app.route('/transfer', methods=['POST'])
 def transfer():

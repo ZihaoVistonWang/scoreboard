@@ -100,6 +100,9 @@
 
                 const userId = userItem.dataset.userId;
 
+                // Don't show transfer modal for spectators
+                if ('{{ is_spectator }}' === 'True') return;
+
                 // Don't allow transfers to self
                 if (userId === currentUserId) return;
 
