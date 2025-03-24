@@ -467,6 +467,22 @@ header {
     }
 }
 
+@media screen and (max-width: 350px) {
+    .score-table {
+        overflow-x: auto;
+        max-width: 250px;
+        margin: 0 auto;
+    }
+    
+    .table-header {
+        min-width: 250px;
+    }
+    
+    .user-list {
+        min-width: 250px;
+    }
+}
+
 .checkbox-label {
     display: flex;
     align-items: center;

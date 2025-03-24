@@ -6,21 +6,21 @@
     {
       "id": "12c766ca-d5e4-42af-bb86-0958612ad233",
       "name": "admin",
-      "score": 10,
-      "last_change": 10,
+      "score": 11,
+      "last_change": 0,
       "owner": true
     },
     {
       "id": "5e057290-21fd-472a-a933-2162125a476a",
       "name": "123",
-      "score": 5,
-      "last_change": 5,
+      "score": 7,
+      "last_change": 2,
       "owner": false
     }
   ],
   "baseline": {
     "12c766ca-d5e4-42af-bb86-0958612ad233": 10,
-    "5e057290-21fd-472a-a933-2162125a476a": 5
+    "5e057290-21fd-472a-a933-2162125a476a": 7
   },
   "settlement_reports": [
     {
