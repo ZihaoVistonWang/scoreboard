@@ -313,5 +313,24 @@ def get_room_data(room_id):
         'settlement_reports': room_data['settlement_reports']
     })
 
+@app.route('/get_rooms', methods=['GET'])
+def get_rooms():
+    rooms = []
+    data_dir = 'data'
+    if os.path.exists(data_dir):
+        for filename in os.listdir(data_dir):
+            if filename.endswith('.json'):
+                room_id = filename[:-5]  # Remove .json extension
+                room_data = load_room_data(room_id)
+                if room_data:
+                    rooms.append({
+                        'id': room_id,
+                        'created_at': room_data['created_at']
+                    })
+    
+    # Sort rooms by creation time in descending order
+    rooms.sort(key=lambda x: x['created_at'], reverse=True)
+    return jsonify(rooms)
+
 if __name__ == '__main__':
     app.run(debug=True, port=16868)

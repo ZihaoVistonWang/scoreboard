@@ -12,14 +12,20 @@
         
         <div class="card">
             <div class="form-group">
-                <label for="room-id">房间号</label>
-                <input type="text" id="room-id" value="{{ default_room_id }}" placeholder="输入房间号">
+                <label for="room-id">赛事号</label>
+                <div class="dropdown">
+                    <input type="text" id="room-id" placeholder="选择或添加赛事" readonly>
+                    <div class="dropdown-content" id="room-dropdown">
+                        <!-- Room list will be populated here -->
+                        <div class="dropdown-item add-new" id="add-new-room">添加赛事...</div>
+                    </div>
+                </div>
             </div>
             
             <div class="form-group">
-                <label for="username">昵称</label>
+                <label for="username">用户名</label>
                 <div class="dropdown">
-                    <input type="text" id="username" placeholder="选择或输入昵称" readonly>
+                    <input type="text" id="username" placeholder="选择或添加用户" readonly>
                     <div class="dropdown-content" id="username-dropdown">
                         <!-- User list will be populated here -->
                         <div class="dropdown-item add-new" id="add-new-user">添加用户...</div>
@@ -33,8 +39,8 @@
             </div>
             
             <div class="button-group">
-                <button id="join-btn" class="btn" disabled>加入房间</button>
-                <button id="create-btn" class="btn" disabled>创建房间</button>
+                <button id="join-btn" class="btn" disabled>加入赛事</button>
+                <button id="create-btn" class="btn" disabled>创建赛事</button>
             </div>
         </div>
     </div>
@@ -55,6 +61,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const roomIdInput = document.getElementById('room-id');
+            const roomDropdown = document.getElementById('room-dropdown');
+            const addNewRoomItem = document.getElementById('add-new-room');
             const usernameInput = document.getElementById('username');
             const usernameDropdown = document.getElementById('username-dropdown');
             const addNewUserItem = document.getElementById('add-new-user');
@@ -70,26 +78,33 @@
             let selectedUsername = '';
             let roomExists = false;
             
-            // Check room on page load
-            checkRoom();
+            // Load rooms on page load
+            loadRooms();
             
-            // Check room when room ID changes
-            roomIdInput.addEventListener('input', function() {
-                checkRoom();
+            // Toggle dropdowns when clicking on inputs
+            roomIdInput.addEventListener('click', function() {
+                roomDropdown.style.display = 
+                    roomDropdown.style.display === 'block' ? 'none' : 'block';
             });
             
-            // Toggle dropdown when clicking on the username input
             usernameInput.addEventListener('click', function() {
                 usernameDropdown.style.display = 
                     usernameDropdown.style.display === 'block' ? 'none' : 'block';
             });
             
-            // Close dropdown when clicking outside
+            // Close dropdowns when clicking outside
             document.addEventListener('click', function(event) {
-                if (!event.target.closest('.dropdown') && 
-                    usernameDropdown.style.display === 'block') {
+                if (!event.target.closest('.dropdown')) {
+                    roomDropdown.style.display = 'none';
                     usernameDropdown.style.display = 'none';
                 }
+            });
+            
+            // Handle "Add new room" option
+            addNewRoomItem.addEventListener('click', function() {
+                roomIdInput.readOnly = false;
+                roomIdInput.focus();
+                roomDropdown.style.display = 'none';
             });
             
             // Handle "Add new user" option
@@ -222,6 +237,35 @@
                     updateButtons();
                 })
                 .catch(error => console.error('Error checking room:', error));
+            }
+            
+            // Load rooms from server
+            function loadRooms() {
+                fetch('/get_rooms')
+                    .then(response => response.json())
+                    .then(rooms => {
+                        // Clear dropdown except "Add new room" option
+                        Array.from(roomDropdown.children).forEach(child => {
+                            if (!child.classList.contains('add-new')) {
+                                child.remove();
+                            }
+                        });
+                        
+                        // Add rooms to dropdown
+                        rooms.forEach(room => {
+                            const option = document.createElement('div');
+                            option.classList.add('dropdown-item');
+                            option.textContent = room.id;
+                            option.addEventListener('click', () => {
+                                roomIdInput.value = room.id;
+                                roomIdInput.readOnly = true;
+                                roomDropdown.style.display = 'none';
+                                checkRoom();
+                            });
+                            roomDropdown.insertBefore(option, addNewRoomItem);
+                        });
+                    })
+                    .catch(error => console.error('Error loading rooms:', error));
             }
         });
     </script>
