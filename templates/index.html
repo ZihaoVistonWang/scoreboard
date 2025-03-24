@@ -89,6 +89,15 @@
             const joinBtn = document.getElementById('join-btn');
             const createBtn = document.getElementById('create-btn');
             
+            // 初始积分相关
+            const newRoomInitialScore = document.getElementById('new-room-initial-score');
+            const newRoomZeroSum = document.getElementById('new-room-zero-sum');
+            
+            // 当"零和"复选框状态变化时修改初始积分默认值
+            newRoomZeroSum.addEventListener('change', function() {
+                newRoomInitialScore.value = this.checked ? '50' : '0';
+            });
+            
             // Modal elements
             const newUserModal = document.getElementById('new-user-modal');
             const newRoomModal = document.getElementById('new-room-modal');
@@ -96,7 +105,6 @@
             const closeRoomModal = newRoomModal.querySelector('.close-modal');
             const newUsernameInput = document.getElementById('new-username');
             const newRoomIdInput = document.getElementById('new-room-id');
-            const newRoomInitialScore = document.getElementById('new-room-initial-score');
             const confirmNewUserBtn = document.getElementById('confirm-new-user');
             const confirmNewRoomBtn = document.getElementById('confirm-new-room');
             

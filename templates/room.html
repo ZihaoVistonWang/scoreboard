@@ -231,10 +231,25 @@
                             nameElement.textContent += '👑';
                         }
                         
-                        // Update score and last change
-                        item.querySelector('.user-score').textContent = updatedUser.score;
+                        // Update last change
                         const lastChange = updatedUser.last_change || 0;
                         item.querySelector('.user-last-change').textContent = lastChange > 0 ? `+${lastChange}` : lastChange;
+                        
+                        // 更新总积分显示格式
+                        const scoreElement = item.querySelector('.user-score');
+                        const lastScore = updatedUser.last_score || updatedUser.score;
+                        const scoreDiff = updatedUser.score - lastScore;
+                        
+                        if (scoreDiff === 0) {
+                            // 如果没有变化，直接显示总积分
+                            scoreElement.innerHTML = lastScore;
+                        } else if (scoreDiff > 0) {
+                            // 如果增加，显示蓝色增量
+                            scoreElement.innerHTML = `${lastScore}<span style="color:#3271ae; font-size:80%">+${scoreDiff}</span>`;
+                        } else {
+                            // 如果减少，显示红色减量
+                            scoreElement.innerHTML = `${lastScore}<span style="color:#c12c1f; font-size:80%">-${Math.abs(scoreDiff)}</span>`;
+                        }
                         
                         // Update rank
                         const rank = sortedUsers.findIndex(u => u.id === userId) + 1;

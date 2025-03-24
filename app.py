@@ -58,7 +58,8 @@ def create_room():
         'name': username,
         'score': initial_score,
         'last_change': 0,
-        'owner': True
+        'owner': True,
+        'last_score': initial_score
     }
     room_data = {
         'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -95,7 +96,8 @@ def join_room():
         'name': username,
         'score': initial_score,
         'last_change': 0,
-        'owner': False
+        'owner': False,
+        'last_score': initial_score
     }
     room_data['users'].append(new_user)
     room_data['baseline'][new_user['id']] = initial_score
