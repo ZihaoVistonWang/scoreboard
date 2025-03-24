@@ -503,23 +503,45 @@ def get_user_logs(room_id, user_id):
 
     # 查找用户
     user = None
+    is_owner = False
     for u in room_data['users']:
         if u['id'] == user_id:
             user = u
+            is_owner = u.get('owner', False)
             break
 
     if not user:
         return jsonify({'success': False, 'message': 'User not found'})
 
-    # 获取用户日志
-    logs = user.get('logs', {})
-
-    return jsonify({
-        'success': True,
-        'logs': logs,
-        'settle_round': room_data.get('settle_round', '1'),
-        'round': room_data.get('round', '1')
-    })
+    # 获取所有日志
+    all_logs = {}
+    
+    # 如果是房主，返回所有用户的日志
+    if is_owner:
+        # 首先添加房主自己的日志
+        all_logs[user['name']] = user.get('logs', {})
+        
+        # 然后添加其他用户的日志
+        for u in room_data['users']:
+            if u['id'] != user_id:  # 排除房主自己
+                all_logs[u['name']] = u.get('logs', {})
+        
+        return jsonify({
+            'success': True,
+            'logs': all_logs,
+            'settle_round': room_data.get('settle_round', 1),
+            'round': room_data.get('round', 1),
+            'is_owner': True
+        })
+    else:
+        # 普通用户只能看到自己的日志
+        return jsonify({
+            'success': True,
+            'logs': {user['name']: user.get('logs', {})},
+            'settle_round': room_data.get('settle_round', 1),
+            'round': room_data.get('round', 1),
+            'is_owner': False
+        })
 
 if __name__ == '__main__':
     app.run(debug=True, port=16868)

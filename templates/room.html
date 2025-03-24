@@ -22,10 +22,18 @@
             border-bottom: 1px solid #ddd;
         }
         
+        .user-log-title {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            padding-bottom: 3px;
+            border-bottom: 1px dashed #ddd;
+            color: #333;
+        }
+        
         .log-list {
             list-style-type: none;
             padding: 0;
-            margin: 0;
+            margin: 0 0 15px 0;
         }
         
         .log-item {
@@ -73,14 +81,18 @@
 
             {% if current_user.owner %}
             <div class="owner-controls">
+                {% if is_zero_sum %}
                 <button id="show-logs" class="btn">本局记录</button>
+                {% endif %}
                 <button id="next-round" class="btn" {% if not room_data.get('can_next_round', False) %}disabled{% endif %}>下一局</button>
                 <button id="settlement" class="btn" {% if not room_data.get('can_settle', False) %}disabled{% endif %}>结算</button>
             </div>
             {% else %}
-            <div class="user-controls">
+            {% if is_zero_sum %}
+            <div class="owner-controls">
                 <button id="show-logs" class="btn">本局记录</button>
             </div>
+            {% endif %}
             {% endif %}
 
             <!-- 本局记录区域 -->
@@ -458,6 +470,17 @@
                     .then(data => {
                         if (data.success) {
                             displayUserLogs(data.logs);
+                            
+                            // 如果是房主，添加提示
+                            if (data.is_owner) {
+                                const ownerNote = document.createElement('div');
+                                ownerNote.className = 'owner-note';
+                                ownerNote.innerHTML = '<em>注：作为房主，您可以查看所有玩家的记录</em>';
+                                ownerNote.style.fontSize = '80%';
+                                ownerNote.style.marginTop = '10px';
+                                ownerNote.style.color = '#666';
+                                userLogs.appendChild(ownerNote);
+                            }
                         } else {
                             userLogs.innerHTML = '<p>暂无记录</p>';
                         }
@@ -488,45 +511,61 @@
                 // 在顶部显示当前轮次信息
                 const roundInfo = document.createElement('div');
                 roundInfo.className = 'round-info';
-                roundInfo.innerHTML = `当前：第${settleRoundNum}轮第${roundNum}局 <span style="color:#666;"></span>`;
+                roundInfo.innerHTML = `当前：第${settleRoundNum}轮第${roundNum}局`;
                 userLogs.appendChild(roundInfo);
                 
-                // 检查当前轮次的日志是否存在
-                if (logs[settleRoundKey] && logs[settleRoundKey][roundKey]) {
-                    let currentLogs = logs[settleRoundKey][roundKey];
+                // 遍历所有用户的日志
+                let hasAnyLogs = false;
+                
+                // 获取用户列表
+                const userNames = Object.keys(logs);
+                
+                // 遍历每个用户的日志
+                userNames.forEach(userName => {
+                    const userLogData = logs[userName];
                     
-                    // 确保currentLogs是数组
-                    if (!Array.isArray(currentLogs)) {
-                        userLogs.innerHTML += '<p>本局暂无记录</p>';
-                        return;
-                    }
-                    
-                    if (currentLogs.length === 0) {
-                        userLogs.innerHTML += '<p>本局暂无记录</p>';
-                        return;
-                    }
-                    
-                    // 创建日志列表
-                    const logList = document.createElement('ul');
-                    logList.className = 'log-list';
-                    
-                    currentLogs.forEach(log => {
-                        const logItem = document.createElement('li');
-                        logItem.className = 'log-item';
-                        logItem.innerHTML = log.description;
+                    // 检查当前轮次的日志是否存在
+                    if (userLogData[settleRoundKey] && userLogData[settleRoundKey][roundKey]) {
+                        let currentLogs = userLogData[settleRoundKey][roundKey];
                         
-                        // 根据类型添加不同的样式
-                        if (log.type === 'in') {
-                            logItem.style.color = '#3271ae'; // 收入颜色
-                        } else if (log.type === 'out') {
-                            logItem.style.color = '#c12c1f'; // 支出颜色
+                        // 确保currentLogs是数组
+                        if (!Array.isArray(currentLogs) || currentLogs.length === 0) {
+                            return; // 跳过这个用户
                         }
                         
-                        logList.appendChild(logItem);
-                    });
-                    
-                    userLogs.appendChild(logList);
-                } else {
+                        hasAnyLogs = true;
+                        
+                        // 创建用户标题
+                        const userTitle = document.createElement('div');
+                        userTitle.className = 'user-log-title';
+                        userTitle.innerHTML = `<strong>${userName}的记录</strong>`;
+                        userLogs.appendChild(userTitle);
+                        
+                        // 创建日志列表
+                        const logList = document.createElement('ul');
+                        logList.className = 'log-list';
+                        
+                        currentLogs.forEach(log => {
+                            const logItem = document.createElement('li');
+                            logItem.className = 'log-item';
+                            logItem.innerHTML = log.description;
+                            
+                            // 根据类型添加不同的样式
+                            if (log.type === 'in') {
+                                logItem.style.color = '#3271ae'; // 收入颜色
+                            } else if (log.type === 'out') {
+                                logItem.style.color = '#c12c1f'; // 支出颜色
+                            }
+                            
+                            logList.appendChild(logItem);
+                        });
+                        
+                        userLogs.appendChild(logList);
+                    }
+                });
+                
+                // 如果没有任何日志，显示提示信息
+                if (!hasAnyLogs) {
                     userLogs.innerHTML += '<p>本局暂无记录</p>';
                 }
             }
