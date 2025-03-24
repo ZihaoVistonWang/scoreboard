@@ -363,7 +363,7 @@ def settle():
     for user in room_data['users']:
         user['score'] = room_data['initial_score']
         user['last_change'] = 0
-        user['last_score'] = 0
+        user['last_score'] = room_data['initial_score']
         room_data['baseline'][user['id']] = room_data['initial_score']
 
     # Add timestamp to report
