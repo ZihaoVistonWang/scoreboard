@@ -59,12 +59,15 @@ def create_room():
         'score': initial_score,
         'last_change': 0,
         'owner': True,
-        'last_score': initial_score
+        'last_score': initial_score,
+        'logs': {},
     }
     room_data = {
         'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         'initial_score': initial_score,
         'is_zero_sum': is_zero_sum,
+        'round': 1,
+        'settle_round': 1,
         'users': [first_user],
         'baseline': { first_user['id']: initial_score },
         'settlement_reports': [],
@@ -97,7 +100,8 @@ def join_room():
         'score': initial_score,
         'last_change': 0,
         'owner': False,
-        'last_score': initial_score
+        'last_score': initial_score,
+        'logs': {},
     }
     room_data['users'].append(new_user)
     room_data['baseline'][new_user['id']] = initial_score
@@ -195,6 +199,39 @@ def transfer():
 
     # Add to receiver
     to_user['score'] += amount
+    
+    # Add log
+    settle_round_num = f"settle_{room_data['settle_round']}"
+    round_num = f"round_{room_data['round']}"
+    if settle_round_num not in from_user['logs']:
+        from_user['logs'][settle_round_num] = {}
+    if round_num not in from_user['logs'][settle_round_num]:
+        from_user['logs'][settle_round_num][round_num] = {}
+    if 'logs' not in from_user['logs'][settle_round_num][round_num]:
+        from_user['logs'][settle_round_num][round_num]['logs'] = []
+    from_user['logs'][settle_round_num][round_num]['logs'].append({
+        'type': 'out',
+        'timestamp': datetime.now().strftime('%H:%M:%S'),
+        'from': from_user['name'],
+        'to': to_user['name'],
+        'amount': amount,
+        'description': f"{datetime.now().strftime('%H:%M:%S')} | -{amount} to {to_user['name']}"
+    })
+
+    if settle_round_num not in to_user['logs']:
+        to_user['logs'][settle_round_num] = {}
+    if round_num not in to_user['logs'][settle_round_num]:
+        to_user['logs'][settle_round_num][round_num] = {}
+    if 'logs' not in to_user['logs'][settle_round_num][round_num]:
+        to_user['logs'][settle_round_num][round_num]['logs'] = []
+    to_user['logs'][settle_round_num][round_num]['logs'].append({
+        'type': 'in',
+        'timestamp': datetime.now().strftime('%H:%M:%S'),
+        'from': from_user['name'],
+        'to': to_user['name'],
+        'amount': amount,
+        'description': f"{datetime.now().strftime('%H:%M:%S')} | +{amount} from {from_user['name']}"
+    })
 
     # Can next round flag
     room_data['can_next_round'] = True
@@ -222,6 +259,8 @@ def next_round():
         return jsonify({'success': False, 'message': 'Room not found'})
 
     # Calculate last_change for each user based on difference from baseline
+    settle_round_num = f"settle_{room_data['settle_round']}"
+    round_num = f"round_{room_data['round']}"
     for user in room_data['users']:
         baseline = room_data['baseline'].get(user['id'], user['score'])
         user['last_score'] = user['score']
@@ -229,9 +268,23 @@ def next_round():
         # Update baseline for next round
         room_data['baseline'][user['id']] = user['score']
 
+        if settle_round_num not in user['logs']:
+            user['logs'][settle_round_num] = {}
+        if round_num not in user['logs'][settle_round_num]:
+            user['logs'][settle_round_num][round_num] = {}
+        if 'logs' not in user['logs'][settle_round_num][round_num]:
+            user['logs'][settle_round_num][round_num]['logs'] = []
+        
+        user['logs'][settle_round_num][round_num]['round_score'] = user['score']
+        user['logs'][settle_round_num][round_num]['round_logs'] = '<br>/n'.join([log['description'] for log in user['logs'][settle_round_num][round_num]['logs']])
+            
+
     # Set can_next_round and can_settle flags
     room_data['can_next_round'] = False
     room_data['can_settle'] = True
+    
+    # Increment round
+    room_data['round'] += 1
 
     save_room_data(room_id, room_data)
 
@@ -386,6 +439,10 @@ def settle():
     # Reset flags after settlement
     room_data['can_next_round'] = False
     room_data['can_settle'] = False
+    
+    # Increment settle_round and reset round
+    room_data['settle_round'] += 1
+    room_data['round'] = 1
 
     # Save updated room data
     save_room_data(room_id, room_data)

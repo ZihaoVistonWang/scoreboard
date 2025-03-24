@@ -1,0 +1,180 @@
+{
+  "created_at": "2025-03-25 02:46:03",
+  "initial_score": 50,
+  "is_zero_sum": true,
+  "round": 3,
+  "settle_round": 1,
+  "users": [
+    {
+      "id": "203c4257-3edf-4c71-af79-895008ee6f36",
+      "name": "adm",
+      "score": 48,
+      "last_change": -6,
+      "owner": true,
+      "last_score": 48,
+      "logs": {
+        "settle_1": {
+          "round_1": {
+            "logs": [
+              {
+                "type": "in",
+                "timestamp": "02:46:29",
+                "from": "qwe",
+                "to": "adm",
+                "amount": 2,
+                "description": "02:46:29 | +2 from qwe"
+              },
+              {
+                "type": "in",
+                "timestamp": "02:46:32",
+                "from": "qwe",
+                "to": "adm",
+                "amount": 2,
+                "description": "02:46:32 | +2 from qwe"
+              }
+            ],
+            "round_score": 54,
+            "round_logs": "02:46:29 | +2 from qwe<br>/n02:46:32 | +2 from qwe"
+          },
+          "round_2": {
+            "logs": [
+              {
+                "type": "in",
+                "timestamp": "02:47:43",
+                "from": "123",
+                "to": "adm",
+                "amount": 3,
+                "description": "02:47:43 | +3 from 123"
+              },
+              {
+                "type": "out",
+                "timestamp": "02:48:02",
+                "from": "adm",
+                "to": "qwe",
+                "amount": 5,
+                "description": "02:48:02 | -5 to qwe"
+              },
+              {
+                "type": "out",
+                "timestamp": "02:48:07",
+                "from": "adm",
+                "to": "123",
+                "amount": 4,
+                "description": "02:48:07 | -4 to 123"
+              }
+            ],
+            "round_score": 48,
+            "round_logs": "02:47:43 | +3 from 123<br>/n02:48:02 | -5 to qwe<br>/n02:48:07 | -4 to 123"
+          }
+        }
+      }
+    },
+    {
+      "id": "417cdd51-e500-4063-8289-a087b62496c9",
+      "name": "qwe",
+      "score": 54,
+      "last_change": 8,
+      "owner": false,
+      "last_score": 54,
+      "logs": {
+        "settle_1": {
+          "round_1": {
+            "logs": [
+              {
+                "type": "out",
+                "timestamp": "02:46:29",
+                "from": "qwe",
+                "to": "adm",
+                "amount": 2,
+                "description": "02:46:29 | -2 to adm"
+              },
+              {
+                "type": "out",
+                "timestamp": "02:46:32",
+                "from": "qwe",
+                "to": "adm",
+                "amount": 2,
+                "description": "02:46:32 | -2 to adm"
+              }
+            ],
+            "round_score": 46,
+            "round_logs": "02:46:29 | -2 to adm<br>/n02:46:32 | -2 to adm"
+          },
+          "round_2": {
+            "logs": [
+              {
+                "type": "in",
+                "timestamp": "02:47:41",
+                "from": "123",
+                "to": "qwe",
+                "amount": 3,
+                "description": "02:47:41 | +3 from 123"
+              },
+              {
+                "type": "in",
+                "timestamp": "02:48:02",
+                "from": "adm",
+                "to": "qwe",
+                "amount": 5,
+                "description": "02:48:02 | +5 from adm"
+              }
+            ],
+            "round_score": 54,
+            "round_logs": "02:47:41 | +3 from 123<br>/n02:48:02 | +5 from adm"
+          }
+        }
+      }
+    },
+    {
+      "id": "2521daa2-da5b-4176-a7d7-fe676b7345c8",
+      "name": "123",
+      "score": 48,
+      "last_change": -2,
+      "owner": false,
+      "last_score": 48,
+      "logs": {
+        "settle_1": {
+          "round_2": {
+            "logs": [
+              {
+                "type": "out",
+                "timestamp": "02:47:41",
+                "from": "123",
+                "to": "qwe",
+                "amount": 3,
+                "description": "02:47:41 | -3 to qwe"
+              },
+              {
+                "type": "out",
+                "timestamp": "02:47:43",
+                "from": "123",
+                "to": "adm",
+                "amount": 3,
+                "description": "02:47:43 | -3 to adm"
+              },
+              {
+                "type": "in",
+                "timestamp": "02:48:07",
+                "from": "adm",
+                "to": "123",
+                "amount": 4,
+                "description": "02:48:07 | +4 from adm"
+              }
+            ],
+            "round_score": 48,
+            "round_logs": "02:47:41 | -3 to qwe<br>/n02:47:43 | -3 to adm<br>/n02:48:07 | +4 from adm"
+          }
+        }
+      }
+    }
+  ],
+  "baseline": {
+    "203c4257-3edf-4c71-af79-895008ee6f36": 48,
+    "417cdd51-e500-4063-8289-a087b62496c9": 54,
+    "2521daa2-da5b-4176-a7d7-fe676b7345c8": 48
+  },
+  "settlement_reports": [],
+  "settlement_count": 0,
+  "can_next_round": false,
+  "can_settle": true
+}
