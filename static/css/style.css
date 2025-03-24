@@ -718,3 +718,8 @@ h2 {
     color: #333;
     margin-top: 0;
 }
+
+/* Update font family for input fields and buttons */
+input, button {
+    font-family: Georgia, "helvetica neue", Arial, STZhongsong, "noto serif sc", "microsoft yahei", "pingfang sc", sans-serif;
+}
