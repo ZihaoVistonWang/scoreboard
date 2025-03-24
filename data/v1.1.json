@@ -2,16 +2,16 @@
   "created_at": "2025-03-25 03:52:46",
   "initial_score": 50,
   "is_zero_sum": true,
-  "round": 2,
-  "settle_round": 1,
+  "round": 1,
+  "settle_round": 3,
   "users": [
     {
       "id": "6f1db39e-b7a4-41d0-9ddb-cccbb75a0fe5",
       "name": "adm",
-      "score": 35,
-      "last_change": -6,
+      "score": 53,
+      "last_change": 0,
       "owner": true,
-      "last_score": 44,
+      "last_score": 50,
       "logs": {
         "settle_1": {
           "round_1": [
@@ -57,22 +57,97 @@
               "amount": 9,
               "description": "03:56:39 | -9 to qwe"
             }
+          ],
+          "round_3": [
+            {
+              "type": "out",
+              "timestamp": "04:19:20",
+              "from": "adm",
+              "to": "qwe",
+              "amount": 1,
+              "description": "04:19:20 | -1 to qwe"
+            },
+            {
+              "type": "out",
+              "timestamp": "04:19:23",
+              "from": "adm",
+              "to": "123",
+              "amount": 3,
+              "description": "04:19:23 | -3 to 123"
+            }
+          ]
+        },
+        "settle_2": {
+          "round_1": [
+            {
+              "type": "out",
+              "timestamp": "04:19:42",
+              "from": "adm",
+              "to": "qwe",
+              "amount": 3,
+              "description": "04:19:42 | -3 to qwe"
+            },
+            {
+              "type": "out",
+              "timestamp": "04:19:50",
+              "from": "adm",
+              "to": "123",
+              "amount": 1,
+              "description": "04:19:50 | -1 to 123"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "out",
+              "timestamp": "04:20:08",
+              "from": "adm",
+              "to": "qwe",
+              "amount": 1,
+              "description": "04:20:08 | -1 to qwe"
+            },
+            {
+              "type": "out",
+              "timestamp": "04:20:10",
+              "from": "adm",
+              "to": "123",
+              "amount": 1,
+              "description": "04:20:10 | -1 to 123"
+            }
+          ]
+        },
+        "settle_3": {
+          "round_1": [
+            {
+              "type": "in",
+              "timestamp": "04:41:38",
+              "from": "qwe",
+              "to": "adm",
+              "amount": 3,
+              "description": "04:41:38 | +3 from qwe"
+            }
           ]
         }
       },
       "score_array": [
         [
+          44,
+          35,
+          31
+        ],
+        [
+          46,
           44
-        ]
+        ],
+        []
       ]
     },
     {
       "id": "33d812df-e988-4f66-a0a2-085803a7a35e",
       "name": "qwe",
-      "score": 65,
-      "last_change": 6,
+      "score": 45,
+      "last_change": 0,
       "owner": false,
-      "last_score": 56,
+      "last_score": 50,
       "logs": {
         "settle_1": {
           "round_1": [
@@ -117,23 +192,195 @@
               "to": "qwe",
               "amount": 9,
               "description": "03:56:39 | +9 from adm"
+            },
+            {
+              "type": "in",
+              "timestamp": "04:18:36",
+              "from": "123",
+              "to": "qwe",
+              "amount": 4,
+              "description": "04:18:36 | +4 from 123"
+            },
+            {
+              "type": "in",
+              "timestamp": "04:18:43",
+              "from": "123",
+              "to": "qwe",
+              "amount": 2,
+              "description": "04:18:43 | +2 from 123"
+            }
+          ],
+          "round_3": [
+            {
+              "type": "in",
+              "timestamp": "04:19:20",
+              "from": "adm",
+              "to": "qwe",
+              "amount": 1,
+              "description": "04:19:20 | +1 from adm"
+            }
+          ]
+        },
+        "settle_2": {
+          "round_1": [
+            {
+              "type": "in",
+              "timestamp": "04:19:42",
+              "from": "adm",
+              "to": "qwe",
+              "amount": 3,
+              "description": "04:19:42 | +3 from adm"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "in",
+              "timestamp": "04:20:08",
+              "from": "adm",
+              "to": "qwe",
+              "amount": 1,
+              "description": "04:20:08 | +1 from adm"
+            }
+          ]
+        },
+        "settle_3": {
+          "round_1": [
+            {
+              "type": "out",
+              "timestamp": "04:41:38",
+              "from": "qwe",
+              "to": "adm",
+              "amount": 3,
+              "description": "04:41:38 | -3 to adm"
+            },
+            {
+              "type": "out",
+              "timestamp": "04:41:43",
+              "from": "qwe",
+              "to": "123",
+              "amount": 2,
+              "description": "04:41:43 | -2 to 123"
             }
           ]
         }
       },
       "score_array": [
         [
-          56
-        ]
+          56,
+          71,
+          72
+        ],
+        [
+          53,
+          54
+        ],
+        []
+      ]
+    },
+    {
+      "id": "a52f9f09-09af-4a3b-b78d-ddc133b63925",
+      "name": "123",
+      "score": 52,
+      "last_change": 0,
+      "owner": false,
+      "last_score": 50,
+      "logs": {
+        "settle_1": {
+          "round_2": [
+            {
+              "type": "out",
+              "timestamp": "04:18:36",
+              "from": "123",
+              "to": "qwe",
+              "amount": 4,
+              "description": "04:18:36 | -4 to qwe"
+            },
+            {
+              "type": "out",
+              "timestamp": "04:18:43",
+              "from": "123",
+              "to": "qwe",
+              "amount": 2,
+              "description": "04:18:43 | -2 to qwe"
+            }
+          ],
+          "round_3": [
+            {
+              "type": "in",
+              "timestamp": "04:19:23",
+              "from": "adm",
+              "to": "123",
+              "amount": 3,
+              "description": "04:19:23 | +3 from adm"
+            }
+          ]
+        },
+        "settle_2": {
+          "round_1": [
+            {
+              "type": "in",
+              "timestamp": "04:19:50",
+              "from": "adm",
+              "to": "123",
+              "amount": 1,
+              "description": "04:19:50 | +1 from adm"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "in",
+              "timestamp": "04:20:10",
+              "from": "adm",
+              "to": "123",
+              "amount": 1,
+              "description": "04:20:10 | +1 from adm"
+            }
+          ]
+        },
+        "settle_3": {
+          "round_1": [
+            {
+              "type": "in",
+              "timestamp": "04:41:43",
+              "from": "qwe",
+              "to": "123",
+              "amount": 2,
+              "description": "04:41:43 | +2 from qwe"
+            }
+          ]
+        }
+      },
+      "score_array": [
+        [
+          44,
+          47
+        ],
+        [
+          51,
+          52
+        ],
+        []
       ]
     }
   ],
   "baseline": {
-    "6f1db39e-b7a4-41d0-9ddb-cccbb75a0fe5": 44,
-    "33d812df-e988-4f66-a0a2-085803a7a35e": 56
+    "6f1db39e-b7a4-41d0-9ddb-cccbb75a0fe5": 50,
+    "33d812df-e988-4f66-a0a2-085803a7a35e": 50,
+    "a52f9f09-09af-4a3b-b78d-ddc133b63925": 50
   },
-  "settlement_reports": [],
-  "settlement_count": 0,
+  "settlement_reports": [
+    {
+      "count": 1,
+      "timestamp": "2025-03-25 04:19:37",
+      "report": "【结算汇总】<br>\n• 总结算金额：22 积分<br>\n• 盈利玩家：1 人<br>\n• 亏损玩家：2 人<br>\n• 陪玩玩家：0 人<br>\n<br>\n【盈利玩家】<br>\n• qwe：+22 积分<br>\n<br>\n【亏损玩家】<br>\n• adm：-19 积分<br>\n• 123：-3 积分<br>\n<br>\n【转账明细】<br>\n• adm 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 qwe 转账 19 积分<br>\n• 123 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 qwe 转账 3 积分<br>\n<br>\n结算时间：2025-03-25 04:19:37"
+    },
+    {
+      "count": 2,
+      "timestamp": "2025-03-25 04:20:25",
+      "report": "【结算汇总】<br>\n• 总结算金额：6 积分<br>\n• 盈利玩家：2 人<br>\n• 亏损玩家：1 人<br>\n• 陪玩玩家：0 人<br>\n<br>\n【盈利玩家】<br>\n• qwe：+4 积分<br>\n• 123：+2 积分<br>\n<br>\n【亏损玩家】<br>\n• adm：-6 积分<br>\n<br>\n【转账明细】<br>\n• adm 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 qwe 转账 4 积分<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 123 转账 2 积分<br>\n<br>\n结算时间：2025-03-25 04:20:25"
+    }
+  ],
+  "settlement_count": 2,
   "can_next_round": true,
   "can_settle": false
 }

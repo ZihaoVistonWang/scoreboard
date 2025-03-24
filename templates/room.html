@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>赛事号: {{ room_id }} - 赛事积分板</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- 引入Chart.js库 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <!-- 引入Chart.js的annotation插件 -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.4.0/dist/chartjs-plugin-annotation.min.js"></script>
     <style>
         /* 用户日志相关样式 */
         .user-logs {
@@ -44,6 +48,63 @@
         #show-logs.active {
             background-color: #3271ae;
         }
+        
+        /* 积分图相关样式 */
+        #score-chart-section {
+            margin: 20px 0;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        .user-chart-title {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            padding-bottom: 3px;
+            border-bottom: 1px dashed #ddd;
+            color: #333;
+        }
+        
+        #show-chart.active {
+            background-color: #3271ae;
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 250px; /* 在小屏幕上降低图表高度 */
+            }
+            
+            .button-group {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+            
+            .button-group .btn {
+                flex: 1 1 auto;
+                min-width: 80px;
+                margin: 0;
+            }
+            
+            .user-chart-title {
+                font-size: 14px;
+            }
+            
+            .chart-note {
+                font-size: 10px !important;
+            }
+        }
+        
+        /* 超小屏幕适配 */
+        @media (max-width: 480px) {
+            .chart-container {
+                height: 200px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -80,17 +141,19 @@
             </div>
 
             {% if current_user.owner %}
-            <div class="owner-controls">
+            <div class="button-group">
                 {% if is_zero_sum %}
                 <button id="show-logs" class="btn">本局记录</button>
+                <button id="show-chart" class="btn">积分变化图</button>
                 {% endif %}
                 <button id="next-round" class="btn" {% if not room_data.get('can_next_round', False) %}disabled{% endif %}>下一局</button>
                 <button id="settlement" class="btn" {% if not room_data.get('can_settle', False) %}disabled{% endif %}>结算</button>
             </div>
             {% else %}
             {% if is_zero_sum %}
-            <div class="owner-controls">
+            <div class="button-group">
                 <button id="show-logs" class="btn">本局记录</button>
+                <button id="show-chart" class="btn">积分变化图</button>
             </div>
             {% endif %}
             {% endif %}
@@ -100,6 +163,14 @@
                 <h2>本局记录</h2>
                 <div id="user-logs" class="user-logs" style="font-size: 80%;">
                     <!-- 用户日志将通过JavaScript动态添加 -->
+                </div>
+            </div>
+
+            <!-- 积分变化图区域 -->
+            <div id="score-chart-section" style="display: none;">
+                <h2>积分变化图</h2>
+                <div id="score-charts" class="score-charts">
+                    <!-- 积分图将通过JavaScript动态添加 -->
                 </div>
             </div>
 
@@ -135,6 +206,49 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // 检查Chart.js库和插件是否已加载
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js library not loaded');
+                // 尝试动态加载Chart.js
+                const chartScript = document.createElement('script');
+                chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js';
+                document.head.appendChild(chartScript);
+                
+                chartScript.onload = function() {
+                    console.log('Chart.js dynamically loaded');
+                    
+                    // 加载annotation插件
+                    const annotationScript = document.createElement('script');
+                    annotationScript.src = 'https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.4.0/dist/chartjs-plugin-annotation.min.js';
+                    document.head.appendChild(annotationScript);
+                    
+                    annotationScript.onload = function() {
+                        console.log('Annotation plugin dynamically loaded');
+                        // 重新注册插件
+                        if (typeof Chart !== 'undefined' && typeof ChartAnnotation !== 'undefined') {
+                            Chart.register(ChartAnnotation);
+                        }
+                    };
+                };
+            } else if (typeof ChartAnnotation === 'undefined') {
+                console.error('Chart Annotation plugin not loaded');
+                // 尝试动态加载Annotation插件
+                const annotationScript = document.createElement('script');
+                annotationScript.src = 'https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.4.0/dist/chartjs-plugin-annotation.min.js';
+                document.head.appendChild(annotationScript);
+                
+                annotationScript.onload = function() {
+                    console.log('Annotation plugin dynamically loaded');
+                    if (typeof Chart !== 'undefined' && typeof ChartAnnotation !== 'undefined') {
+                        Chart.register(ChartAnnotation);
+                    }
+                };
+            } else {
+                // 两者都已加载，注册插件
+                console.log('Both Chart.js and Annotation plugin loaded');
+                Chart.register(ChartAnnotation);
+            }
+            
             const userList = document.getElementById('user-list');
             const transferModal = document.getElementById('transfer-modal');
             const closeModal = document.querySelector('.close-modal');
@@ -444,9 +558,23 @@
             const userLogsSection = document.getElementById('user-logs-section');
             const userLogs = document.getElementById('user-logs');
             
+            // 积分图相关元素
+            const showChartBtn = document.getElementById('show-chart');
+            const scoreChartSection = document.getElementById('score-chart-section');
+            const scoreCharts = document.getElementById('score-charts');
+            
+            // 已创建的图表对象，用于清理
+            const chartInstances = [];
+            
+            // 点击"本局记录"按钮
             if (showLogsBtn) {
                 showLogsBtn.addEventListener('click', function() {
                     if (userLogsSection.style.display === 'none') {
+                        // 先关闭积分图
+                        if (scoreChartSection.style.display !== 'none') {
+                            closeScoreCharts();
+                        }
+                        
                         // 显示日志区域
                         userLogsSection.style.display = 'block';
                         showLogsBtn.textContent = '关闭记录';
@@ -460,6 +588,358 @@
                         showLogsBtn.textContent = '本局记录';
                         showLogsBtn.classList.remove('active');
                     }
+                });
+            }
+            
+            // 点击"积分变化图"按钮
+            if (showChartBtn) {
+                showChartBtn.addEventListener('click', function() {
+                    if (scoreChartSection.style.display === 'none') {
+                        // 先关闭日志区域
+                        if (userLogsSection.style.display !== 'none') {
+                            userLogsSection.style.display = 'none';
+                            showLogsBtn.textContent = '本局记录';
+                            showLogsBtn.classList.remove('active');
+                        }
+                        
+                        // 显示积分图区域
+                        scoreChartSection.style.display = 'block';
+                        showChartBtn.textContent = '关闭积分图';
+                        showChartBtn.classList.add('active');
+                        
+                        // 获取并显示积分图
+                        fetchUserScores();
+                    } else {
+                        // 关闭积分图
+                        closeScoreCharts();
+                    }
+                });
+            }
+            
+            // 关闭积分图
+            function closeScoreCharts() {
+                scoreChartSection.style.display = 'none';
+                showChartBtn.textContent = '积分变化图';
+                showChartBtn.classList.remove('active');
+                
+                // 销毁所有图表实例
+                chartInstances.forEach(chart => {
+                    if (chart) {
+                        chart.destroy();
+                    }
+                });
+                chartInstances.length = 0;
+            }
+            
+            // 获取用户积分数据
+            function fetchUserScores() {
+                console.log('Fetching user scores for room:', roomId, 'user:', currentUserId);
+                
+                // 清空图表区域
+                scoreCharts.innerHTML = '<p>加载中...</p>';
+                
+                // 直接获取真实数据
+                fetch(`/get_user_scores/${roomId}/${currentUserId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            displayUserScores(data.scores, data.initial_score);
+                            
+                            // 如果是房主，添加提示
+                            if (data.is_owner) {
+                                const ownerNote = document.createElement('div');
+                                ownerNote.className = 'owner-note';
+                                ownerNote.innerHTML = '<em>注：作为房主，您可以查看所有玩家的积分变化</em>';
+                                ownerNote.style.fontSize = '80%';
+                                ownerNote.style.marginTop = '10px';
+                                ownerNote.style.color = '#666';
+                                scoreCharts.appendChild(ownerNote);
+                            }
+                        } else {
+                            scoreCharts.innerHTML = '<p>暂无积分数据</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user scores:', error);
+                        scoreCharts.innerHTML = '<p>获取积分数据时出错</p>';
+                    });
+            }
+            
+            // 显示用户积分图
+            function displayUserScores(scores, initialScore) {
+                scoreCharts.innerHTML = '';
+                
+                if (!scores || Object.keys(scores).length === 0) {
+                    scoreCharts.innerHTML = '<p>暂无积分数据</p>';
+                    return;
+                }
+                
+                // 为每个用户创建一个图表
+                Object.keys(scores).forEach(userName => {
+                    const userScoreData = scores[userName];
+                    
+                    if (!Array.isArray(userScoreData) || userScoreData.length === 0) {
+                        return; // 跳过没有数据的用户
+                    }
+                    
+                    // 创建用户标题
+                    const userTitle = document.createElement('div');
+                    userTitle.className = 'user-chart-title';
+                    userTitle.innerHTML = `<strong>${userName}的积分变化</strong>`;
+                    scoreCharts.appendChild(userTitle);
+                    
+                    // 创建画布
+                    const canvasContainer = document.createElement('div');
+                    canvasContainer.className = 'chart-container';
+                    const canvas = document.createElement('canvas');
+                    canvasContainer.appendChild(canvas);
+                    scoreCharts.appendChild(canvasContainer);
+                    
+                    // 添加刻度注释说明
+                    const chartNote = document.createElement('div');
+                    chartNote.className = 'chart-note';
+                    chartNote.style.fontSize = '12px';
+                    chartNote.style.color = '#666';
+                    chartNote.style.marginTop = '5px';
+                    chartNote.style.marginBottom = '15px';
+                    chartNote.innerHTML = '注: x轴标记格式为"轮-局"，例如1-0表示第1轮初始积分，2-3表示第2轮第3局';
+                    scoreCharts.appendChild(chartNote);
+                    
+                    // 数据准备
+                    const allPoints = [];
+                    const allLabels = [];
+                    let lastScore = initialScore;
+                    
+                    // 每轮的分界点（用于绘制垂直分隔线）
+                    const roundBoundaries = [0]; // 起始点
+                    
+                    // 处理所有轮次数据，横向连接
+                    userScoreData.forEach((roundScores, roundIndex) => {
+                        if (!Array.isArray(roundScores) || roundScores.length === 0) {
+                            if (roundIndex === 0) {
+                                // 如果第一轮没有数据，添加初始分数
+                                allPoints.push(initialScore);
+                                allLabels.push(`1-0`);
+                            }
+                            return; // 跳过空轮次
+                        }
+                        
+                        // 添加每轮第一个点（如果是第一轮，使用initialScore，否则使用上一轮的最后一个分数）
+                        if (roundIndex === 0) {
+                            allPoints.push(initialScore);
+                            allLabels.push(`1-0`);
+                        }
+                        
+                        // 添加本轮所有积分
+                        roundScores.forEach((score, i) => {
+                            allPoints.push(score);
+                            allLabels.push(`${roundIndex + 1}-${i + 1}`);
+                            lastScore = score;
+                        });
+                        
+                        // 记录轮次边界
+                        roundBoundaries.push(allPoints.length - 1);
+                    });
+                    
+                    // 如果没有有效数据，显示消息
+                    if (allPoints.length <= 1) {
+                        const noDataMsg = document.createElement('p');
+                        noDataMsg.textContent = `${userName}暂无积分变化数据`;
+                        scoreCharts.appendChild(noDataMsg);
+                        return;
+                    }
+                    
+                    // 创建数据集
+                    const datasets = [
+                        {
+                            label: `${userName}的积分`,
+                            data: allPoints,
+                            borderColor: function(context) {
+                                const chart = context.chart;
+                                const {ctx, chartArea} = chart;
+                                
+                                if (!chartArea) {
+                                    // 如果图表区域未定义，返回默认颜色
+                                    return '#3271ae';
+                                }
+                                
+                                // 创建渐变色，根据积分高低变化颜色 (红->绿->蓝)
+                                const gradientBorder = ctx.createLinearGradient(0, chartArea.bottom, 0, 0);
+                                gradientBorder.addColorStop(0, '#c12c1f'); // 最低积分为红色（亏损）
+                                gradientBorder.addColorStop(0.5, '#00c853'); // 中间积分为绿色（持平）
+                                gradientBorder.addColorStop(1, '#3271ae'); // 最高积分为蓝色（盈利）
+                                
+                                return gradientBorder;
+                            },
+                            backgroundColor: function(context) {
+                                const chart = context.chart;
+                                const {ctx, chartArea} = chart;
+                                
+                                if (!chartArea) {
+                                    // 如果图表区域未定义，返回默认填充色
+                                    return 'rgba(50, 113, 174, 0.1)';
+                                }
+                                
+                                // 创建渐变填充
+                                const gradientFill = ctx.createLinearGradient(0, chartArea.bottom, 0, 0);
+                                gradientFill.addColorStop(0, 'rgba(193, 44, 31, 0.1)'); // 底部红色半透明（亏损）
+                                gradientFill.addColorStop(0.5, 'rgba(0, 200, 83, 0.1)'); // 中间绿色半透明（持平）
+                                gradientFill.addColorStop(1, 'rgba(50, 113, 174, 0.1)'); // 顶部蓝色半透明（盈利）
+                                
+                                return gradientFill;
+                            },
+                            borderWidth: 2,
+                            pointRadius: 4,
+                            pointBackgroundColor: function(context) {
+                                // 根据积分与初始积分的关系确定点的颜色
+                                const score = context.raw;
+                                if (score > initialScore) {
+                                    return '#3271ae'; // 盈利为蓝色
+                                } else if (score < initialScore) {
+                                    return '#c12c1f'; // 亏损为红色
+                                }
+                                return '#00c853'; // 持平为绿色
+                            },
+                            tension: 0.1, // 轻微平滑曲线
+                            fill: true
+                        }
+                    ];
+                    
+                    // 创建图表
+                    const ctx = canvas.getContext('2d');
+                    const chart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: allLabels,
+                            datasets: datasets
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            font: {
+                                family: 'Georgia, "helvetica neue", Arial, STZhongsong, "noto serif sc", "microsoft yahei", "pingfang sc", sans-serif'
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: false,
+                                    title: {
+                                        display: true,
+                                        text: '积分',
+                                        font: {
+                                            family: 'Georgia, "helvetica neue", Arial, STZhongsong, "noto serif sc", "microsoft yahei", "pingfang sc", sans-serif'
+                                        }
+                                    },
+                                    ticks: {
+                                        font: {
+                                            family: 'Georgia, "helvetica neue", Arial, STZhongsong, "noto serif sc", "microsoft yahei", "pingfang sc", sans-serif'
+                                        },
+                                        // 移动端上减少标签数量
+                                        maxTicksLimit: window.innerWidth < 768 ? 5 : 10
+                                    },
+                                    grid: {
+                                        color: function(context) {
+                                            if (context.tick.value === initialScore) {
+                                                return 'rgba(255, 0, 0, 0.2)'; // 初始分数线用红色
+                                            }
+                                            return 'rgba(0, 0, 0, 0.1)';
+                                        },
+                                        lineWidth: function(context) {
+                                            if (context.tick.value === initialScore) {
+                                                return 2; // 初始分数线加粗
+                                            }
+                                            return 1;
+                                        }
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: '局数',
+                                        font: {
+                                            family: 'Georgia, "helvetica neue", Arial, STZhongsong, "noto serif sc", "microsoft yahei", "pingfang sc", sans-serif'
+                                        }
+                                    },
+                                    ticks: {
+                                        font: {
+                                            family: 'Georgia, "helvetica neue", Arial, STZhongsong, "noto serif sc", "microsoft yahei", "pingfang sc", sans-serif'
+                                        },
+                                        // 移动端上减少标签数量
+                                        maxTicksLimit: window.innerWidth < 768 ? 6 : 10,
+                                        maxRotation: window.innerWidth < 768 ? 0 : 0, // 小屏幕上不旋转标签
+                                        autoSkip: true
+                                    }
+                                }
+                            },
+                            // 优化内边距，移动端上减少内边距
+                            layout: {
+                                padding: {
+                                    top: 10,
+                                    right: window.innerWidth < 768 ? 5 : 10,
+                                    bottom: 10,
+                                    left: window.innerWidth < 768 ? 5 : 10
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: false, // 不显示标题
+                                },
+                                tooltip: {
+                                    mode: 'index',
+                                    intersect: false,
+                                    bodyFont: {
+                                        family: 'Georgia, "helvetica neue", Arial, STZhongsong, "noto serif sc", "microsoft yahei", "pingfang sc", sans-serif'
+                                    },
+                                    titleFont: {
+                                        family: 'Georgia, "helvetica neue", Arial, STZhongsong, "noto serif sc", "microsoft yahei", "pingfang sc", sans-serif'
+                                    },
+                                    callbacks: {
+                                        afterLabel: function(context) {
+                                            const score = context.raw;
+                                            const diff = score - initialScore;
+                                            if (diff > 0) {
+                                                return `盈利: +${diff}`;
+                                            } else if (diff < 0) {
+                                                return `亏损: ${diff}`;
+                                            }
+                                            return '持平';
+                                        }
+                                    }
+                                },
+                                legend: {
+                                    display: false // 不显示图例
+                                },
+                                annotation: {
+                                    annotations: {
+                                        // 在初始分数位置绘制水平线
+                                        initialLine: {
+                                            type: 'line',
+                                            scaleID: 'y',
+                                            yMin: initialScore,
+                                            yMax: initialScore,
+                                            borderColor: 'rgba(255, 0, 0, 0.5)',
+                                            borderWidth: 1,
+                                            borderDash: [6, 6],
+                                            label: {
+                                                content: `初始分数 (${initialScore})`,
+                                                enabled: true,
+                                                position: 'start',
+                                                backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                                                color: 'red',
+                                                font: {
+                                                    size: 10,
+                                                    family: 'Georgia, "helvetica neue", Arial, STZhongsong, "noto serif sc", "microsoft yahei", "pingfang sc", sans-serif'
+                                                }
+                                            }
+                                        }
+                                        // 移除轮次分界线标签
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    // 保存图表实例，以便后续清理
+                    chartInstances.push(chart);
                 });
             }
             

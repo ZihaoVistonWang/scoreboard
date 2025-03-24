@@ -543,5 +543,65 @@ def get_user_logs(room_id, user_id):
             'is_owner': False
         })
 
+@app.route('/get_user_scores/<room_id>/<user_id>', methods=['GET'])
+def get_user_scores(room_id, user_id):
+    print(f"Fetching scores for room: {room_id}, user: {user_id}")
+    
+    room_data = load_room_data(room_id)
+
+    if not room_data:
+        print(f"Room {room_id} not found")
+        return jsonify({'success': False, 'message': 'Room not found'})
+
+    # 查找用户
+    user = None
+    is_owner = False
+    for u in room_data['users']:
+        if u['id'] == user_id:
+            user = u
+            is_owner = u.get('owner', False)
+            break
+
+    if not user:
+        print(f"User {user_id} not found in room {room_id}")
+        return jsonify({'success': False, 'message': 'User not found'})
+
+    # 打印用户数据
+    print(f"User data: {user.get('name')}, Owner: {is_owner}")
+    print(f"User score_array: {user.get('score_array', 'Not found')}")
+    
+    # 确保所有用户都有score_array字段
+    for u in room_data['users']:
+        if 'score_array' not in u:
+            u['score_array'] = [[]]
+    
+    # 获取所有用户的积分数据
+    all_scores = {}
+    
+    # 如果是房主，返回所有用户的积分
+    if is_owner:
+        # 首先添加房主自己的积分
+        all_scores[user['name']] = user.get('score_array', [[]])
+        
+        # 然后添加其他用户的积分
+        for u in room_data['users']:
+            if u['id'] != user_id:  # 排除房主自己
+                all_scores[u['name']] = u.get('score_array', [[]])
+        
+        return jsonify({
+            'success': True,
+            'scores': all_scores,
+            'initial_score': room_data.get('initial_score', 0),
+            'is_owner': True
+        })
+    else:
+        # 普通用户只能看到自己的积分
+        return jsonify({
+            'success': True,
+            'scores': {user['name']: user.get('score_array', [[]])},
+            'initial_score': room_data.get('initial_score', 0),
+            'is_owner': False
+        })
+
 if __name__ == '__main__':
     app.run(debug=True, port=16868)
