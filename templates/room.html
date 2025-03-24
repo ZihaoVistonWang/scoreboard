@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>房间 {{ room_id }} - 赛事积分板</title>
+    <title>赛事号: {{ room_id }} - 赛事积分板</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>房间: {{ room_id }}</h1>
+            <h1>赛事号: {{ room_id }}</h1>
             <a href="/" class="btn back-btn">返回首页</a>
         </header>
 
@@ -51,7 +51,7 @@
                 <div id="settlement-reports" class="settlement-reports">
                     {% for report in room_data.get('settlement_reports', []) %}
                     <div class="settlement-report">
-                        <div class="settlement-header">房间号：{{ room_id }}的第{{ report.count }}次结算报告 ({{ report.timestamp }})</div>
+                        <div class="settlement-header">第{{ report.count }}次结算报告 ({{ report.timestamp }})</div>
                         <div class="settlement-content">{{ report.report | replace('\n', '<br>') | safe }}</div>
                     </div>
                     {% endfor %}
@@ -294,7 +294,7 @@
                             
                             const header = document.createElement('div');
                             header.className = 'settlement-header collapsed';
-                            header.textContent = `房间号：${roomId}的第${data.settlement_count}次结算报告 (${data.timestamp})`;
+                            header.textContent = `第${data.settlement_count}次结算报告 (${data.timestamp})`;
                             
                             const content = document.createElement('div');
                             content.className = 'settlement-content';
@@ -351,7 +351,7 @@
                                         
                                         const header = document.createElement('div');
                                         header.className = 'settlement-header collapsed';
-                                        header.textContent = `房间号：${roomId}的第${report.count}次结算报告 (${report.timestamp})`;
+                                        header.textContent = `第${report.count}次结算报告 (${report.timestamp})`;
                                         
                                         const content = document.createElement('div');
                                         content.className = 'settlement-content';
