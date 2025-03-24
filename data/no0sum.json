@@ -1,38 +1,73 @@
 {
-  "created_at": "2025-03-24 16:47:24",
+  "created_at": "2025-03-24 22:37:18",
   "initial_score": 0,
   "is_zero_sum": false,
   "users": [
     {
-      "id": "12c766ca-d5e4-42af-bb86-0958612ad233",
+      "id": "8928f877-54c0-4fe6-9c41-710b51e2b69e",
       "name": "admin",
-      "score": 11,
+      "score": 0,
       "last_change": 0,
       "owner": true
     },
     {
-      "id": "5e057290-21fd-472a-a933-2162125a476a",
-      "name": "123",
-      "score": 7,
-      "last_change": 2,
+      "id": "0577d3b7-253d-4a0c-b5c1-58c4625f9556",
+      "name": "qwe",
+      "score": 0,
+      "last_change": 0,
       "owner": false
     }
   ],
   "baseline": {
-    "12c766ca-d5e4-42af-bb86-0958612ad233": 10,
-    "5e057290-21fd-472a-a933-2162125a476a": 7
+    "8928f877-54c0-4fe6-9c41-710b51e2b69e": 0,
+    "0577d3b7-253d-4a0c-b5c1-58c4625f9556": 0
   },
   "settlement_reports": [
     {
       "count": 1,
-      "report": "【结算汇总】<br>\n• 总结算金额：5 积分<br>\n• 盈利玩家：2 人<br>\n• 亏损玩家：0 人<br>\n<br>\n【盈利玩家】<br>\n• admin：+3 积分<br>\n• 123：+2 积分<br>\n<br>\n【转账明细】<br>",
-      "timestamp": "2025-03-24 16:53:01"
+      "timestamp": "2025-03-24 22:39:43",
+      "report": "【积分排名】<br>\n• 第1名：qwe - 3 积分 (本局变化：+3)<br>\n• 第2名：admin - 2 积分 (本局变化：+2)<br>\n<br>\n【统计信息】<br>\n• 总积分：5<br>\n• 平均积分：2.5<br>\n• 最高积分：3 (qwe)<br>\n• 最低积分：2 (admin)<br>\n<br>\n结算时间：2025-03-24 22:39:43"
     },
     {
       "count": 2,
-      "timestamp": "2025-03-24 16:54:54",
-      "report": "【积分排名】<br>\n• 第1名：admin - 10 积分 (本局变化：0)<br>\n• 第2名：123 - 5 积分 (本局变化：0)<br>\n<br>\n【统计信息】<br>\n• 总积分：15<br>\n• 平均积分：7.5<br>\n• 最高积分：10 (admin)<br>\n• 最低积分：5 (123)<br>\n<br>\n结算时间：2025-03-24 16:54:54"
+      "timestamp": "2025-03-24 22:40:13",
+      "report": "【积分排名】<br>\n• 第1名：qwe - 7 积分 (本局变化：0)<br>\n• 第2名：admin - 2 积分 (本局变化：0)<br>\n<br>\n【统计信息】<br>\n• 总积分：9<br>\n• 平均积分：4.5<br>\n• 最高积分：7 (qwe)<br>\n• 最低积分：2 (admin)<br>\n<br>\n结算时间：2025-03-24 22:40:13"
+    },
+    {
+      "count": 3,
+      "timestamp": "2025-03-24 22:41:54",
+      "report": "【积分排名】<br>\n• 第1名：qwe - 7 积分 (本局变化：0)<br>\n• 第2名：admin - 2 积分 (本局变化：0)<br>\n<br>\n【统计信息】<br>\n• 总积分：0<br>\n• 平均积分：0.0<br>\n• 最高积分：0 (qwe)<br>\n• 最低积分：0 (admin)<br>\n<br>\n结算时间：2025-03-24 22:41:54"
+    },
+    {
+      "count": 4,
+      "timestamp": "2025-03-24 22:43:09",
+      "report": "【积分排名】<br>\n• 第1名：qwe - 5 积分 (本局变化：0)<br>\n• 第2名：admin - 3 积分 (本局变化：0)<br>\n<br>\n【统计信息】<br>\n• 总积分：8<br>\n• 平均积分：4.0<br>\n• 最高积分：5 (qwe)<br>\n• 最低积分：3 (admin)<br>\n<br>\n结算时间：2025-03-24 22:43:09"
+    },
+    {
+      "count": 5,
+      "timestamp": "2025-03-24 22:43:40",
+      "report": "【积分排名】<br>\n• 第1名：qwe - 5 积分 (本局变化：0)<br>\n• 第2名：admin - 0 积分 (本局变化：0)<br>\n<br>\n【统计信息】<br>\n• 总积分：5<br>\n• 平均积分：2.5<br>\n• 最高积分：5 (qwe)<br>\n• 最低积分：0 (admin)<br>\n<br>\n结算时间：2025-03-24 22:43:40"
+    },
+    {
+      "count": 6,
+      "timestamp": "2025-03-24 22:45:53",
+      "report": "【积分排名】<br>\n• 第1名：admin - 9 积分 (本局变化：0)<br>\n• 第2名：qwe - 5 积分 (本局变化：0)<br>\n<br>\n【统计信息】<br>\n• 总积分：14<br>\n• 平均积分：7.0<br>\n• 最高积分：9 (admin)<br>\n• 最低积分：5 (qwe)<br>\n<br>\n结算时间：2025-03-24 22:45:53"
+    },
+    {
+      "count": 7,
+      "timestamp": "2025-03-24 22:47:37",
+      "report": "【积分排名】<br>\n• 第1名：admin - 9 积分<br>\n• 第2名：qwe - 5 积分<br>\n<br>\n【统计信息】<br>\n• 总积分：14<br>\n• 平均积分：7.0<br>\n• 最高积分：9 (admin)<br>\n• 最低积分：5 (qwe)<br>\n<br>\n结算时间：2025-03-24 22:47:37"
+    },
+    {
+      "count": 8,
+      "timestamp": "2025-03-24 23:36:48",
+      "report": "【积分排名】<br>\n• 第1名：admin - 5 积分<br>\n• 第2名：qwe - 0 积分<br>\n<br>\n【统计信息】<br>\n• 总积分：5<br>\n• 平均积分：2.5<br>\n• 最高积分：5 (admin)<br>\n• 最低积分：0 (qwe)<br>\n<br>\n<br>\n结算时间：2025-03-24 23:36:48"
+    },
+    {
+      "count": 9,
+      "timestamp": "2025-03-24 23:37:47",
+      "report": "【积分排名】<br>\n• 第1名：admin - 0 积分<br>\n• 第2名：qwe - 0 积分<br>\n<br>\n【统计信息】<br>\n• 总积分：0<br>\n• 平均积分：0.0<br>\n• 最高积分：0 (admin)<br>\n• 最低积分：0 (qwe)<br>\n<br>\n结算时间：2025-03-24 23:37:47"
     }
   ],
-  "settlement_count": 2
+  "settlement_count": 9
 }

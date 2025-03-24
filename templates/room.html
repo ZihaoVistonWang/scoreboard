@@ -67,7 +67,7 @@
             <h2>转账给 <span id="recipient-name"></span></h2>
             <div class="form-group">
                 <label for="transfer-amount">金额</label>
-                <input type="number" id="transfer-amount" min="1" value="1">
+                <input type="number" id="transfer-amount" min="1">
             </div>
             <div class="button-group">
                 <button id="confirm-transfer" class="btn">确认</button>
@@ -145,7 +145,6 @@
             function closeTransferModal() {
                 transferModal.style.display = 'none';
                 selectedUserId = null;
-                transferAmount.value = '1';  // Reset to default value
             }
             
             closeModal.addEventListener('click', closeTransferModal);
