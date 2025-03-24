@@ -6,7 +6,7 @@
     {
       "id": "b3fc8a34-10f9-4b88-923a-8acdf5e2aee9",
       "name": "adm",
-      "score": 44,
+      "score": 40,
       "last_change": -4,
       "owner": true,
       "last_score": 44
@@ -14,7 +14,7 @@
     {
       "id": "7af25470-af52-4e5b-8849-e0f2b5758af3",
       "name": "qwe",
-      "score": 56,
+      "score": 60,
       "last_change": 4,
       "owner": false,
       "last_score": 56
@@ -37,6 +37,6 @@
     }
   ],
   "settlement_count": 2,
-  "can_next_round": false,
-  "can_settle": true
+  "can_next_round": true,
+  "can_settle": false
 }
