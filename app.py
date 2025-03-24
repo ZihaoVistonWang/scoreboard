@@ -282,9 +282,6 @@ def settle():
             for loser in losers:
                 report_lines.append(f"• {loser['name']}：-{loser['amount']} 积分<br>")
             report_lines.append("<br>")
-
-        # Add timestamp to report
-        report_lines.append(f"结算时间：{current_time}")
     else:
         # Non-zero-sum game settlement logic
         # Sort users by score
