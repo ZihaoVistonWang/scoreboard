@@ -6,22 +6,33 @@
     {
       "id": "12c766ca-d5e4-42af-bb86-0958612ad233",
       "name": "admin",
-      "score": 3,
-      "last_change": 0,
+      "score": 10,
+      "last_change": 10,
       "owner": true
     },
     {
       "id": "5e057290-21fd-472a-a933-2162125a476a",
       "name": "123",
-      "score": 2,
-      "last_change": 0,
+      "score": 5,
+      "last_change": 5,
       "owner": false
     }
   ],
   "baseline": {
-    "12c766ca-d5e4-42af-bb86-0958612ad233": 0,
-    "5e057290-21fd-472a-a933-2162125a476a": 0
+    "12c766ca-d5e4-42af-bb86-0958612ad233": 10,
+    "5e057290-21fd-472a-a933-2162125a476a": 5
   },
-  "settlement_reports": [],
-  "settlement_count": 0
+  "settlement_reports": [
+    {
+      "count": 1,
+      "report": "【结算汇总】<br>\n• 总结算金额：5 积分<br>\n• 盈利玩家：2 人<br>\n• 亏损玩家：0 人<br>\n<br>\n【盈利玩家】<br>\n• admin：+3 积分<br>\n• 123：+2 积分<br>\n<br>\n【转账明细】<br>",
+      "timestamp": "2025-03-24 16:53:01"
+    },
+    {
+      "count": 2,
+      "timestamp": "2025-03-24 16:54:54",
+      "report": "【积分排名】<br>\n• 第1名：admin - 10 积分 (本局变化：0)<br>\n• 第2名：123 - 5 积分 (本局变化：0)<br>\n<br>\n【统计信息】<br>\n• 总积分：15<br>\n• 平均积分：7.5<br>\n• 最高积分：10 (admin)<br>\n• 最低积分：5 (123)<br>\n<br>\n结算时间：2025-03-24 16:54:54"
+    }
+  ],
+  "settlement_count": 2
 }

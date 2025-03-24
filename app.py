@@ -229,106 +229,112 @@ def settle():
     if not room_data:
         return jsonify({'success': False, 'message': 'Room not found'})
 
-    # Calculate winners and losers
-    winners = []
-    losers = []
-    for user in room_data['users']:
-        if user['score'] > room_data['initial_score']:
-            winners.append({
-                'id': user['id'],
-                'name': user['name'],
-                'amount': user['score'] - room_data['initial_score']
-            })
-        elif user['score'] < room_data['initial_score']:
-            losers.append({
-                'id': user['id'],
-                'name': user['name'],
-                'amount': room_data['initial_score'] - user['score']
-            })
-
-    # Sort by amount to handle largest differences first
-    winners.sort(key=lambda x: x['amount'], reverse=True)
-    losers.sort(key=lambda x: x['amount'], reverse=True)
-
-    # Generate settlement report
+    # Get current timestamp
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    
+    # Increment settlement count
+    room_data['settlement_count'] = room_data.get('settlement_count', 0) + 1
+    
+    # Generate settlement report based on game type
     report_lines = []
-    settlements = []  # Track actual settlements needed
-
-    # Add summary section
-    total_amount = sum(winner['amount'] for winner in winners)
-    report_lines.append("【结算汇总】<br>")
-    report_lines.append(f"• 总结算金额：{total_amount} 积分<br>")
-    report_lines.append(f"• 盈利玩家：{len(winners)} 人<br>")
-    report_lines.append(f"• 亏损玩家：{len(losers)} 人<br>")
-    report_lines.append("<br>")
-
-    # Add winners section
-    if winners:
-        report_lines.append("【盈利玩家】<br>")
-        for winner in winners:
-            report_lines.append(f"• {winner['name']}：+{winner['amount']} 积分<br>")
-        report_lines.append("<br>")
-
-    # Add losers section
-    if losers:
-        report_lines.append("【亏损玩家】<br>")
-        for loser in losers:
-            report_lines.append(f"• {loser['name']}：-{loser['amount']} 积分<br>")
-        report_lines.append("<br>")
-
-    # Process settlements
-    report_lines.append("【转账明细】<br>")
-    # Process each loser
-    for loser in losers:
-        remaining_amount = loser['amount']
-        loser_settlements = []
-
-        # Try to settle with winners who still need to receive
-        for winner in winners:
-            if remaining_amount <= 0 or winner['amount'] <= 0:
-                continue
-
-            # Calculate settlement amount
-            settlement_amount = min(remaining_amount, winner['amount'])
-            if settlement_amount > 0:
-                loser_settlements.append({
-                    'from': loser['name'],
-                    'to': winner['name'],
-                    'amount': settlement_amount
+    is_zero_sum = room_data.get('is_zero_sum', True)  # Default to True for backward compatibility
+    
+    if is_zero_sum:
+        # Zero-sum game settlement logic
+        winners = []
+        losers = []
+        for user in room_data['users']:
+            if user['score'] > room_data['initial_score']:
+                winners.append({
+                    'id': user['id'],
+                    'name': user['name'],
+                    'amount': user['score'] - room_data['initial_score']
                 })
-                remaining_amount -= settlement_amount
-                winner['amount'] -= settlement_amount
+            elif user['score'] < room_data['initial_score']:
+                losers.append({
+                    'id': user['id'],
+                    'name': user['name'],
+                    'amount': room_data['initial_score'] - user['score']
+                })
 
-        settlements.extend(loser_settlements)
+        # Sort by amount to handle largest differences first
+        winners.sort(key=lambda x: x['amount'], reverse=True)
+        losers.sort(key=lambda x: x['amount'], reverse=True)
 
-        # Add to report
-        if loser_settlements:
-            report_lines.append(f"• {loser['name']} 需要支付：<br>")
-            for settlement in loser_settlements:
-                report_lines.append(f"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {settlement['amount']} 积分给 {settlement['to']}<br>")
+        # Add summary section
+        total_amount = sum(winner['amount'] for winner in winners)
+        report_lines.append("【结算汇总】<br>")
+        report_lines.append(f"• 总结算金额：{total_amount} 积分<br>")
+        report_lines.append(f"• 盈利玩家：{len(winners)} 人<br>")
+        report_lines.append(f"• 亏损玩家：{len(losers)} 人<br>")
+        report_lines.append("<br>")
 
-    # Create the settlement report
-    room_data['settlement_count'] += 1
-    report = "\n".join(report_lines)
-    room_data['settlement_reports'].append({
+        # Add winners section
+        if winners:
+            report_lines.append("【盈利玩家】<br>")
+            for winner in winners:
+                report_lines.append(f"• {winner['name']}：+{winner['amount']} 积分<br>")
+            report_lines.append("<br>")
+
+        # Add losers section
+        if losers:
+            report_lines.append("【亏损玩家】<br>")
+            for loser in losers:
+                report_lines.append(f"• {loser['name']}：-{loser['amount']} 积分<br>")
+            report_lines.append("<br>")
+
+        # Add timestamp to report
+        report_lines.append(f"结算时间：{current_time}")
+    else:
+        # Non-zero-sum game settlement logic
+        # Sort users by score
+        sorted_users = sorted(room_data['users'], key=lambda x: x['score'], reverse=True)
+        
+        report_lines.append("【积分排名】<br>")
+        for i, user in enumerate(sorted_users, 1):
+            change = user['score'] - room_data['baseline'].get(user['id'], room_data['initial_score'])
+            change_str = f"+{change}" if change > 0 else str(change)
+            report_lines.append(f"• 第{i}名：{user['name']} - {user['score']} 积分 (本局变化：{change_str})<br>")
+        report_lines.append("<br>")
+        
+        # Add statistics
+        total_score = sum(user['score'] for user in room_data['users'])
+        avg_score = total_score / len(room_data['users'])
+        report_lines.append("【统计信息】<br>")
+        report_lines.append(f"• 总积分：{total_score}<br>")
+        report_lines.append(f"• 平均积分：{avg_score:.1f}<br>")
+        report_lines.append(f"• 最高积分：{sorted_users[0]['score']} ({sorted_users[0]['name']})<br>")
+        report_lines.append(f"• 最低积分：{sorted_users[-1]['score']} ({sorted_users[-1]['name']})<br>")
+        report_lines.append("<br>")
+
+    # Add timestamp to report
+    report_lines.append(f"结算时间：{current_time}")
+
+    # Create settlement report
+    report = {
         'count': room_data['settlement_count'],
-        'report': report,
-        'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    })
+        'timestamp': current_time,
+        'report': '\n'.join(report_lines)
+    }
 
-    # Reset scores and last_change
+    # Add report to room data
+    if 'settlement_reports' not in room_data:
+        room_data['settlement_reports'] = []
+    room_data['settlement_reports'].append(report)
+
+    # Update baselines for next round
     for user in room_data['users']:
-        user['score'] = room_data['initial_score']
-        user['last_change'] = 0
-        room_data['baseline'][user['id']] = room_data['initial_score']
+        room_data['baseline'][user['id']] = user['score']
 
+    # Save updated room data
     save_room_data(room_id, room_data)
 
     return jsonify({
         'success': True,
         'users': room_data['users'],
         'settlement_count': room_data['settlement_count'],
-        'report': report
+        'timestamp': current_time,
+        'report': report['report']
     })
 
 @app.route('/get_room_data/<room_id>', methods=['GET'])
