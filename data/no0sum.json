@@ -8,19 +8,21 @@
       "name": "admin",
       "score": 0,
       "last_change": 0,
-      "owner": true
+      "owner": true,
+      "last_score": 0
     },
     {
       "id": "0577d3b7-253d-4a0c-b5c1-58c4625f9556",
       "name": "qwe",
-      "score": 0,
-      "last_change": 0,
-      "owner": false
+      "score": 7,
+      "last_change": 4,
+      "owner": false,
+      "last_score": 4
     }
   ],
   "baseline": {
     "8928f877-54c0-4fe6-9c41-710b51e2b69e": 0,
-    "0577d3b7-253d-4a0c-b5c1-58c4625f9556": 0
+    "0577d3b7-253d-4a0c-b5c1-58c4625f9556": 4
   },
   "settlement_reports": [
     {
@@ -69,5 +71,7 @@
       "report": "【积分排名】<br>\n• 第1名：admin - 0 积分<br>\n• 第2名：qwe - 0 积分<br>\n<br>\n【统计信息】<br>\n• 总积分：0<br>\n• 平均积分：0.0<br>\n• 最高积分：0 (admin)<br>\n• 最低积分：0 (qwe)<br>\n<br>\n结算时间：2025-03-24 23:37:47"
     }
   ],
-  "settlement_count": 9
+  "settlement_count": 9,
+  "can_next_round": true,
+  "can_settle": false
 }

@@ -186,9 +186,15 @@ def transfer():
     # For zero-sum games, deduct from sender
     if is_zero_sum:
         from_user['score'] -= amount
-    
+
     # Add to receiver
     to_user['score'] += amount
+
+    # Can next round flag
+    room_data['can_next_round'] = True
+
+    # Can settle flag
+    room_data['can_settle'] = False
 
     # Save the updated data
     save_room_data(room_id, room_data)
@@ -210,9 +216,16 @@ def next_round():
     # Calculate last_change for each user based on difference from baseline
     for user in room_data['users']:
         baseline = room_data['baseline'].get(user['id'], user['score'])
+        user['last_score'] = user['score']
         user['last_change'] = user['score'] - baseline
         # Update baseline for next round
         room_data['baseline'][user['id']] = user['score']
+
+    # Set can_next_round and can_settle flags
+    room_data['can_next_round'] = False
+    room_data['can_settle'] = True
+
+    save_room_data(room_id, room_data)
 
     save_room_data(room_id, room_data)
 
@@ -342,6 +355,7 @@ def settle():
     for user in room_data['users']:
         user['score'] = room_data['initial_score']
         user['last_change'] = 0
+        user['last_score'] = 0
         room_data['baseline'][user['id']] = room_data['initial_score']
 
     # Add timestamp to report
