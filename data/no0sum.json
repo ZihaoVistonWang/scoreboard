@@ -14,15 +14,15 @@
     {
       "id": "0577d3b7-253d-4a0c-b5c1-58c4625f9556",
       "name": "qwe",
-      "score": 7,
-      "last_change": 4,
+      "score": 0,
+      "last_change": 0,
       "owner": false,
-      "last_score": 4
+      "last_score": 0
     }
   ],
   "baseline": {
     "8928f877-54c0-4fe6-9c41-710b51e2b69e": 0,
-    "0577d3b7-253d-4a0c-b5c1-58c4625f9556": 4
+    "0577d3b7-253d-4a0c-b5c1-58c4625f9556": 0
   },
   "settlement_reports": [
     {
@@ -69,9 +69,19 @@
       "count": 9,
       "timestamp": "2025-03-24 23:37:47",
       "report": "【积分排名】<br>\n• 第1名：admin - 0 积分<br>\n• 第2名：qwe - 0 积分<br>\n<br>\n【统计信息】<br>\n• 总积分：0<br>\n• 平均积分：0.0<br>\n• 最高积分：0 (admin)<br>\n• 最低积分：0 (qwe)<br>\n<br>\n结算时间：2025-03-24 23:37:47"
+    },
+    {
+      "count": 10,
+      "timestamp": "2025-03-25 00:48:00",
+      "report": "【积分排名】<br>\n• 第1名：qwe - 8 积分<br>\n• 第2名：admin - 0 积分<br>\n<br>\n【统计信息】<br>\n• 总积分：8<br>\n• 平均积分：4.0<br>\n• 最高积分：8 (qwe)<br>\n• 最低积分：0 (admin)<br>\n<br>\n结算时间：2025-03-25 00:48:00"
+    },
+    {
+      "count": 11,
+      "timestamp": "2025-03-25 00:51:10",
+      "report": "【积分排名】<br>\n• 第1名：qwe - 6 积分<br>\n• 第2名：admin - 3 积分<br>\n<br>\n【统计信息】<br>\n• 总积分：9<br>\n• 平均积分：4.5<br>\n• 最高积分：6 (qwe)<br>\n• 最低积分：3 (admin)<br>\n<br>\n结算时间：2025-03-25 00:51:10"
     }
   ],
-  "settlement_count": 9,
-  "can_next_round": true,
+  "settlement_count": 11,
+  "can_next_round": false,
   "can_settle": false
 }

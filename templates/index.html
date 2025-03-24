@@ -16,8 +16,8 @@
                 <div class="dropdown">
                     <input type="text" id="room-id" placeholder="选择或添加赛事" readonly>
                     <div class="dropdown-content" id="room-dropdown">
-                        <!-- Room list will be populated here -->
                         <div class="dropdown-item add-new" id="add-new-room">添加赛事...</div>
+                        <!-- Room list will be populated here -->
                     </div>
                 </div>
             </div>
@@ -27,8 +27,8 @@
                 <div class="dropdown">
                     <input type="text" id="username" placeholder="选择或添加用户" readonly>
                     <div class="dropdown-content" id="username-dropdown">
-                        <!-- User list will be populated here -->
                         <div class="dropdown-item add-new" id="add-new-user">添加用户...</div>
+                        <!-- User list will be populated here -->
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
             <div class="form-group">
                 <label class="checkbox-label">
                     <input type="checkbox" id="new-room-zero-sum" checked>
-                    “零和”积分赛事
+                    "零和"积分赛事
                 </label>
             </div>
             <button id="confirm-new-room" class="btn">确认</button>
@@ -289,7 +289,7 @@
                             option.classList.add('dropdown-item');
                             option.textContent = user;
                             option.addEventListener('click', () => selectUsername(user));
-                            usernameDropdown.insertBefore(option, addNewUserItem);
+                            usernameDropdown.appendChild(option);
                         });
                     }
                     
@@ -310,7 +310,7 @@
                             }
                         });
                         
-                        // Add rooms to dropdown
+                        // Add rooms to dropdown (append after "Add new room")
                         rooms.forEach(room => {
                             const option = document.createElement('div');
                             option.classList.add('dropdown-item');
@@ -321,7 +321,7 @@
                                 roomDropdown.style.display = 'none';
                                 checkRoom();
                             });
-                            roomDropdown.insertBefore(option, addNewRoomItem);
+                            roomDropdown.appendChild(option);
                         });
                     })
                     .catch(error => console.error('Error loading rooms:', error));

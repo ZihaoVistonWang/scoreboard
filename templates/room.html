@@ -41,8 +41,8 @@
 
             {% if current_user.owner %}
             <div class="owner-controls">
-                <button id="next-round" class="btn">下一局</button>
-                <button id="settlement" class="btn">结算</button>
+                <button id="next-round" class="btn" {% if not room_data.get('can_next_round', False) %}disabled{% endif %}>下一局</button>
+                <button id="settlement" class="btn" {% if not room_data.get('can_settle', False) %}disabled{% endif %}>结算</button>
             </div>
             {% endif %}
 
@@ -178,6 +178,18 @@
                         updateScores(data.users);
                         closeTransferModal();
                         lastUpdateTime = Date.now();
+                        
+                        // Update button states
+                        const nextRoundBtn = document.getElementById('next-round');
+                        const settlementBtn = document.getElementById('settlement');
+                        
+                        if (nextRoundBtn && 'can_next_round' in data) {
+                            nextRoundBtn.disabled = !data.can_next_round;
+                        }
+                        
+                        if (settlementBtn && 'can_settle' in data) {
+                            settlementBtn.disabled = !data.can_settle;
+                        }
                     } else {
                         alert('操作失败: ' + data.message);
                     }
@@ -239,6 +251,11 @@
                 const reports = document.getElementById('settlement-reports');
                 if (reports && reports.children.length > 0) {
                     reportsSection.style.display = 'block';
+                    
+                    // 确保结算报告可以折叠/展开
+                    if (typeof setupSettlementListeners === 'function') {
+                        setupSettlementListeners();
+                    }
                 } else {
                     reportsSection.style.display = 'none';
                 }
@@ -259,6 +276,16 @@
                     .then(data => {
                         if (data.success) {
                             updateScores(data.users);
+                            
+                            // Update button states
+                            if ('can_next_round' in data) {
+                                nextRoundBtn.disabled = !data.can_next_round;
+                            }
+                            
+                            const settlementBtn = document.getElementById('settlement');
+                            if (settlementBtn && 'can_settle' in data) {
+                                settlementBtn.disabled = !data.can_settle;
+                            }
                         } else {
                             alert('操作失败: ' + data.message);
                         }
@@ -297,19 +324,26 @@
                             header.textContent = `第${data.settlement_count}次结算报告 (${data.timestamp})`;
                             
                             const content = document.createElement('div');
-                            content.className = 'settlement-content';
+                            content.className = 'settlement-content collapsed';
                             content.innerHTML = data.report.replace(/\n/g, '<br>');
-                            
-                            // 检查localStorage中保存的状态
-                            const isExpanded = localStorage.getItem(`settlement_${data.settlement_count}`) === 'expanded';
-                            if (!isExpanded) {
-                                header.classList.add('collapsed');
-                                content.classList.add('collapsed');
-                            }
                             
                             reportDiv.appendChild(header);
                             reportDiv.appendChild(content);
                             reportsDiv.insertBefore(reportDiv, reportsDiv.firstChild);
+                            
+                            // 在添加新报告后，重新初始化折叠/展开功能
+                            if (typeof setupSettlementListeners === 'function') {
+                                setupSettlementListeners();
+                            }
+                            
+                            // Update button states
+                            if ('can_next_round' in data) {
+                                nextRoundBtn.disabled = !data.can_next_round;
+                            }
+                            
+                            if ('can_settle' in data) {
+                                settlementBtn.disabled = !data.can_settle;
+                            }
                         } else {
                             alert('结算失败: ' + data.message);
                         }
@@ -341,6 +375,18 @@
                                 // Update scores
                                 updateScores(data.users);
                                 
+                                // Update button states based on flags
+                                const nextRoundBtn = document.getElementById('next-round');
+                                const settlementBtn = document.getElementById('settlement');
+                                
+                                if (nextRoundBtn) {
+                                    nextRoundBtn.disabled = !data.can_next_round;
+                                }
+                                
+                                if (settlementBtn) {
+                                    settlementBtn.disabled = !data.can_settle;
+                                }
+                                
                                 // Update settlement reports if they've changed
                                 if (data.settlement_reports) {
                                     const reportsDiv = document.getElementById('settlement-reports');
@@ -354,32 +400,32 @@
                                         header.textContent = `第${report.count}次结算报告 (${report.timestamp})`;
                                         
                                         const content = document.createElement('div');
-                                        content.className = 'settlement-content';
+                                        content.className = 'settlement-content collapsed';
                                         content.innerHTML = report.report.replace(/\n/g, '<br>');
-                                        
-                                        // 检查localStorage中保存的状态
-                                        const isExpanded = localStorage.getItem(`settlement_${report.count}`) === 'expanded';
-                                        if (!isExpanded) {
-                                            header.classList.add('collapsed');
-                                            content.classList.add('collapsed');
-                                        }
                                         
                                         reportDiv.appendChild(header);
                                         reportDiv.appendChild(content);
                                         reportsDiv.insertBefore(reportDiv, reportsDiv.firstChild);
                                     });
+                                    
+                                    // 在更新报告后，重新初始化折叠/展开功能
+                                    if (typeof setupSettlementListeners === 'function') {
+                                        setupSettlementListeners();
+                                    }
                                 }
                             }
                         }
                     })
-                    .catch(error => console.error('Error fetching room data:', error));
+                    .catch(error => {
+                        console.error('Error fetching room data:', error);
+                    });
             }
             
-            // Start polling for updates
+            // Start polling when the page loads
             startPolling();
         });
     </script>
-<script src="{{ url_for('static', filename='js/settlement.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/settlement.js') }}"></script>
 </body>
 <footer style="width: 100%; text-align: center; font-size: 12px; color: #666; margin-top: 20px; position: relative; bottom: 0; left: 0; right: 0;">
     <p>© 2025 <a href="https://github.com/ZihaoVistonWang/scoreboard" target="_blank">赛事积分板</a> | 由 <a href="https://github.com/ZihaoVistonWang" target="_blank">王梓豪 (Zihao Viston Wang)</a> 开发 | 遵循<a href="https://github.com/ZihaoVistonWang/score-board/blob/main/LICENSE" target="_blank">MIT</a>许可开源.</p>

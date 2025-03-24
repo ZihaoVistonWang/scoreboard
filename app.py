@@ -67,7 +67,9 @@ def create_room():
         'users': [first_user],
         'baseline': { first_user['id']: initial_score },
         'settlement_reports': [],
-        'settlement_count': 0
+        'settlement_count': 0,
+        'can_next_round': False,
+        'can_settle': False
     }
 
     save_room_data(room_id, room_data)
@@ -122,8 +124,9 @@ def room(room_id):
 
     # Handle spectator mode
     if user_id == 'spectator':
-        # Sort settlement reports by count in descending order
-        room_data['settlement_reports'].sort(key=lambda x: x['count'], reverse=True)
+        # Sort settlement reports by timestamp in descending order (most recent first)
+        if 'settlement_reports' in room_data:
+            room_data['settlement_reports'].sort(key=lambda x: x['timestamp'], reverse=True)
         return render_template('room.html',
                             room_id=room_id,
                             users=room_data['users'],
@@ -141,8 +144,9 @@ def room(room_id):
     if not current_user:
         return redirect(url_for('index'))
 
-    # Sort settlement reports by count in descending order
-    room_data['settlement_reports'].sort(key=lambda x: x['count'], reverse=True)
+    # Sort settlement reports by timestamp in descending order (most recent first)
+    if 'settlement_reports' in room_data:
+        room_data['settlement_reports'].sort(key=lambda x: x['timestamp'], reverse=True)
 
     return render_template('room.html',
                           room_id=room_id,
@@ -201,7 +205,9 @@ def transfer():
 
     return jsonify({
         'success': True,
-        'users': room_data['users']
+        'users': room_data['users'],
+        'can_next_round': room_data['can_next_round'],
+        'can_settle': room_data['can_settle']
     })
 
 # Add endpoint to fetch updated room data
@@ -227,11 +233,11 @@ def next_round():
 
     save_room_data(room_id, room_data)
 
-    save_room_data(room_id, room_data)
-
     return jsonify({
         'success': True,
-        'users': room_data['users']
+        'users': room_data['users'],
+        'can_next_round': room_data['can_next_round'],
+        'can_settle': room_data['can_settle']
     })
 
 @app.route('/settle', methods=['POST'])
@@ -375,6 +381,10 @@ def settle():
         room_data['settlement_reports'] = []
     room_data['settlement_reports'].append(report)
 
+    # Reset flags after settlement
+    room_data['can_next_round'] = False
+    room_data['can_settle'] = False
+
     # Save updated room data
     save_room_data(room_id, room_data)
 
@@ -383,7 +393,9 @@ def settle():
         'users': room_data['users'],
         'settlement_count': room_data['settlement_count'],
         'timestamp': current_time,
-        'report': report['report']
+        'report': report['report'],
+        'can_next_round': room_data['can_next_round'],
+        'can_settle': room_data['can_settle']
     })
 
 @app.route('/get_room_data/<room_id>', methods=['GET'])
@@ -399,7 +411,9 @@ def get_room_data(room_id):
         'users': room_data['users'],
         'user_count': len(room_data['users']),
         'timestamp': datetime.now().timestamp(),
-        'settlement_reports': room_data['settlement_reports']
+        'settlement_reports': room_data['settlement_reports'],
+        'can_next_round': room_data.get('can_next_round', False),
+        'can_settle': room_data.get('can_settle', False)
     })
 
 @app.route('/get_rooms', methods=['GET'])
