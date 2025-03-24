@@ -61,6 +61,7 @@ def create_room():
         'owner': True,
         'last_score': initial_score,
         'logs': {},
+        'score_array': [[]],
     }
     room_data = {
         'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -102,6 +103,7 @@ def join_room():
         'owner': False,
         'last_score': initial_score,
         'logs': {},
+        'score_array': [[]],
     }
     room_data['users'].append(new_user)
     room_data['baseline'][new_user['id']] = initial_score
@@ -201,37 +203,34 @@ def transfer():
     to_user['score'] += amount
     
     # Add log
-    settle_round_num = f"settle_{room_data['settle_round']}"
-    round_num = f"round_{room_data['round']}"
-    if settle_round_num not in from_user['logs']:
-        from_user['logs'][settle_round_num] = {}
-    if round_num not in from_user['logs'][settle_round_num]:
-        from_user['logs'][settle_round_num][round_num] = {}
-    if 'logs' not in from_user['logs'][settle_round_num][round_num]:
-        from_user['logs'][settle_round_num][round_num]['logs'] = []
-    from_user['logs'][settle_round_num][round_num]['logs'].append({
-        'type': 'out',
-        'timestamp': datetime.now().strftime('%H:%M:%S'),
-        'from': from_user['name'],
-        'to': to_user['name'],
-        'amount': amount,
-        'description': f"{datetime.now().strftime('%H:%M:%S')} | -{amount} to {to_user['name']}"
-    })
+    if is_zero_sum:
+        settle_round_num = f"settle_{room_data['settle_round']}"
+        round_num = f"round_{room_data['round']}"
+        if settle_round_num not in from_user['logs']:
+            from_user['logs'][settle_round_num] = {}
+        if round_num not in from_user['logs'][settle_round_num]:
+            from_user['logs'][settle_round_num][round_num] = []
+        from_user['logs'][settle_round_num][round_num].append({
+            'type': 'out',
+            'timestamp': datetime.now().strftime('%H:%M:%S'),
+            'from': from_user['name'],
+            'to': to_user['name'],
+            'amount': amount,
+            'description': f"{datetime.now().strftime('%H:%M:%S')} | -{amount} to {to_user['name']}"
+        })
 
-    if settle_round_num not in to_user['logs']:
-        to_user['logs'][settle_round_num] = {}
-    if round_num not in to_user['logs'][settle_round_num]:
-        to_user['logs'][settle_round_num][round_num] = {}
-    if 'logs' not in to_user['logs'][settle_round_num][round_num]:
-        to_user['logs'][settle_round_num][round_num]['logs'] = []
-    to_user['logs'][settle_round_num][round_num]['logs'].append({
-        'type': 'in',
-        'timestamp': datetime.now().strftime('%H:%M:%S'),
-        'from': from_user['name'],
-        'to': to_user['name'],
-        'amount': amount,
-        'description': f"{datetime.now().strftime('%H:%M:%S')} | +{amount} from {from_user['name']}"
-    })
+        if settle_round_num not in to_user['logs']:
+            to_user['logs'][settle_round_num] = {}
+        if round_num not in to_user['logs'][settle_round_num]:
+            to_user['logs'][settle_round_num][round_num] = []
+        to_user['logs'][settle_round_num][round_num].append({
+            'type': 'in',
+            'timestamp': datetime.now().strftime('%H:%M:%S'),
+            'from': from_user['name'],
+            'to': to_user['name'],
+            'amount': amount,
+            'description': f"{datetime.now().strftime('%H:%M:%S')} | +{amount} from {from_user['name']}"
+        })
 
     # Can next round flag
     room_data['can_next_round'] = True
@@ -246,7 +245,9 @@ def transfer():
         'success': True,
         'users': room_data['users'],
         'can_next_round': room_data['can_next_round'],
-        'can_settle': room_data['can_settle']
+        'can_settle': room_data['can_settle'],
+        'round': room_data['round'],
+        'settle_round': room_data['settle_round']
     })
 
 # Add endpoint to fetch updated room data
@@ -258,33 +259,22 @@ def next_round():
     if not room_data:
         return jsonify({'success': False, 'message': 'Room not found'})
 
+    # 增加回合计数
+    room_data['round'] += 1
+
     # Calculate last_change for each user based on difference from baseline
-    settle_round_num = f"settle_{room_data['settle_round']}"
-    round_num = f"round_{room_data['round']}"
     for user in room_data['users']:
         baseline = room_data['baseline'].get(user['id'], user['score'])
         user['last_score'] = user['score']
         user['last_change'] = user['score'] - baseline
+        # Record this round score
+        user['score_array'][-1].append(user['score'])
         # Update baseline for next round
         room_data['baseline'][user['id']] = user['score']
-
-        if settle_round_num not in user['logs']:
-            user['logs'][settle_round_num] = {}
-        if round_num not in user['logs'][settle_round_num]:
-            user['logs'][settle_round_num][round_num] = {}
-        if 'logs' not in user['logs'][settle_round_num][round_num]:
-            user['logs'][settle_round_num][round_num]['logs'] = []
-        
-        user['logs'][settle_round_num][round_num]['round_score'] = user['score']
-        user['logs'][settle_round_num][round_num]['round_logs'] = '<br>/n'.join([log['description'] for log in user['logs'][settle_round_num][round_num]['logs']])
-            
 
     # Set can_next_round and can_settle flags
     room_data['can_next_round'] = False
     room_data['can_settle'] = True
-    
-    # Increment round
-    room_data['round'] += 1
 
     save_room_data(room_id, room_data)
 
@@ -292,7 +282,9 @@ def next_round():
         'success': True,
         'users': room_data['users'],
         'can_next_round': room_data['can_next_round'],
-        'can_settle': room_data['can_settle']
+        'can_settle': room_data['can_settle'],
+        'round': room_data['round'],
+        'settle_round': room_data['settle_round']
     })
 
 @app.route('/settle', methods=['POST'])
@@ -303,8 +295,14 @@ def settle():
     if not room_data:
         return jsonify({'success': False, 'message': 'Room not found'})
 
-    # Increment settlement count
+    # 增加结算计数
     room_data['settlement_count'] = room_data.get('settlement_count', 0) + 1
+    
+    # 增加结算轮次
+    room_data['settle_round'] += 1
+    
+    # 重置回合计数
+    room_data['round'] = 1
 
     # Generate settlement report based on game type
     report_lines = []
@@ -417,6 +415,8 @@ def settle():
         user['score'] = room_data['initial_score']
         user['last_change'] = 0
         user['last_score'] = room_data['initial_score']
+        # Record this round score
+        user['score_array'].append([])
         room_data['baseline'][user['id']] = room_data['initial_score']
 
     # Add timestamp to report
@@ -440,10 +440,6 @@ def settle():
     room_data['can_next_round'] = False
     room_data['can_settle'] = False
     
-    # Increment settle_round and reset round
-    room_data['settle_round'] += 1
-    room_data['round'] = 1
-
     # Save updated room data
     save_room_data(room_id, room_data)
 
@@ -454,7 +450,9 @@ def settle():
         'timestamp': current_time,
         'report': report['report'],
         'can_next_round': room_data['can_next_round'],
-        'can_settle': room_data['can_settle']
+        'can_settle': room_data['can_settle'],
+        'round': room_data['round'],
+        'settle_round': room_data['settle_round']
     })
 
 @app.route('/get_room_data/<room_id>', methods=['GET'])
@@ -472,7 +470,9 @@ def get_room_data(room_id):
         'timestamp': datetime.now().timestamp(),
         'settlement_reports': room_data['settlement_reports'],
         'can_next_round': room_data.get('can_next_round', False),
-        'can_settle': room_data.get('can_settle', False)
+        'can_settle': room_data.get('can_settle', False),
+        'round': room_data.get('round', 1),
+        'settle_round': room_data.get('settle_round', 1)
     })
 
 @app.route('/get_rooms', methods=['GET'])
@@ -493,6 +493,33 @@ def get_rooms():
     # Sort rooms by creation time in descending order
     rooms.sort(key=lambda x: x['created_at'], reverse=True)
     return jsonify(rooms)
+
+@app.route('/get_user_logs/<room_id>/<user_id>', methods=['GET'])
+def get_user_logs(room_id, user_id):
+    room_data = load_room_data(room_id)
+
+    if not room_data:
+        return jsonify({'success': False, 'message': 'Room not found'})
+
+    # 查找用户
+    user = None
+    for u in room_data['users']:
+        if u['id'] == user_id:
+            user = u
+            break
+
+    if not user:
+        return jsonify({'success': False, 'message': 'User not found'})
+
+    # 获取用户日志
+    logs = user.get('logs', {})
+
+    return jsonify({
+        'success': True,
+        'logs': logs,
+        'settle_round': room_data.get('settle_round', '1'),
+        'round': room_data.get('round', '1')
+    })
 
 if __name__ == '__main__':
     app.run(debug=True, port=16868)

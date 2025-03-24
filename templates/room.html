@@ -5,6 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>赛事号: {{ room_id }} - 赛事积分板</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* 用户日志相关样式 */
+        .user-logs {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+        
+        .round-info {
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .log-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .log-item {
+            padding: 5px 0;
+            border-bottom: 1px dotted #eee;
+        }
+        
+        #show-logs.active {
+            background-color: #3271ae;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -41,10 +73,23 @@
 
             {% if current_user.owner %}
             <div class="owner-controls">
+                <button id="show-logs" class="btn">本局记录</button>
                 <button id="next-round" class="btn" {% if not room_data.get('can_next_round', False) %}disabled{% endif %}>下一局</button>
                 <button id="settlement" class="btn" {% if not room_data.get('can_settle', False) %}disabled{% endif %}>结算</button>
             </div>
+            {% else %}
+            <div class="user-controls">
+                <button id="show-logs" class="btn">本局记录</button>
+            </div>
             {% endif %}
+
+            <!-- 本局记录区域 -->
+            <div id="user-logs-section" style="display: none;">
+                <h2>本局记录</h2>
+                <div id="user-logs" class="user-logs" style="font-size: 80%;">
+                    <!-- 用户日志将通过JavaScript动态添加 -->
+                </div>
+            </div>
 
             <div id="settlement-reports-section" style="display: none;">
                 <h2>结算报告</h2>
@@ -189,6 +234,14 @@
                         
                         if (settlementBtn && 'can_settle' in data) {
                             settlementBtn.disabled = !data.can_settle;
+                        }
+
+                        // 更新round和settle_round信息
+                        if ('round' in data) {
+                            window.currentRound = data.round;
+                        }
+                        if ('settle_round' in data) {
+                            window.currentSettleRound = data.settle_round;
                         }
                     } else {
                         alert('操作失败: ' + data.message);
@@ -359,6 +412,10 @@
                             if ('can_settle' in data) {
                                 settlementBtn.disabled = !data.can_settle;
                             }
+
+                            // 更新round和settle_round信息
+                            window.currentRound = data.round;
+                            window.currentSettleRound = data.settle_round;
                         } else {
                             alert('结算失败: ' + data.message);
                         }
@@ -368,6 +425,110 @@
                         alert('结算失败，请重试');
                     });
                 });
+            }
+            
+            // Handle show logs button
+            const showLogsBtn = document.getElementById('show-logs');
+            const userLogsSection = document.getElementById('user-logs-section');
+            const userLogs = document.getElementById('user-logs');
+            
+            if (showLogsBtn) {
+                showLogsBtn.addEventListener('click', function() {
+                    if (userLogsSection.style.display === 'none') {
+                        // 显示日志区域
+                        userLogsSection.style.display = 'block';
+                        showLogsBtn.textContent = '关闭记录';
+                        showLogsBtn.classList.add('active');
+                        
+                        // 获取并显示用户日志
+                        fetchUserLogs();
+                    } else {
+                        // 隐藏日志区域
+                        userLogsSection.style.display = 'none';
+                        showLogsBtn.textContent = '本局记录';
+                        showLogsBtn.classList.remove('active');
+                    }
+                });
+            }
+            
+            // 获取用户日志的函数
+            function fetchUserLogs() {
+                fetch(`/get_user_logs/${roomId}/${currentUserId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            displayUserLogs(data.logs);
+                        } else {
+                            userLogs.innerHTML = '<p>暂无记录</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user logs:', error);
+                        userLogs.innerHTML = '<p>获取记录时出错</p>';
+                    });
+            }
+            
+            // 显示用户日志的函数
+            function displayUserLogs(logs) {
+                userLogs.innerHTML = '';
+                
+                if (!logs || Object.keys(logs).length === 0) {
+                    userLogs.innerHTML = '<p>暂无记录</p>';
+                    return;
+                }
+                
+                // 获取当前的结算轮次和回合
+                const settleRoundNum = window.currentSettleRound || '{{ room_data.get("settle_round", "1") }}';
+                const roundNum = window.currentRound || '{{ room_data.get("round", "1") }}';
+                
+                // 构造键名
+                const settleRoundKey = `settle_${settleRoundNum}`;
+                const roundKey = `round_${roundNum}`;
+                
+                // 在顶部显示当前轮次信息
+                const roundInfo = document.createElement('div');
+                roundInfo.className = 'round-info';
+                roundInfo.innerHTML = `当前：第${settleRoundNum}轮第${roundNum}局 <span style="color:#666;"></span>`;
+                userLogs.appendChild(roundInfo);
+                
+                // 检查当前轮次的日志是否存在
+                if (logs[settleRoundKey] && logs[settleRoundKey][roundKey]) {
+                    let currentLogs = logs[settleRoundKey][roundKey];
+                    
+                    // 确保currentLogs是数组
+                    if (!Array.isArray(currentLogs)) {
+                        userLogs.innerHTML += '<p>本局暂无记录</p>';
+                        return;
+                    }
+                    
+                    if (currentLogs.length === 0) {
+                        userLogs.innerHTML += '<p>本局暂无记录</p>';
+                        return;
+                    }
+                    
+                    // 创建日志列表
+                    const logList = document.createElement('ul');
+                    logList.className = 'log-list';
+                    
+                    currentLogs.forEach(log => {
+                        const logItem = document.createElement('li');
+                        logItem.className = 'log-item';
+                        logItem.innerHTML = log.description;
+                        
+                        // 根据类型添加不同的样式
+                        if (log.type === 'in') {
+                            logItem.style.color = '#3271ae'; // 收入颜色
+                        } else if (log.type === 'out') {
+                            logItem.style.color = '#c12c1f'; // 支出颜色
+                        }
+                        
+                        logList.appendChild(logItem);
+                    });
+                    
+                    userLogs.appendChild(logList);
+                } else {
+                    userLogs.innerHTML += '<p>本局暂无记录</p>';
+                }
             }
             
             // Fetch updated room data periodically
@@ -428,6 +589,10 @@
                                         setupSettlementListeners();
                                     }
                                 }
+
+                                // 更新round和settle_round信息
+                                window.currentRound = data.round;
+                                window.currentSettleRound = data.settle_round;
                             }
                         }
                     })
