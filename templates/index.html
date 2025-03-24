@@ -33,11 +33,6 @@
                 </div>
             </div>
             
-            <div class="form-group" id="initial-score-container" style="display: none;">
-                <label for="initial-score">初始积分</label>
-                <input type="number" id="initial-score" value="50" min="0">
-            </div>
-            
             <div class="button-group">
                 <button id="watch-btn" class="btn" disabled>观看赛事</button>
                 <button id="join-btn" class="btn" disabled>加入赛事</button>
@@ -59,6 +54,29 @@
         </div>
     </div>
 
+    <!-- Add new room modal -->
+    <div id="new-room-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal close-room-modal">&times;</span>
+            <h2>添加新赛事</h2>
+            <div class="form-group">
+                <label for="new-room-id">赛事号</label>
+                <input type="text" id="new-room-id" placeholder="输入新赛事号">
+            </div>
+            <div class="form-group">
+                <label for="new-room-initial-score">初始积分</label>
+                <input type="number" id="new-room-initial-score" value="50" min="0">
+            </div>
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="new-room-zero-sum" checked>
+                    "零和"积分赛事
+                </label>
+            </div>
+            <button id="confirm-new-room" class="btn">确认</button>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const roomIdInput = document.getElementById('room-id');
@@ -73,9 +91,14 @@
             
             // Modal elements
             const newUserModal = document.getElementById('new-user-modal');
-            const closeModal = document.querySelector('.close-modal');
+            const newRoomModal = document.getElementById('new-room-modal');
+            const closeUserModal = newUserModal.querySelector('.close-modal');
+            const closeRoomModal = newRoomModal.querySelector('.close-modal');
             const newUsernameInput = document.getElementById('new-username');
+            const newRoomIdInput = document.getElementById('new-room-id');
+            const newRoomInitialScore = document.getElementById('new-room-initial-score');
             const confirmNewUserBtn = document.getElementById('confirm-new-user');
+            const confirmNewRoomBtn = document.getElementById('confirm-new-room');
             
             let selectedUsername = '';
             let roomExists = false;
@@ -104,9 +127,9 @@
             
             // Handle "Add new room" option
             addNewRoomItem.addEventListener('click', function() {
-                roomIdInput.readOnly = false;
-                roomIdInput.focus();
+                newRoomModal.style.display = 'block';
                 roomDropdown.style.display = 'none';
+                newRoomIdInput.focus();
             });
             
             // Handle "Add new user" option
@@ -117,8 +140,13 @@
             });
             
             // Close modal
-            closeModal.addEventListener('click', function() {
+            closeUserModal.addEventListener('click', function() {
                 newUserModal.style.display = 'none';
+            });
+            
+            // Close room modal
+            closeRoomModal.addEventListener('click', function() {
+                newRoomModal.style.display = 'none';
             });
             
             // Confirm new username
@@ -129,6 +157,17 @@
                     selectedUsername = newUsername;
                     newUserModal.style.display = 'none';
                     updateButtons();
+                }
+            });
+            
+            // Confirm new room
+            confirmNewRoomBtn.addEventListener('click', function() {
+                const newRoomId = newRoomIdInput.value.trim();
+                if (newRoomId) {
+                    roomIdInput.value = newRoomId;
+                    roomIdInput.readOnly = true;
+                    newRoomModal.style.display = 'none';
+                    checkRoom();
                 }
             });
             
@@ -173,13 +212,20 @@
                 form.appendChild(roomIdField);
                 form.appendChild(usernameField);
                 
-                // Add initial score if creating a room
+                // Add initial score and zero sum flag if creating a room
                 if (action === 'create_room') {
                     const initialScoreField = document.createElement('input');
                     initialScoreField.type = 'hidden';
                     initialScoreField.name = 'initial_score';
-                    initialScoreField.value = document.getElementById('initial-score').value;
+                    initialScoreField.value = newRoomInitialScore.value;
+                    
+                    const zeroSumField = document.createElement('input');
+                    zeroSumField.type = 'hidden';
+                    zeroSumField.name = 'is_zero_sum';
+                    zeroSumField.value = document.getElementById('new-room-zero-sum').checked;
+                    
                     form.appendChild(initialScoreField);
+                    form.appendChild(zeroSumField);
                 }
                 
                 document.body.appendChild(form);
@@ -187,14 +233,12 @@
             }
             
             function updateButtons() {
-                const initialScoreContainer = document.getElementById('initial-score-container');
                 const roomId = roomIdInput.value.trim();
                 
                 // Reset all buttons to disabled state
                 watchBtn.setAttribute('disabled', true);
                 joinBtn.setAttribute('disabled', true);
                 createBtn.setAttribute('disabled', true);
-                initialScoreContainer.style.display = 'none';
                 
                 if (!roomId) {
                     return;
@@ -211,7 +255,6 @@
                 } else if (selectedUsername) {
                     // Enable create button if room doesn't exist and username is selected
                     createBtn.removeAttribute('disabled');
-                    initialScoreContainer.style.display = 'block';
                 }
             }
             

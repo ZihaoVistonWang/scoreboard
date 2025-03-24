@@ -1,0 +1,27 @@
+{
+  "created_at": "2025-03-24 16:47:24",
+  "initial_score": 0,
+  "is_zero_sum": false,
+  "users": [
+    {
+      "id": "12c766ca-d5e4-42af-bb86-0958612ad233",
+      "name": "admin",
+      "score": 3,
+      "last_change": 0,
+      "owner": true
+    },
+    {
+      "id": "5e057290-21fd-472a-a933-2162125a476a",
+      "name": "123",
+      "score": 2,
+      "last_change": 0,
+      "owner": false
+    }
+  ],
+  "baseline": {
+    "12c766ca-d5e4-42af-bb86-0958612ad233": 0,
+    "5e057290-21fd-472a-a933-2162125a476a": 0
+  },
+  "settlement_reports": [],
+  "settlement_count": 0
+}

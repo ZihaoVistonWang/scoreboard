@@ -45,13 +45,14 @@ def create_room():
     room_id = request.form.get('room_id')
     username = request.form.get('username')
     initial_score = request.form.get('initial_score', '0')
+    is_zero_sum = request.form.get('is_zero_sum', 'true').lower() == 'true'
 
     try:
         initial_score = int(initial_score)
     except ValueError:
         initial_score = 0
 
-    # 创建房间时，第一个用户为房主，初始化last_change为0
+    # Create room with first user as owner
     first_user = {
         'id': str(uuid.uuid4()),
         'name': username,
@@ -62,6 +63,7 @@ def create_room():
     room_data = {
         'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         'initial_score': initial_score,
+        'is_zero_sum': is_zero_sum,
         'users': [first_user],
         'baseline': { first_user['id']: initial_score },
         'settlement_reports': [],
@@ -69,7 +71,6 @@ def create_room():
     }
 
     save_room_data(room_id, room_data)
-
     return redirect(url_for('room', room_id=room_id, user_id=first_user['id']))
 
 @app.route('/join_room', methods=['POST'])
@@ -128,7 +129,8 @@ def room(room_id):
                             users=room_data['users'],
                             current_user={'id': 'spectator', 'name': '观看者', 'owner': False},
                             room_data=room_data,
-                            is_spectator=True)
+                            is_spectator=True,
+                            is_zero_sum=room_data.get('is_zero_sum', True))
 
     current_user = None
     for user in room_data['users']:
@@ -147,7 +149,8 @@ def room(room_id):
                           users=room_data['users'],
                           current_user=current_user,
                           room_data=room_data,
-                          is_spectator=False)
+                          is_spectator=False,
+                          is_zero_sum=room_data.get('is_zero_sum', True))
 
 @app.route('/transfer', methods=['POST'])
 def transfer():
@@ -173,10 +176,18 @@ def transfer():
     if not from_user or not to_user:
         return jsonify({'success': False, 'message': 'User not found'})
 
-    # Removed the check for sufficient score to allow negative balances
+    # Check if this is a zero-sum game
+    is_zero_sum = room_data.get('is_zero_sum', True)  # Default to True for backward compatibility
+    
+    # Check if the from_user is the owner in non-zero-sum game
+    if not is_zero_sum and not from_user.get('owner', False):
+        return jsonify({'success': False, 'message': '只有房主可以修改积分'})
 
-    # Perform the transfer
-    from_user['score'] -= amount
+    # For zero-sum games, deduct from sender
+    if is_zero_sum:
+        from_user['score'] -= amount
+    
+    # Add to receiver
     to_user['score'] += amount
 
     # Save the updated data

@@ -1,0 +1,38 @@
+{
+  "created_at": "2025-03-24 16:44:48",
+  "initial_score": 50,
+  "is_zero_sum": true,
+  "users": [
+    {
+      "id": "4c145a14-4d0a-4875-8b7e-cbd3c44158e8",
+      "name": "123",
+      "score": 50,
+      "last_change": 0,
+      "owner": true
+    },
+    {
+      "id": "85b33788-ddb6-4b0d-8415-17e242aa4284",
+      "name": "哈哈哈",
+      "score": 50,
+      "last_change": 0,
+      "owner": false
+    }
+  ],
+  "baseline": {
+    "4c145a14-4d0a-4875-8b7e-cbd3c44158e8": 50,
+    "85b33788-ddb6-4b0d-8415-17e242aa4284": 50
+  },
+  "settlement_reports": [
+    {
+      "count": 1,
+      "report": "【结算汇总】<br>\n• 总结算金额：50 积分<br>\n• 盈利玩家：1 人<br>\n• 亏损玩家：1 人<br>\n<br>\n【盈利玩家】<br>\n• 123：+50 积分<br>\n<br>\n【亏损玩家】<br>\n• 哈哈哈：-50 积分<br>\n<br>\n【转账明细】<br>\n• 哈哈哈 需要支付：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 50 积分给 123<br>",
+      "timestamp": "2025-03-24 16:46:04"
+    },
+    {
+      "count": 2,
+      "report": "【结算汇总】<br>\n• 总结算金额：20 积分<br>\n• 盈利玩家：1 人<br>\n• 亏损玩家：1 人<br>\n<br>\n【盈利玩家】<br>\n• 哈哈哈：+20 积分<br>\n<br>\n【亏损玩家】<br>\n• 123：-20 积分<br>\n<br>\n【转账明细】<br>\n• 123 需要支付：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 20 积分给 哈哈哈<br>",
+      "timestamp": "2025-03-24 16:46:27"
+    }
+  ],
+  "settlement_count": 2
+}
