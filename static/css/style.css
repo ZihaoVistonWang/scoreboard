@@ -732,3 +732,13 @@ h2 {
 input, button {
     font-family: Georgia, "helvetica neue", Arial, STZhongsong, "noto serif sc", "microsoft yahei", "pingfang sc", sans-serif;
 }
+
+/* Update this rule to keep the underline for links */
+a {
+    color: rgb(5, 46, 22);
+    text-decoration: underline; /* Keep underline */
+}
+
+a:hover {
+    text-decoration: underline; /* Keep underline on hover */
+}

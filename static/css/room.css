@@ -33,6 +33,16 @@
     border-bottom: 1px dotted #eee;
 }
 
+/* Update this rule to keep the underline for links */
+a {
+    color: rgb(5, 46, 22);
+    text-decoration: underline; /* Keep underline */
+}
+
+a:hover {
+    text-decoration: underline; /* Keep underline on hover */
+}
+
 #show-logs.active {
     background-color: #3271ae;
 }
