@@ -1,0 +1,211 @@
+{
+  "created_at": "2025-03-25 23:27:57",
+  "initial_score": 50,
+  "is_zero_sum": true,
+  "round": 1,
+  "settle_round": 2,
+  "users": [
+    {
+      "id": "0c044225-b827-4e80-be2d-6858a93bdfdf",
+      "name": "孙晓琳",
+      "score": 62,
+      "last_change": 0,
+      "owner": true,
+      "last_score": 50,
+      "logs": {
+        "settle_1": {
+          "round_1": [
+            {
+              "type": "in",
+              "timestamp": "23:28:31",
+              "from": "vvvv",
+              "to": "孙晓琳",
+              "amount": 5,
+              "description": "23:28:31 | +5 from vvvv"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "out",
+              "timestamp": "23:28:48",
+              "from": "孙晓琳",
+              "to": "vvvv",
+              "amount": 10,
+              "description": "23:28:48 | -10 to vvvv"
+            }
+          ],
+          "round_3": [
+            {
+              "type": "in",
+              "timestamp": "23:29:32",
+              "from": "vvvv",
+              "to": "孙晓琳",
+              "amount": 5,
+              "description": "23:29:32 | +5 from vvvv"
+            },
+            {
+              "type": "in",
+              "timestamp": "23:29:35",
+              "from": "vvvv",
+              "to": "孙晓琳",
+              "amount": 3,
+              "description": "23:29:35 | +3 from vvvv"
+            }
+          ]
+        },
+        "settle_2": {
+          "round_1": [
+            {
+              "type": "in",
+              "timestamp": "23:39:28",
+              "from": "vvvv",
+              "to": "孙晓琳",
+              "amount": 3,
+              "description": "23:39:28 | +3 from vvvv"
+            },
+            {
+              "type": "in",
+              "timestamp": "23:39:39",
+              "from": "vvvv",
+              "to": "孙晓琳",
+              "amount": 3,
+              "description": "23:39:39 | +3 from vvvv"
+            },
+            {
+              "type": "in",
+              "timestamp": "23:39:43",
+              "from": "vvvv",
+              "to": "孙晓琳",
+              "amount": 3,
+              "description": "23:39:43 | +3 from vvvv"
+            },
+            {
+              "type": "in",
+              "timestamp": "23:54:34",
+              "from": "vvvv",
+              "to": "孙晓琳",
+              "amount": 3,
+              "description": "23:54:34 | +3 from vvvv"
+            }
+          ]
+        }
+      },
+      "score_array": [
+        [
+          55,
+          45,
+          53
+        ],
+        []
+      ]
+    },
+    {
+      "id": "d1967e74-c643-4c7b-9b33-aae96626b28c",
+      "name": "vvvv",
+      "score": 38,
+      "last_change": 0,
+      "owner": false,
+      "last_score": 50,
+      "logs": {
+        "settle_1": {
+          "round_1": [
+            {
+              "type": "out",
+              "timestamp": "23:28:31",
+              "from": "vvvv",
+              "to": "孙晓琳",
+              "amount": 5,
+              "description": "23:28:31 | -5 to 孙晓琳"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "in",
+              "timestamp": "23:28:48",
+              "from": "孙晓琳",
+              "to": "vvvv",
+              "amount": 10,
+              "description": "23:28:48 | +10 from 孙晓琳"
+            }
+          ],
+          "round_3": [
+            {
+              "type": "out",
+              "timestamp": "23:29:32",
+              "from": "vvvv",
+              "to": "孙晓琳",
+              "amount": 5,
+              "description": "23:29:32 | -5 to 孙晓琳"
+            },
+            {
+              "type": "out",
+              "timestamp": "23:29:35",
+              "from": "vvvv",
+              "to": "孙晓琳",
+              "amount": 3,
+              "description": "23:29:35 | -3 to 孙晓琳"
+            }
+          ]
+        },
+        "settle_2": {
+          "round_1": [
+            {
+              "type": "out",
+              "timestamp": "23:39:28",
+              "from": "vvvv",
+              "to": "孙晓琳",
+              "amount": 3,
+              "description": "23:39:28 | -3 to 孙晓琳"
+            },
+            {
+              "type": "out",
+              "timestamp": "23:39:39",
+              "from": "vvvv",
+              "to": "孙晓琳",
+              "amount": 3,
+              "description": "23:39:39 | -3 to 孙晓琳"
+            },
+            {
+              "type": "out",
+              "timestamp": "23:39:43",
+              "from": "vvvv",
+              "to": "孙晓琳",
+              "amount": 3,
+              "description": "23:39:43 | -3 to 孙晓琳"
+            },
+            {
+              "type": "out",
+              "timestamp": "23:54:34",
+              "from": "vvvv",
+              "to": "孙晓琳",
+              "amount": 3,
+              "description": "23:54:34 | -3 to 孙晓琳"
+            }
+          ]
+        }
+      },
+      "score_array": [
+        [
+          45,
+          55,
+          47
+        ],
+        []
+      ]
+    }
+  ],
+  "baseline": {
+    "0c044225-b827-4e80-be2d-6858a93bdfdf": 50,
+    "d1967e74-c643-4c7b-9b33-aae96626b28c": 50
+  },
+  "settlement_reports": [
+    {
+      "count": 1,
+      "timestamp": "2025-03-25 23:29:53",
+      "report": "【结算汇总】<br>\n• 总结算金额：3 积分<br>\n• 盈利玩家：1 人<br>\n• 亏损玩家：1 人<br>\n• 陪玩玩家：0 人<br>\n<br>\n【盈利玩家】<br>\n• 孙晓琳：+3 积分<br>\n<br>\n【亏损玩家】<br>\n• vvvv：-3 积分<br>\n<br>\n【转账明细】<br>\n• vvvv 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 孙晓琳 转账 3 积分<br>\n<br>\n结算时间：2025-03-25 23:29:53"
+    }
+  ],
+  "settlement_count": 1,
+  "can_next_round": true,
+  "can_settle": false
+}

@@ -556,52 +556,11 @@ function createChart(canvas, userName, allPoints, allLabels, initialScore) {
         {
             label: `${userName}的积分`,
             data: allPoints,
-            borderColor: function(context) {
-                const chart = context.chart;
-                const {ctx, chartArea} = chart;
-                
-                if (!chartArea) {
-                    // 如果图表区域未定义，返回默认颜色
-                    return '#3271ae';
-                }
-                
-                // 创建渐变色，根据积分高低变化颜色 (红->绿->蓝)
-                const gradientBorder = ctx.createLinearGradient(0, chartArea.bottom, 0, 0);
-                gradientBorder.addColorStop(0, '#c12c1f'); // 最低积分为红色（亏损）
-                gradientBorder.addColorStop(0.5, '#00c853'); // 中间积分为绿色（持平）
-                gradientBorder.addColorStop(1, '#3271ae'); // 最高积分为蓝色（盈利）
-                
-                return gradientBorder;
-            },
-            backgroundColor: function(context) {
-                const chart = context.chart;
-                const {ctx, chartArea} = chart;
-                
-                if (!chartArea) {
-                    // 如果图表区域未定义，返回默认填充色
-                    return 'rgba(50, 113, 174, 0.1)';
-                }
-                
-                // 创建渐变填充
-                const gradientFill = ctx.createLinearGradient(0, chartArea.bottom, 0, 0);
-                gradientFill.addColorStop(0, 'rgba(193, 44, 31, 0.1)'); // 底部红色半透明（亏损）
-                gradientFill.addColorStop(0.5, 'rgba(0, 200, 83, 0.1)'); // 中间绿色半透明（持平）
-                gradientFill.addColorStop(1, 'rgba(50, 113, 174, 0.1)'); // 顶部蓝色半透明（盈利）
-                
-                return gradientFill;
-            },
+            borderColor: '#00c853', // 统一使用绿色
+            backgroundColor: 'rgba(0, 200, 83, 0.1)', // 绿色半透明背景
             borderWidth: 2,
             pointRadius: 4,
-            pointBackgroundColor: function(context) {
-                // 根据积分与初始积分的关系确定点的颜色
-                const score = context.raw;
-                if (score > initialScore) {
-                    return '#3271ae'; // 盈利为蓝色
-                } else if (score < initialScore) {
-                    return '#c12c1f'; // 亏损为红色
-                }
-                return '#00c853'; // 持平为绿色
-            },
+            pointBackgroundColor: '#00c853', // 统一使用绿色点
             tension: 0.1, // 轻微平滑曲线
             fill: true
         }
@@ -749,5 +708,6 @@ function createChart(canvas, userName, allPoints, allLabels, initialScore) {
 window.ChartManager = {
     initScoreCharts,
     fetchUserScores,
-    closeScoreCharts
+    closeScoreCharts,
+    ensureChartLibraries
 }; 

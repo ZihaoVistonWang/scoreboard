@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 获取关键信息
     const roomId = document.querySelector('meta[name="room-id"]')?.content;
     const currentUserId = document.querySelector('meta[name="current-user-id"]')?.content;
+    const isSpectator = document.querySelector('meta[name="is-spectator"]')?.content === 'True';
     
     if (!roomId || !currentUserId) {
         console.error('缺少必要的房间或用户信息');
@@ -51,5 +52,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化图表管理
     if (window.ChartManager) {
         window.ChartManager.initScoreCharts(roomId, currentUserId);
+    }
+    
+    // 访客模式自动显示内容
+    if (isSpectator) {
+        // 自动显示结算报告
+        const settlementReportsSection = document.getElementById('settlement-reports-section');
+        if (settlementReportsSection) {
+            settlementReportsSection.style.display = 'block';
+        }
+        
+        // 隐藏本局记录
+        const userLogsSection = document.getElementById('user-logs-section');
+        if (userLogsSection) {
+            userLogsSection.style.display = 'none';
+        }
+        
+        // 隐藏积分图表
+        const scoreChartSection = document.getElementById('score-chart-section');
+        if (scoreChartSection) {
+            scoreChartSection.style.display = 'none';
+        }
     }
 }); 

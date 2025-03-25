@@ -340,7 +340,7 @@ def settle():
         # Add summary section
         total_amount = sum(winner['amount'] for winner in winners)
         report_lines.append("【结算汇总】<br>")
-        report_lines.append(f"• 总结算金额：{total_amount} 积分<br>")
+        report_lines.append(f"• 总结算积分：{total_amount} 积分<br>")
         report_lines.append(f"• 盈利玩家：{len(winners)} 人<br>")
         report_lines.append(f"• 亏损玩家：{len(losers)} 人<br>")
         report_lines.append(f"• 陪玩玩家：{len(neutral_users)} 人<br>")

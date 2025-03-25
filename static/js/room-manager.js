@@ -75,13 +75,16 @@ function initTransferModal(roomId, currentUserId) {
         selectedUserId = userId;
         recipientName.textContent = username;
         
+        // 清空转账积分输入框
+        transferAmount.value = '';
+        
         // 根据游戏类型更新模态框标题和输入标签
         const modalTitle = document.querySelector('#transfer-modal h2');
         const amountLabel = document.querySelector('#transfer-modal label[for="transfer-amount"]');
         
         if (isZeroSum) {
             modalTitle.textContent = `转账给 ${username}`;
-            amountLabel.textContent = '转账金额';
+            amountLabel.textContent = '转账积分';
             transferAmount.min = '1';
         } else {
             modalTitle.textContent = `修改 ${username} 的积分`;
@@ -107,13 +110,13 @@ function initTransferModal(roomId, currentUserId) {
     confirmTransfer.addEventListener('click', function() {
         const amount = parseInt(transferAmount.value, 10);
         if (isNaN(amount)) {
-            alert('请输入有效金额');
+            alert('请输入有效积分');
             return;
         }
         
-        // 零和游戏只允许正数金额
+        // 零和游戏只允许正数积分
         if (isZeroSum && amount <= 0) {
-            alert('请输入大于0的金额');
+            alert('请输入大于0的积分');
             return;
         }
         

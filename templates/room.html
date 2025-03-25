@@ -21,7 +21,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>赛事号: {{ room_id }}</h1>
+            <h1>赛事号: {{ room_id }}{% if is_spectator %} <span style="font-size: 0.7em; color: #666;">(访客模式)</span>{% endif %}</h1>
             <a href="/" class="btn back-btn">返回首页</a>
         </header>
 
@@ -51,22 +51,28 @@
                 </div>
             </div>
 
-            {% if current_user.owner %}
-            <div class="button-group">
+            {% if not is_spectator %}
+                {% if current_user.owner %}
+                <div class="button-group">
+                    {% if is_zero_sum %}
+                    <button id="show-logs" class="btn">本局记录</button>
+                    <button id="show-chart" class="btn">积分变化图</button>
+                    {% endif %}
+                    <button id="next-round" class="btn" {% if not room_data.get('can_next_round', False) %}disabled{% endif %}>下一局</button>
+                    <button id="settlement" class="btn" {% if not room_data.get('can_settle', False) %}disabled{% endif %}>结算</button>
+                </div>
+                {% else %}
                 {% if is_zero_sum %}
-                <button id="show-logs" class="btn">本局记录</button>
-                <button id="show-chart" class="btn">积分变化图</button>
+                <div class="button-group">
+                    <button id="show-logs" class="btn">本局记录</button>
+                    <button id="show-chart" class="btn">积分变化图</button>
+                </div>
                 {% endif %}
-                <button id="next-round" class="btn" {% if not room_data.get('can_next_round', False) %}disabled{% endif %}>下一局</button>
-                <button id="settlement" class="btn" {% if not room_data.get('can_settle', False) %}disabled{% endif %}>结算</button>
-            </div>
+                {% endif %}
             {% else %}
-            {% if is_zero_sum %}
-            <div class="button-group">
-                <button id="show-logs" class="btn">本局记录</button>
-                <button id="show-chart" class="btn">积分变化图</button>
-            </div>
-            {% endif %}
+                <div style="margin: 15px 0; padding: 10px; background-color: #f8f9fa; border-radius: 4px; font-size: 14px; color: #666;">
+                    访客模式下，您可以查看实时积分和结算报告，但无法进行任何操作。
+                </div>
             {% endif %}
 
             <!-- 本局记录区域 -->
@@ -90,7 +96,7 @@
                 <div id="settlement-reports" class="settlement-reports">
                     {% for report in room_data.get('settlement_reports', []) %}
                     <div class="settlement-report">
-                        <div class="settlement-header collapsed">第{{ report.count }}次结算报告 ({{ report.timestamp }})</div>
+                        <div class="settlement-header collapsed">第{{ report.count }}轮结算报告 ({{ report.timestamp }})</div>
                         <div class="settlement-content collapsed">{{ report.report | replace('\n', '<br>') | safe }}</div>
                     </div>
                     {% endfor %}
@@ -105,7 +111,7 @@
             <span class="close-modal">&times;</span>
             <h2>转账给 <span id="recipient-name"></span></h2>
             <div class="form-group">
-                <label for="transfer-amount">金额</label>
+                <label for="transfer-amount">积分</label>
                 <input type="number" id="transfer-amount" min="1">
             </div>
             <div class="button-group">
