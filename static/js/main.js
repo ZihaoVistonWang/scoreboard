@@ -2,6 +2,32 @@
  * 主入口脚本
  */
 document.addEventListener('DOMContentLoaded', function() {
+    // 密码验证 - 如果在首页
+    if (window.location.pathname === '/') {
+        const passwordInput = document.getElementById('password');
+        const newPasswordInput = document.getElementById('new-password');
+        
+        if (passwordInput) {
+            passwordInput.addEventListener('input', validatePassword);
+        }
+        
+        if (newPasswordInput) {
+            newPasswordInput.addEventListener('input', function() {
+                validatePassword.call(this);
+            });
+        }
+        
+        function validatePassword() {
+            const password = this.value.trim();
+            // 如果密码为空，或者是6位数字，则有效
+            if (password === '' || /^\d{6}$/.test(password)) {
+                this.classList.remove('invalid');
+            } else {
+                this.classList.add('invalid');
+            }
+        }
+    }
+    
     // 获取关键信息
     const roomId = document.querySelector('meta[name="room-id"]')?.content;
     const currentUserId = document.querySelector('meta[name="current-user-id"]')?.content;

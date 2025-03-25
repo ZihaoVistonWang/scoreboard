@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>错误 - 赛事积分板</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .error-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .error-icon {
+            font-size: 64px;
+            color: #ff5252;
+            margin-bottom: 20px;
+        }
+        .error-message {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card error-container">
+            <div class="error-icon">❌</div>
+            <h1>出错了</h1>
+            <div class="error-message">{{ error_message }}</div>
+            <a href="{{ back_url }}" class="btn">返回</a>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,10 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session, flash
 from datetime import datetime
 import os
 import json
 import uuid
+import re
 
 app = Flask(__name__)
+app.secret_key = os.environ.get('SECRET_KEY', 'dev_key_for_scoreboard_app')
 
 # Function to load room data
 def load_room_data(room_id):
@@ -20,8 +22,16 @@ def save_room_data(room_id, data):
     with open(f'data/{room_id}.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
+# Function to validate password
+def validate_password(password):
+    if not password:  # Allow empty password
+        return True
+    return bool(re.match(r'^\d{6}$', password))
+
 @app.route('/')
 def index():
+    # Clear any existing session
+    session.clear()
     # Default room ID is today's date
     default_room_id = datetime.now().strftime('%y%m%d')
     return render_template('index.html', default_room_id=default_room_id)
@@ -44,8 +54,15 @@ def check_room():
 def create_room():
     room_id = request.form.get('room_id')
     username = request.form.get('username')
+    password = request.form.get('password', '')
     initial_score = request.form.get('initial_score', '0')
     is_zero_sum = request.form.get('is_zero_sum', 'true').lower() == 'true'
+
+    # Validate password
+    if not validate_password(password):
+        return render_template('error.html', 
+                              error_message="密码必须是6位数字", 
+                              back_url=url_for('index'))
 
     try:
         initial_score = int(initial_score)
@@ -56,6 +73,7 @@ def create_room():
     first_user = {
         'id': str(uuid.uuid4()),
         'name': username,
+        'password': password,  # Store password
         'score': initial_score,
         'last_change': 0,
         'owner': True,
@@ -78,19 +96,47 @@ def create_room():
     }
 
     save_room_data(room_id, room_data)
+    
+    # Set session for authenticated user
+    session['user_id'] = first_user['id']
+    session['room_id'] = room_id
+    
     return redirect(url_for('room', room_id=room_id, user_id=first_user['id']))
 
 @app.route('/join_room', methods=['POST'])
 def join_room():
     room_id = request.form.get('room_id')
     username = request.form.get('username')
+    password = request.form.get('password', '')
+
+    # Validate password format
+    if not validate_password(password):
+        return render_template('error.html', 
+                              error_message="密码必须是6位数字", 
+                              back_url=url_for('index'))
 
     room_data = load_room_data(room_id)
+    if not room_data:
+        return render_template('error.html', 
+                              error_message="赛事不存在", 
+                              back_url=url_for('index'))
 
     # Check if username already exists
     for user in room_data['users']:
         if user['name'] == username:
-            # User exists, return their ID
+            # Verify password
+            stored_password = user.get('password', '')
+            # Empty stored password should only match empty input password
+            # Non-empty stored password should match exactly
+            if (stored_password == '' and password != '') or (stored_password != '' and stored_password != password):
+                return render_template('error.html', 
+                                      error_message="密码错误", 
+                                      back_url=url_for('index'))
+                
+            # Set session for authenticated user
+            session['user_id'] = user['id']
+            session['room_id'] = room_id
+            
             return redirect(url_for('room', room_id=room_id, user_id=user['id']))
 
     # Add new user to the room with the initial score and last_change
@@ -98,6 +144,7 @@ def join_room():
     new_user = {
         'id': str(uuid.uuid4()),
         'name': username,
+        'password': password,  # Store password
         'score': initial_score,
         'last_change': 0,
         'owner': False,
@@ -108,7 +155,11 @@ def join_room():
     room_data['users'].append(new_user)
     room_data['baseline'][new_user['id']] = initial_score
     save_room_data(room_id, room_data)
-
+    
+    # Set session for authenticated user
+    session['user_id'] = new_user['id']
+    session['room_id'] = room_id
+    
     return redirect(url_for('room', room_id=room_id, user_id=new_user['id']))
 
 @app.route('/watch_room', methods=['POST'])
@@ -117,8 +168,14 @@ def watch_room():
     room_data = load_room_data(room_id)
 
     if not room_data:
-        return redirect(url_for('index'))
+        return render_template('error.html', 
+                              error_message="赛事不存在", 
+                              back_url=url_for('index'))
 
+    # For spectators, we'll set a session variable
+    session['is_spectator'] = True
+    session['room_id'] = room_id
+    
     # For spectators, we'll pass a special user_id 'spectator'
     return redirect(url_for('room', room_id=room_id, user_id='spectator'))
 
@@ -130,8 +187,19 @@ def room(room_id):
     if not room_data:
         return redirect(url_for('index'))
 
+    # Check authentication
+    if user_id != 'spectator' and (not session.get('user_id') or session.get('user_id') != user_id or session.get('room_id') != room_id):
+        return render_template('error.html', 
+                              error_message="未授权访问，请先登录", 
+                              back_url=url_for('index'))
+
     # Handle spectator mode
     if user_id == 'spectator':
+        if not session.get('is_spectator') or session.get('room_id') != room_id:
+            return render_template('error.html', 
+                                  error_message="未授权访问，请先登录", 
+                                  back_url=url_for('index'))
+        
         # Sort settlement reports by timestamp in descending order (most recent first)
         if 'settlement_reports' in room_data:
             room_data['settlement_reports'].sort(key=lambda x: x['timestamp'], reverse=True)

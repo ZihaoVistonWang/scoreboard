@@ -32,6 +32,11 @@
                     </div>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" placeholder="请输入6位数字密码，留空则不设密码" maxlength="6">
+            </div>
             
             <div class="button-group">
                 <button id="watch-btn" class="btn" disabled>观看赛事</button>
@@ -48,7 +53,11 @@
             <h2>添加新用户</h2>
             <div class="form-group">
                 <label for="new-username">用户名</label>
-                <input type="text" id="new-username" placeholder="输入新用户名">
+                <input type="text" id="new-username" placeholder="请输入新用户名">
+            </div>
+            <div class="form-group">
+                <label for="new-password">密码</label>
+                <input type="password" id="new-password" placeholder="请输入6位数字密码，留空则不设密码" maxlength="6">
             </div>
             <button id="confirm-new-user" class="btn">确认</button>
         </div>
@@ -61,7 +70,7 @@
             <h2>添加新赛事</h2>
             <div class="form-group">
                 <label for="new-room-id">赛事号</label>
-                <input type="text" id="new-room-id" placeholder="输入新赛事号">
+                <input type="text" id="new-room-id" placeholder="请输入新赛事号">
             </div>
             <div class="form-group">
                 <label for="new-room-initial-score">初始积分</label>
@@ -85,6 +94,7 @@
             const usernameInput = document.getElementById('username');
             const usernameDropdown = document.getElementById('username-dropdown');
             const addNewUserItem = document.getElementById('add-new-user');
+            const passwordInput = document.getElementById('password');
             const watchBtn = document.getElementById('watch-btn');
             const joinBtn = document.getElementById('join-btn');
             const createBtn = document.getElementById('create-btn');
@@ -104,6 +114,7 @@
             const closeUserModal = newUserModal.querySelector('.close-modal');
             const closeRoomModal = newRoomModal.querySelector('.close-modal');
             const newUsernameInput = document.getElementById('new-username');
+            const newPasswordInput = document.getElementById('new-password');
             const newRoomIdInput = document.getElementById('new-room-id');
             const confirmNewUserBtn = document.getElementById('confirm-new-user');
             const confirmNewRoomBtn = document.getElementById('confirm-new-room');
@@ -163,6 +174,7 @@
                 if (newUsername) {
                     usernameInput.value = newUsername;
                     selectedUsername = newUsername;
+                    passwordInput.value = newPasswordInput.value; // Transfer password
                     newUserModal.style.display = 'none';
                     updateButtons();
                 }
@@ -194,11 +206,23 @@
             
             // Join room action
             joinBtn.addEventListener('click', function() {
+                // Password validation for joining
+                const password = passwordInput.value;
+                if (password && !/^\d{6}$/.test(password) && password.length > 0) {
+                    alert('密码必须是6位数字');
+                    return;
+                }
                 submitForm('join_room');
             });
             
             // Create room action
             createBtn.addEventListener('click', function() {
+                // Password validation for creating
+                const password = passwordInput.value;
+                if (password && !/^\d{6}$/.test(password) && password.length > 0) {
+                    alert('密码必须是6位数字');
+                    return;
+                }
                 submitForm('create_room');
             });
             
@@ -217,8 +241,14 @@
                 usernameField.name = 'username';
                 usernameField.value = selectedUsername;
                 
+                const passwordField = document.createElement('input');
+                passwordField.type = 'hidden';
+                passwordField.name = 'password';
+                passwordField.value = passwordInput.value;
+                
                 form.appendChild(roomIdField);
                 form.appendChild(usernameField);
+                form.appendChild(passwordField);
                 
                 // Add initial score and zero sum flag if creating a room
                 if (action === 'create_room') {
