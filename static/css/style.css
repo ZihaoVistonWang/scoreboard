@@ -73,11 +73,11 @@ h1, h2 {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .button-group .btn {
-    flex: 1;
+    flex: 0 0 auto;
     min-width: 100px;
     text-align: center;
 }
@@ -372,12 +372,15 @@ header {
     }
     
     .button-group {
-        flex-direction: column;
+        justify-content: center;
+        gap: 8px;
     }
     
     .button-group .btn {
-        width: 100%;
-        margin-bottom: 5px;
+        flex: 0 0 calc(33.33% - 8px);
+        margin-bottom: 0;
+        min-width: 0;
+        padding: 10px 5px;
         font-size: 13px;
     }
     
@@ -480,6 +483,12 @@ header {
     
     .user-list {
         min-width: 250px;
+    }
+
+    .button-group .btn {
+        flex: 0 0 calc(33.33% - 6px);
+        padding: 10px 3px;
+        font-size: 12px;
     }
 }
 

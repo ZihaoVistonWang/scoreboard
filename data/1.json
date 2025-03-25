@@ -2,16 +2,16 @@
   "created_at": "2025-03-25 23:27:57",
   "initial_score": 50,
   "is_zero_sum": true,
-  "round": 1,
+  "round": 2,
   "settle_round": 2,
   "users": [
     {
       "id": "0c044225-b827-4e80-be2d-6858a93bdfdf",
       "name": "孙晓琳",
       "score": 62,
-      "last_change": 0,
+      "last_change": 12,
       "owner": true,
-      "last_score": 50,
+      "last_score": 62,
       "logs": {
         "settle_1": {
           "round_1": [
@@ -96,16 +96,18 @@
           45,
           53
         ],
-        []
+        [
+          62
+        ]
       ]
     },
     {
       "id": "d1967e74-c643-4c7b-9b33-aae96626b28c",
       "name": "vvvv",
       "score": 38,
-      "last_change": 0,
+      "last_change": -12,
       "owner": false,
-      "last_score": 50,
+      "last_score": 38,
       "logs": {
         "settle_1": {
           "round_1": [
@@ -190,13 +192,15 @@
           55,
           47
         ],
-        []
+        [
+          38
+        ]
       ]
     }
   ],
   "baseline": {
-    "0c044225-b827-4e80-be2d-6858a93bdfdf": 50,
-    "d1967e74-c643-4c7b-9b33-aae96626b28c": 50
+    "0c044225-b827-4e80-be2d-6858a93bdfdf": 62,
+    "d1967e74-c643-4c7b-9b33-aae96626b28c": 38
   },
   "settlement_reports": [
     {
@@ -206,6 +210,6 @@
     }
   ],
   "settlement_count": 1,
-  "can_next_round": true,
-  "can_settle": false
+  "can_next_round": false,
+  "can_settle": true
 }

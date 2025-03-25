@@ -72,12 +72,12 @@
     flex-wrap: wrap;
     gap: 8px;
     margin: 15px 0;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .button-group .btn {
-    flex: 0 0 calc(33.33% - 8px); /* 一行3个按钮 */
-    min-width: 0;
+    flex: 0 0 auto;
+    min-width: 120px;
     max-width: 150px;
     margin: 0;
     white-space: nowrap;
@@ -95,12 +95,14 @@
     
     .button-group {
         gap: 6px;
+        justify-content: center;
     }
     
     .button-group .btn {
-        flex: 0 0 calc(50% - 6px); /* 一行2个按钮 */
+        flex: 0 0 calc(33.33% - 6px); /* 一行3个按钮 */
         font-size: 13px;
         padding: 6px 10px;
+        min-width: 0;
     }
     
     .user-chart-title {
@@ -124,7 +126,7 @@
     }
     
     .button-group .btn {
-        flex: 0 0 calc(50% - 6px); /* 保持一行2个按钮 */
+        flex: 0 0 calc(50% - 6px); /* 一行2个按钮 */
         font-size: 12px;
         padding: 6px 8px;
     }
