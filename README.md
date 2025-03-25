@@ -1,6 +1,30 @@
 # 赛事积分板 (Scoreboard)
 
-一个实时、灵活的赛事积分统计应用。
+一个实时、灵活的赛事积分统计应用。 © 2025 <a href="https://github.com/ZihaoVistonWang/scoreboard" target="_blank">赛事积分板</a>
+
+## 预览地址
+
+- 🧮 [赛事积分板 (Scoreboard)](https://scoreboard.zihao.viston.wang/)
+
+  - 🔍由于服务器资源紧张，本预览地址不一定永久服务。若链接失效或服务关闭时，您还想继续体验，请在本页面最下方给我留言，我将第一时间与您答复，并视情况启动该服务。
+  - ⚠️本服务的密码加密为明文传输，为了防止网络安全事件发生，请不要使用您的常用用户名或密码体验！
+
+## 应用展示
+
+![转账页面](./fig/transfer.png)
+<p style="text-align: center;">图1  转账页面</p>
+
+![积分列表与积分变化图](./fig/transfer.png)
+<p style="text-align: center;">图2  积分列表与积分变化图</p>
+
+
+![积分列表与积分变化图](./fig/transfer.png)
+<p style="text-align: center;">图3  积分列表与本局记录</p>
+
+## 代码仓库
+
+- 本项目遵循[MIT](https://github.com/ZihaoVistonWang/scoreboard/blob/main/LICENSE)许可开源。
+- [GitHub仓库链接](https://github.com/ZihaoVistonWang/scoreboard)
 
 ## 功能特性
 
