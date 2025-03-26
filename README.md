@@ -1,6 +1,16 @@
 # 赛事积分板 (Scoreboard)
 
-一个实时、灵活的赛事积分统计应用。 © 2025 <a href="https://github.com/ZihaoVistonWang/scoreboard" target="_blank">赛事积分板</a>
+一个实时、灵活的赛事积分统计应用。
+
+© 2025 [赛事积分板](https://github.com/ZihaoVistonWang/scoreboard)
+
+## 项目发布页
+
+- 我的个人主页：
+  - [https://zihaowang.cn/zh/post/scoreboard/](https://zihaowang.cn/zh/post/scoreboard/)
+  - [https://zihao.viston.wang/zh/post/scoreboard/](https://zihao.viston.wang/zh/post/scoreboard/)
+- GitHub:
+  - [https://github.com/ZihaoVistonWang/scoreboard](https://github.com/ZihaoVistonWang/scoreboard)
 
 ## 预览地址
 
@@ -24,7 +34,7 @@
 ## 代码仓库
 
 - 本项目遵循[MIT](https://github.com/ZihaoVistonWang/scoreboard/blob/main/LICENSE)许可开源。
-- [GitHub仓库链接](https://github.com/ZihaoVistonWang/scoreboard)
+- 点击访问[GitHub仓库](https://github.com/ZihaoVistonWang/scoreboard)。
 
 ## 功能特性
 
@@ -32,7 +42,7 @@
    - 用户从现有用户列表中选择，也可以添加新用户
    - 创建新赛事或加入已有赛事
    - 创建赛事时可设置所有用户的初始积分（默认为50分）
-   - 支持设置"零和"和"非零和"积分模式
+   - 支持设置“零和”和“非零和”积分模式
    - 可选密码保护用户账号（6位数字）
 
 2. **赛事房间页面**
@@ -47,7 +57,7 @@
    - 支持负分记录，用户可以转出超过自己拥有的积分
 
 3. **比赛管理**
-   - 房主可以控制"下一局"和"结算"功能
+   - 房主可以控制“下一局”和“结算”功能
    - 支持多轮比赛记录
    - 生成详细的结算报告
    - 访客模式允许非参与者观看赛事
@@ -72,11 +82,6 @@ pip install flask
 python app.py
 ```
 
-或者使用批处理脚本（Windows）:
-```bash
-scoreboard_launch.bat
-```
-
 启动后，在浏览器中访问 http://127.0.0.1:16868 即可使用。
 
 ## 项目结构
@@ -84,7 +89,6 @@ scoreboard_launch.bat
 ```
 /
 ├── app.py              # Flask应用主程序
-├── scoreboard_launch.bat # Windows启动脚本
 ├── /templates/         # HTML模板
 │   ├── index.html      # 首页
 │   ├── room.html       # 房间页面
@@ -98,7 +102,6 @@ scoreboard_launch.bat
 │       ├── settlement.js      # 结算功能
 │       └── main.js            # 主脚本
 └── /data/              # 存储赛事数据（JSON格式）
-└── /log/               # 应用日志
 ```
 
 ## 使用说明
@@ -107,14 +110,14 @@ scoreboard_launch.bat
    - 选择已有用户或添加新用户
    - 可选添加6位数字密码保护账号
    - 创建赛事时可设置每个用户的初始积分（默认50分）和零和/非零和模式
-   - 点击"创建赛事"、"加入赛事"或"观看赛事"按钮
+   - 点击“创建赛事”“加入赛事”或“观看赛事”按钮
 
 2. **赛事房间内操作**
    - 积分转账：点击其他用户，输入转账金额并确认
-   - 查看记录：点击"本局记录"查看当前局的转账详情
-   - 积分图表：点击"积分变化图"查看积分变化趋势
-   - 下一局：房主可点击"下一局"开始新一轮比赛（当可用时）
-   - 结算：房主可点击"结算"生成当前阶段的结算报告（当可用时）
+   - 查看记录：点击“本局记录”查看当前局的转账详情
+   - 积分图表：点击“积分变化图”查看积分变化趋势
+   - 下一局：房主可点击“下一局”开始新一轮比赛（当可用时）
+   - 结算：房主可点击“结算”生成当前阶段的结算报告（当可用时）
 
 3. **特殊功能**
    - 访客模式：无需注册，可实时观看赛事进展
@@ -124,4 +127,3 @@ scoreboard_launch.bat
 ## 安全与数据
 - 所有数据以JSON格式存储在data目录
 - 可选的密码保护用户账号
-- 日志记录在log目录，方便故障排查

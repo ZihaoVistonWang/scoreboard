@@ -2,17 +2,17 @@
   "created_at": "2025-03-26 02:19:00",
   "initial_score": 50,
   "is_zero_sum": true,
-  "round": 4,
-  "settle_round": 1,
+  "round": 1,
+  "settle_round": 3,
   "users": [
     {
       "id": "e0b68c7e-6550-4cfa-b89f-4a176b55ac2e",
       "name": "张三",
       "password": "",
-      "score": 42,
+      "score": 50,
       "last_change": 0,
       "owner": true,
-      "last_score": 40,
+      "last_score": 50,
       "logs": {
         "settle_1": {
           "round_1": [
@@ -35,24 +35,52 @@
               "description": "02:24:45 | +2 from 赵六"
             }
           ]
+        },
+        "settle_2": {
+          "round_1": [
+            {
+              "type": "out",
+              "timestamp": "11:36:45",
+              "from": "张三",
+              "to": "李四",
+              "amount": 5,
+              "description": "11:36:45 | -5 to 李四"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "out",
+              "timestamp": "11:37:03",
+              "from": "张三",
+              "to": "王五",
+              "amount": 3,
+              "description": "11:37:03 | -3 to 王五"
+            }
+          ]
         }
       },
       "score_array": [
         [
           40,
           40,
-          40
-        ]
+          40,
+          42
+        ],
+        [
+          45,
+          42
+        ],
+        []
       ]
     },
     {
       "id": "8abd5a0b-a3c1-46d5-9977-d006681fe446",
       "name": "李四",
       "password": "",
-      "score": 67,
+      "score": 50,
       "last_change": 0,
       "owner": false,
-      "last_score": 63,
+      "last_score": 50,
       "logs": {
         "settle_1": {
           "round_1": [
@@ -93,24 +121,42 @@
               "description": "02:24:40 | +4 from 赵六"
             }
           ]
+        },
+        "settle_2": {
+          "round_1": [
+            {
+              "type": "in",
+              "timestamp": "11:36:45",
+              "from": "张三",
+              "to": "李四",
+              "amount": 5,
+              "description": "11:36:45 | +5 from 张三"
+            }
+          ]
         }
       },
       "score_array": [
         [
           66,
           63,
-          63
-        ]
+          63,
+          67
+        ],
+        [
+          55,
+          55
+        ],
+        []
       ]
     },
     {
       "id": "a4df6b39-1a3e-40c4-9cc5-2dcf0ba65426",
       "name": "王五",
       "password": "",
-      "score": 45,
-      "last_change": -8,
+      "score": 50,
+      "last_change": 0,
       "owner": false,
-      "last_score": 45,
+      "last_score": 50,
       "logs": {
         "settle_1": {
           "round_2": [
@@ -133,24 +179,42 @@
               "description": "02:24:12 | -8 to 赵六"
             }
           ]
+        },
+        "settle_2": {
+          "round_2": [
+            {
+              "type": "in",
+              "timestamp": "11:37:03",
+              "from": "张三",
+              "to": "王五",
+              "amount": 3,
+              "description": "11:37:03 | +3 from 张三"
+            }
+          ]
         }
       },
       "score_array": [
         [
           50,
           53,
+          45,
           45
-        ]
+        ],
+        [
+          50,
+          53
+        ],
+        []
       ]
     },
     {
       "id": "1ef7e590-463c-43f1-aa50-f4e563401353",
       "name": "赵六",
       "password": "",
-      "score": 46,
-      "last_change": 8,
+      "score": 50,
+      "last_change": 0,
       "owner": false,
-      "last_score": 52,
+      "last_score": 50,
       "logs": {
         "settle_1": {
           "round_1": [
@@ -197,19 +261,36 @@
         [
           44,
           44,
-          52
-        ]
+          52,
+          46
+        ],
+        [
+          50,
+          50
+        ],
+        []
       ]
     }
   ],
   "baseline": {
-    "e0b68c7e-6550-4cfa-b89f-4a176b55ac2e": 40,
-    "8abd5a0b-a3c1-46d5-9977-d006681fe446": 63,
-    "a4df6b39-1a3e-40c4-9cc5-2dcf0ba65426": 45,
-    "1ef7e590-463c-43f1-aa50-f4e563401353": 52
+    "e0b68c7e-6550-4cfa-b89f-4a176b55ac2e": 50,
+    "8abd5a0b-a3c1-46d5-9977-d006681fe446": 50,
+    "a4df6b39-1a3e-40c4-9cc5-2dcf0ba65426": 50,
+    "1ef7e590-463c-43f1-aa50-f4e563401353": 50
   },
-  "settlement_reports": [],
-  "settlement_count": 0,
-  "can_next_round": true,
+  "settlement_reports": [
+    {
+      "count": 1,
+      "timestamp": "2025-03-26 03:58:48",
+      "report": "【结算汇总】<br>\n• 总结算积分：17 积分<br>\n• 盈利玩家：1 人<br>\n• 亏损玩家：3 人<br>\n• 陪玩玩家：0 人<br>\n<br>\n【盈利玩家】<br>\n• 李四：+17 积分<br>\n<br>\n【亏损玩家】<br>\n• 张三：-8 积分<br>\n• 王五：-5 积分<br>\n• 赵六：-4 积分<br>\n<br>\n【转账明细】<br>\n• 张三 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 李四 转账 8 积分<br>\n• 王五 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 李四 转账 5 积分<br>\n• 赵六 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 李四 转账 4 积分<br>\n<br>\n结算时间：2025-03-26 03:58:48"
+    },
+    {
+      "count": 2,
+      "timestamp": "2025-03-26 11:37:15",
+      "report": "【结算汇总】<br>\n• 总结算积分：8 积分<br>\n• 盈利玩家：2 人<br>\n• 亏损玩家：1 人<br>\n• 陪玩玩家：1 人<br>\n<br>\n【盈利玩家】<br>\n• 李四：+5 积分<br>\n• 王五：+3 积分<br>\n<br>\n【亏损玩家】<br>\n• 张三：-8 积分<br>\n<br>\n【陪玩玩家】<br>\n• 赵六：0 积分<br>\n<br>\n【转账明细】<br>\n• 张三 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 李四 转账 5 积分<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 王五 转账 3 积分<br>\n<br>\n结算时间：2025-03-26 11:37:15"
+    }
+  ],
+  "settlement_count": 2,
+  "can_next_round": false,
   "can_settle": false
 }

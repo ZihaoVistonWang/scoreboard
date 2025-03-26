@@ -8,3 +8,5 @@ __pycache__/
 .env
 .venv/
 log/
+scoreboard_launch.bat
+scoreboard_launch.bat.ink
