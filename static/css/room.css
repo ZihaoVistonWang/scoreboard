@@ -175,8 +175,8 @@ a:hover {
 .settlement-content {
     padding: 10px;
     background-color: #fff;
-    max-height: 500px;
-    overflow-y: auto;
+    max-height: none;
+    overflow-y: visible;
 }
 
 .settlement-content.collapsed {

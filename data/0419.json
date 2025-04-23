@@ -1,0 +1,2089 @@
+{
+  "created_at": "2025-04-19 12:26:35",
+  "initial_score": 50,
+  "is_zero_sum": true,
+  "round": 1,
+  "settle_round": 2,
+  "users": [
+    {
+      "id": "a7e4b2be-cdf0-4797-8146-bdcafce18f28",
+      "name": "viston",
+      "password": "",
+      "score": 50,
+      "last_change": 0,
+      "owner": true,
+      "last_score": 50,
+      "logs": {
+        "settle_1": {
+          "round_1": [
+            {
+              "type": "out",
+              "timestamp": "12:50:03",
+              "from": "viston",
+              "to": "123",
+              "amount": 3,
+              "description": "12:50:03 | -3 to 123"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "out",
+              "timestamp": "12:55:48",
+              "from": "viston",
+              "to": "123",
+              "amount": 6,
+              "description": "12:55:48 | -6 to 123"
+            }
+          ],
+          "round_3": [
+            {
+              "type": "out",
+              "timestamp": "13:00:12",
+              "from": "viston",
+              "to": "hlc",
+              "amount": 3,
+              "description": "13:00:12 | -3 to hlc"
+            }
+          ],
+          "round_4": [
+            {
+              "type": "out",
+              "timestamp": "13:10:02",
+              "from": "viston",
+              "to": "黄了个大西瓜",
+              "amount": 6,
+              "description": "13:10:02 | -6 to 黄了个大西瓜"
+            }
+          ],
+          "round_5": [
+            {
+              "type": "out",
+              "timestamp": "13:13:34",
+              "from": "viston",
+              "to": "曹逸寒",
+              "amount": 2,
+              "description": "13:13:34 | -2 to 曹逸寒"
+            },
+            {
+              "type": "out",
+              "timestamp": "13:17:51",
+              "from": "viston",
+              "to": "曹逸寒",
+              "amount": 2,
+              "description": "13:17:51 | -2 to 曹逸寒"
+            }
+          ],
+          "round_6": [
+            {
+              "type": "out",
+              "timestamp": "13:23:31",
+              "from": "viston",
+              "to": "123",
+              "amount": 3,
+              "description": "13:23:31 | -3 to 123"
+            }
+          ],
+          "round_7": [
+            {
+              "type": "in",
+              "timestamp": "13:28:54",
+              "from": "琳",
+              "to": "viston",
+              "amount": 4,
+              "description": "13:28:54 | +4 from 琳"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:28:54",
+              "from": "曹逸寒",
+              "to": "viston",
+              "amount": 4,
+              "description": "13:28:54 | +4 from 曹逸寒"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:28:55",
+              "from": "hlc",
+              "to": "viston",
+              "amount": 2,
+              "description": "13:28:55 | +2 from hlc"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:28:55",
+              "from": "马了个jio",
+              "to": "viston",
+              "amount": 6,
+              "description": "13:28:55 | +6 from 马了个jio"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:28:56",
+              "from": "白客",
+              "to": "viston",
+              "amount": 6,
+              "description": "13:28:56 | +6 from 白客"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:28:56",
+              "from": "123",
+              "to": "viston",
+              "amount": 3,
+              "description": "13:28:56 | +3 from 123"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:29:25",
+              "from": "黄了个大西瓜",
+              "to": "viston",
+              "amount": 3,
+              "description": "13:29:25 | +3 from 黄了个大西瓜"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:29:33",
+              "from": "威",
+              "to": "viston",
+              "amount": 3,
+              "description": "13:29:33 | +3 from 威"
+            }
+          ],
+          "round_8": [
+            {
+              "type": "out",
+              "timestamp": "13:33:38",
+              "from": "viston",
+              "to": "曹逸寒",
+              "amount": 5,
+              "description": "13:33:38 | -5 to 曹逸寒"
+            }
+          ],
+          "round_9": [
+            {
+              "type": "out",
+              "timestamp": "13:38:50",
+              "from": "viston",
+              "to": "123",
+              "amount": 6,
+              "description": "13:38:50 | -6 to 123"
+            }
+          ],
+          "round_10": [
+            {
+              "type": "out",
+              "timestamp": "13:45:40",
+              "from": "viston",
+              "to": "123",
+              "amount": 3,
+              "description": "13:45:40 | -3 to 123"
+            }
+          ],
+          "round_11": [
+            {
+              "type": "out",
+              "timestamp": "13:50:54",
+              "from": "viston",
+              "to": "琳",
+              "amount": 4,
+              "description": "13:50:54 | -4 to 琳"
+            }
+          ]
+        }
+      },
+      "score_array": [
+        [
+          47,
+          41,
+          38,
+          32,
+          28,
+          25,
+          56,
+          51,
+          45,
+          42,
+          38
+        ],
+        []
+      ]
+    },
+    {
+      "id": "2ee8ab34-1faa-474a-b131-afebdde5d84e",
+      "name": "威",
+      "password": "123456",
+      "score": 50,
+      "last_change": 0,
+      "owner": false,
+      "last_score": 50,
+      "logs": {
+        "settle_1": {
+          "round_1": [
+            {
+              "type": "out",
+              "timestamp": "12:49:59",
+              "from": "威",
+              "to": "123",
+              "amount": 3,
+              "description": "12:49:59 | -3 to 123"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "out",
+              "timestamp": "12:55:43",
+              "from": "威",
+              "to": "123",
+              "amount": 6,
+              "description": "12:55:43 | -6 to 123"
+            }
+          ],
+          "round_3": [
+            {
+              "type": "out",
+              "timestamp": "13:00:04",
+              "from": "威",
+              "to": "hlc",
+              "amount": 2,
+              "description": "13:00:04 | -2 to hlc"
+            }
+          ],
+          "round_4": [
+            {
+              "type": "out",
+              "timestamp": "13:10:12",
+              "from": "威",
+              "to": "黄了个大西瓜",
+              "amount": 2,
+              "description": "13:10:12 | -2 to 黄了个大西瓜"
+            }
+          ],
+          "round_5": [
+            {
+              "type": "out",
+              "timestamp": "13:13:32",
+              "from": "威",
+              "to": "曹逸寒",
+              "amount": 4,
+              "description": "13:13:32 | -4 to 曹逸寒"
+            },
+            {
+              "type": "out",
+              "timestamp": "13:17:55",
+              "from": "威",
+              "to": "曹逸寒",
+              "amount": 1,
+              "description": "13:17:55 | -1 to 曹逸寒"
+            }
+          ],
+          "round_6": [
+            {
+              "type": "out",
+              "timestamp": "13:23:30",
+              "from": "威",
+              "to": "123",
+              "amount": 2,
+              "description": "13:23:30 | -2 to 123"
+            }
+          ],
+          "round_7": [
+            {
+              "type": "out",
+              "timestamp": "13:29:33",
+              "from": "威",
+              "to": "viston",
+              "amount": 3,
+              "description": "13:29:33 | -3 to viston"
+            }
+          ],
+          "round_8": [
+            {
+              "type": "out",
+              "timestamp": "13:33:37",
+              "from": "威",
+              "to": "曹逸寒",
+              "amount": 2,
+              "description": "13:33:37 | -2 to 曹逸寒"
+            }
+          ],
+          "round_9": [
+            {
+              "type": "out",
+              "timestamp": "13:38:52",
+              "from": "威",
+              "to": "123",
+              "amount": 1,
+              "description": "13:38:52 | -1 to 123"
+            }
+          ],
+          "round_10": [
+            {
+              "type": "out",
+              "timestamp": "13:45:36",
+              "from": "威",
+              "to": "123",
+              "amount": 4,
+              "description": "13:45:36 | -4 to 123"
+            }
+          ],
+          "round_11": [
+            {
+              "type": "out",
+              "timestamp": "13:50:54",
+              "from": "威",
+              "to": "马了个jio",
+              "amount": 5,
+              "description": "13:50:54 | -5 to 马了个jio"
+            }
+          ]
+        }
+      },
+      "score_array": [
+        [
+          47,
+          41,
+          39,
+          37,
+          32,
+          30,
+          27,
+          25,
+          24,
+          20,
+          15
+        ],
+        []
+      ]
+    },
+    {
+      "id": "8b1a7779-cdf6-40bb-96bc-0ce6f1810573",
+      "name": "123",
+      "password": "123456",
+      "score": 50,
+      "last_change": 0,
+      "owner": false,
+      "last_score": 50,
+      "logs": {
+        "settle_1": {
+          "round_1": [
+            {
+              "type": "in",
+              "timestamp": "12:49:59",
+              "from": "威",
+              "to": "123",
+              "amount": 3,
+              "description": "12:49:59 | +3 from 威"
+            },
+            {
+              "type": "in",
+              "timestamp": "12:50:02",
+              "from": "白客",
+              "to": "123",
+              "amount": 1,
+              "description": "12:50:02 | +1 from 白客"
+            },
+            {
+              "type": "in",
+              "timestamp": "12:50:03",
+              "from": "viston",
+              "to": "123",
+              "amount": 3,
+              "description": "12:50:03 | +3 from viston"
+            },
+            {
+              "type": "in",
+              "timestamp": "12:50:08",
+              "from": "曹逸寒",
+              "to": "123",
+              "amount": 4,
+              "description": "12:50:08 | +4 from 曹逸寒"
+            },
+            {
+              "type": "in",
+              "timestamp": "12:50:09",
+              "from": "hlc",
+              "to": "123",
+              "amount": 3,
+              "description": "12:50:09 | +3 from hlc"
+            },
+            {
+              "type": "in",
+              "timestamp": "12:50:09",
+              "from": "马了个jio",
+              "to": "123",
+              "amount": 2,
+              "description": "12:50:09 | +2 from 马了个jio"
+            },
+            {
+              "type": "in",
+              "timestamp": "12:50:15",
+              "from": "黄了个大西瓜",
+              "to": "123",
+              "amount": 3,
+              "description": "12:50:15 | +3 from 黄了个大西瓜"
+            },
+            {
+              "type": "in",
+              "timestamp": "12:50:28",
+              "from": "琳",
+              "to": "123",
+              "amount": 5,
+              "description": "12:50:28 | +5 from 琳"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "in",
+              "timestamp": "12:55:38",
+              "from": "hlc",
+              "to": "123",
+              "amount": 10,
+              "description": "12:55:38 | +10 from hlc"
+            },
+            {
+              "type": "in",
+              "timestamp": "12:55:39",
+              "from": "黄了个大西瓜",
+              "to": "123",
+              "amount": 4,
+              "description": "12:55:39 | +4 from 黄了个大西瓜"
+            },
+            {
+              "type": "in",
+              "timestamp": "12:55:41",
+              "from": "马了个jio",
+              "to": "123",
+              "amount": 5,
+              "description": "12:55:41 | +5 from 马了个jio"
+            },
+            {
+              "type": "in",
+              "timestamp": "12:55:43",
+              "from": "威",
+              "to": "123",
+              "amount": 6,
+              "description": "12:55:43 | +6 from 威"
+            },
+            {
+              "type": "in",
+              "timestamp": "12:55:48",
+              "from": "viston",
+              "to": "123",
+              "amount": 6,
+              "description": "12:55:48 | +6 from viston"
+            },
+            {
+              "type": "in",
+              "timestamp": "12:55:52",
+              "from": "曹逸寒",
+              "to": "123",
+              "amount": 7,
+              "description": "12:55:52 | +7 from 曹逸寒"
+            },
+            {
+              "type": "in",
+              "timestamp": "12:55:56",
+              "from": "琳",
+              "to": "123",
+              "amount": 6,
+              "description": "12:55:56 | +6 from 琳"
+            },
+            {
+              "type": "in",
+              "timestamp": "12:56:02",
+              "from": "白客",
+              "to": "123",
+              "amount": 1,
+              "description": "12:56:02 | +1 from 白客"
+            }
+          ],
+          "round_3": [
+            {
+              "type": "out",
+              "timestamp": "13:00:16",
+              "from": "123",
+              "to": "hlc",
+              "amount": 3,
+              "description": "13:00:16 | -3 to hlc"
+            }
+          ],
+          "round_4": [
+            {
+              "type": "out",
+              "timestamp": "13:10:16",
+              "from": "123",
+              "to": "黄了个大西瓜",
+              "amount": 4,
+              "description": "13:10:16 | -4 to 黄了个大西瓜"
+            }
+          ],
+          "round_5": [
+            {
+              "type": "out",
+              "timestamp": "13:13:46",
+              "from": "123",
+              "to": "曹逸寒",
+              "amount": 1,
+              "description": "13:13:46 | -1 to 曹逸寒"
+            }
+          ],
+          "round_6": [
+            {
+              "type": "out",
+              "timestamp": "13:18:04",
+              "from": "123",
+              "to": "hlc",
+              "amount": 4,
+              "description": "13:18:04 | -4 to hlc"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:23:29",
+              "from": "白客",
+              "to": "123",
+              "amount": 4,
+              "description": "13:23:29 | +4 from 白客"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:23:29",
+              "from": "马了个jio",
+              "to": "123",
+              "amount": 4,
+              "description": "13:23:29 | +4 from 马了个jio"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:23:30",
+              "from": "威",
+              "to": "123",
+              "amount": 2,
+              "description": "13:23:30 | +2 from 威"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:23:31",
+              "from": "viston",
+              "to": "123",
+              "amount": 3,
+              "description": "13:23:31 | +3 from viston"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:23:31",
+              "from": "琳",
+              "to": "123",
+              "amount": 6,
+              "description": "13:23:31 | +6 from 琳"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:23:32",
+              "from": "hlc",
+              "to": "123",
+              "amount": 5,
+              "description": "13:23:32 | +5 from hlc"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:23:33",
+              "from": "曹逸寒",
+              "to": "123",
+              "amount": 2,
+              "description": "13:23:33 | +2 from 曹逸寒"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:25:08",
+              "from": "黄了个大西瓜",
+              "to": "123",
+              "amount": 3,
+              "description": "13:25:08 | +3 from 黄了个大西瓜"
+            }
+          ],
+          "round_7": [
+            {
+              "type": "out",
+              "timestamp": "13:28:56",
+              "from": "123",
+              "to": "viston",
+              "amount": 3,
+              "description": "13:28:56 | -3 to viston"
+            }
+          ],
+          "round_8": [
+            {
+              "type": "out",
+              "timestamp": "13:33:42",
+              "from": "123",
+              "to": "曹逸寒",
+              "amount": 4,
+              "description": "13:33:42 | -4 to 曹逸寒"
+            }
+          ],
+          "round_9": [
+            {
+              "type": "in",
+              "timestamp": "13:38:47",
+              "from": "白客",
+              "to": "123",
+              "amount": 4,
+              "description": "13:38:47 | +4 from 白客"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:38:50",
+              "from": "马了个jio",
+              "to": "123",
+              "amount": 1,
+              "description": "13:38:50 | +1 from 马了个jio"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:38:50",
+              "from": "黄了个大西瓜",
+              "to": "123",
+              "amount": 2,
+              "description": "13:38:50 | +2 from 黄了个大西瓜"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:38:50",
+              "from": "viston",
+              "to": "123",
+              "amount": 6,
+              "description": "13:38:50 | +6 from viston"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:38:51",
+              "from": "曹逸寒",
+              "to": "123",
+              "amount": 4,
+              "description": "13:38:51 | +4 from 曹逸寒"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:38:51",
+              "from": "曹逸寒",
+              "to": "123",
+              "amount": 4,
+              "description": "13:38:51 | +4 from 曹逸寒"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:38:51",
+              "from": "琳",
+              "to": "123",
+              "amount": 4,
+              "description": "13:38:51 | +4 from 琳"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:38:51",
+              "from": "hlc",
+              "to": "123",
+              "amount": 14,
+              "description": "13:38:51 | +14 from hlc"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:38:52",
+              "from": "威",
+              "to": "123",
+              "amount": 1,
+              "description": "13:38:52 | +1 from 威"
+            },
+            {
+              "type": "out",
+              "timestamp": "13:39:16",
+              "from": "123",
+              "to": "曹逸寒",
+              "amount": 4,
+              "description": "13:39:16 | -4 to 曹逸寒"
+            }
+          ],
+          "round_10": [
+            {
+              "type": "in",
+              "timestamp": "13:45:29",
+              "from": "白客",
+              "to": "123",
+              "amount": 3,
+              "description": "13:45:29 | +3 from 白客"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:45:31",
+              "from": "曹逸寒",
+              "to": "123",
+              "amount": 3,
+              "description": "13:45:31 | +3 from 曹逸寒"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:45:32",
+              "from": "马了个jio",
+              "to": "123",
+              "amount": 5,
+              "description": "13:45:32 | +5 from 马了个jio"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:45:34",
+              "from": "hlc",
+              "to": "123",
+              "amount": 5,
+              "description": "13:45:34 | +5 from hlc"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:45:35",
+              "from": "黄了个大西瓜",
+              "to": "123",
+              "amount": 1,
+              "description": "13:45:35 | +1 from 黄了个大西瓜"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:45:35",
+              "from": "琳",
+              "to": "123",
+              "amount": 5,
+              "description": "13:45:35 | +5 from 琳"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:45:36",
+              "from": "威",
+              "to": "123",
+              "amount": 4,
+              "description": "13:45:36 | +4 from 威"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:45:40",
+              "from": "viston",
+              "to": "123",
+              "amount": 3,
+              "description": "13:45:40 | +3 from viston"
+            }
+          ],
+          "round_11": [
+            {
+              "type": "out",
+              "timestamp": "13:51:14",
+              "from": "123",
+              "to": "琳",
+              "amount": 5,
+              "description": "13:51:14 | -5 to 琳"
+            }
+          ]
+        }
+      },
+      "score_array": [
+        [
+          74,
+          119,
+          116,
+          112,
+          111,
+          136,
+          133,
+          129,
+          165,
+          194,
+          189
+        ],
+        []
+      ]
+    },
+    {
+      "id": "7d9cc483-9837-4e71-92b9-dd5cb798c900",
+      "name": "马了个jio",
+      "password": "123456",
+      "score": 50,
+      "last_change": 0,
+      "owner": false,
+      "last_score": 50,
+      "logs": {
+        "settle_1": {
+          "round_1": [
+            {
+              "type": "out",
+              "timestamp": "12:50:09",
+              "from": "马了个jio",
+              "to": "123",
+              "amount": 2,
+              "description": "12:50:09 | -2 to 123"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "out",
+              "timestamp": "12:55:41",
+              "from": "马了个jio",
+              "to": "123",
+              "amount": 5,
+              "description": "12:55:41 | -5 to 123"
+            }
+          ],
+          "round_3": [
+            {
+              "type": "out",
+              "timestamp": "13:00:10",
+              "from": "马了个jio",
+              "to": "hlc",
+              "amount": 9,
+              "description": "13:00:10 | -9 to hlc"
+            }
+          ],
+          "round_4": [
+            {
+              "type": "out",
+              "timestamp": "13:09:59",
+              "from": "马了个jio",
+              "to": "黄了个大西瓜",
+              "amount": 2,
+              "description": "13:09:59 | -2 to 黄了个大西瓜"
+            }
+          ],
+          "round_5": [
+            {
+              "type": "out",
+              "timestamp": "13:13:35",
+              "from": "马了个jio",
+              "to": "曹逸寒",
+              "amount": 6,
+              "description": "13:13:35 | -6 to 曹逸寒"
+            },
+            {
+              "type": "out",
+              "timestamp": "13:17:54",
+              "from": "马了个jio",
+              "to": "曹逸寒",
+              "amount": 3,
+              "description": "13:17:54 | -3 to 曹逸寒"
+            }
+          ],
+          "round_6": [
+            {
+              "type": "out",
+              "timestamp": "13:23:29",
+              "from": "马了个jio",
+              "to": "123",
+              "amount": 4,
+              "description": "13:23:29 | -4 to 123"
+            }
+          ],
+          "round_7": [
+            {
+              "type": "out",
+              "timestamp": "13:28:55",
+              "from": "马了个jio",
+              "to": "viston",
+              "amount": 6,
+              "description": "13:28:55 | -6 to viston"
+            }
+          ],
+          "round_8": [
+            {
+              "type": "out",
+              "timestamp": "13:33:30",
+              "from": "马了个jio",
+              "to": "曹逸寒",
+              "amount": 3,
+              "description": "13:33:30 | -3 to 曹逸寒"
+            }
+          ],
+          "round_9": [
+            {
+              "type": "out",
+              "timestamp": "13:38:50",
+              "from": "马了个jio",
+              "to": "123",
+              "amount": 1,
+              "description": "13:38:50 | -1 to 123"
+            }
+          ],
+          "round_10": [
+            {
+              "type": "out",
+              "timestamp": "13:45:32",
+              "from": "马了个jio",
+              "to": "123",
+              "amount": 5,
+              "description": "13:45:32 | -5 to 123"
+            }
+          ],
+          "round_11": [
+            {
+              "type": "out",
+              "timestamp": "13:50:51",
+              "from": "马了个jio",
+              "to": "琳",
+              "amount": 2,
+              "description": "13:50:51 | -2 to 琳"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:50:54",
+              "from": "威",
+              "to": "马了个jio",
+              "amount": 5,
+              "description": "13:50:54 | +5 from 威"
+            },
+            {
+              "type": "out",
+              "timestamp": "13:51:46",
+              "from": "马了个jio",
+              "to": "琳",
+              "amount": 5,
+              "description": "13:51:46 | -5 to 琳"
+            }
+          ]
+        }
+      },
+      "score_array": [
+        [
+          48,
+          43,
+          34,
+          32,
+          23,
+          19,
+          13,
+          10,
+          9,
+          4,
+          2
+        ],
+        []
+      ]
+    },
+    {
+      "id": "0a3819a1-ec60-4e38-bbb7-244086749207",
+      "name": "hlc",
+      "password": "",
+      "score": 50,
+      "last_change": 0,
+      "owner": false,
+      "last_score": 50,
+      "logs": {
+        "settle_1": {
+          "round_1": [
+            {
+              "type": "out",
+              "timestamp": "12:50:09",
+              "from": "hlc",
+              "to": "123",
+              "amount": 3,
+              "description": "12:50:09 | -3 to 123"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "out",
+              "timestamp": "12:55:38",
+              "from": "hlc",
+              "to": "123",
+              "amount": 10,
+              "description": "12:55:38 | -10 to 123"
+            }
+          ],
+          "round_3": [
+            {
+              "type": "in",
+              "timestamp": "13:00:04",
+              "from": "威",
+              "to": "hlc",
+              "amount": 2,
+              "description": "13:00:04 | +2 from 威"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:00:09",
+              "from": "琳",
+              "to": "hlc",
+              "amount": 3,
+              "description": "13:00:09 | +3 from 琳"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:00:10",
+              "from": "曹逸寒",
+              "to": "hlc",
+              "amount": 6,
+              "description": "13:00:10 | +6 from 曹逸寒"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:00:10",
+              "from": "白客",
+              "to": "hlc",
+              "amount": 1,
+              "description": "13:00:10 | +1 from 白客"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:00:10",
+              "from": "马了个jio",
+              "to": "hlc",
+              "amount": 9,
+              "description": "13:00:10 | +9 from 马了个jio"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:00:11",
+              "from": "黄了个大西瓜",
+              "to": "hlc",
+              "amount": 4,
+              "description": "13:00:11 | +4 from 黄了个大西瓜"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:00:12",
+              "from": "viston",
+              "to": "hlc",
+              "amount": 3,
+              "description": "13:00:12 | +3 from viston"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:00:16",
+              "from": "123",
+              "to": "hlc",
+              "amount": 3,
+              "description": "13:00:16 | +3 from 123"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:00:20",
+              "from": "白客",
+              "to": "hlc",
+              "amount": 1,
+              "description": "13:00:20 | +1 from 白客"
+            }
+          ],
+          "round_4": [
+            {
+              "type": "out",
+              "timestamp": "13:10:45",
+              "from": "hlc",
+              "to": "黄了个大西瓜",
+              "amount": 5,
+              "description": "13:10:45 | -5 to 黄了个大西瓜"
+            }
+          ],
+          "round_5": [
+            {
+              "type": "out",
+              "timestamp": "13:13:38",
+              "from": "hlc",
+              "to": "曹逸寒",
+              "amount": 1,
+              "description": "13:13:38 | -1 to 曹逸寒"
+            },
+            {
+              "type": "out",
+              "timestamp": "13:17:51",
+              "from": "hlc",
+              "to": "曹逸寒",
+              "amount": 6,
+              "description": "13:17:51 | -6 to 曹逸寒"
+            }
+          ],
+          "round_6": [
+            {
+              "type": "in",
+              "timestamp": "13:18:04",
+              "from": "123",
+              "to": "hlc",
+              "amount": 4,
+              "description": "13:18:04 | +4 from 123"
+            },
+            {
+              "type": "out",
+              "timestamp": "13:23:32",
+              "from": "hlc",
+              "to": "123",
+              "amount": 5,
+              "description": "13:23:32 | -5 to 123"
+            }
+          ],
+          "round_7": [
+            {
+              "type": "out",
+              "timestamp": "13:28:55",
+              "from": "hlc",
+              "to": "viston",
+              "amount": 2,
+              "description": "13:28:55 | -2 to viston"
+            }
+          ],
+          "round_8": [
+            {
+              "type": "out",
+              "timestamp": "13:33:30",
+              "from": "hlc",
+              "to": "曹逸寒",
+              "amount": 4,
+              "description": "13:33:30 | -4 to 曹逸寒"
+            }
+          ],
+          "round_9": [
+            {
+              "type": "out",
+              "timestamp": "13:38:51",
+              "from": "hlc",
+              "to": "123",
+              "amount": 14,
+              "description": "13:38:51 | -14 to 123"
+            }
+          ],
+          "round_10": [
+            {
+              "type": "out",
+              "timestamp": "13:45:34",
+              "from": "hlc",
+              "to": "123",
+              "amount": 5,
+              "description": "13:45:34 | -5 to 123"
+            }
+          ],
+          "round_11": [
+            {
+              "type": "out",
+              "timestamp": "13:50:57",
+              "from": "hlc",
+              "to": "琳",
+              "amount": 1,
+              "description": "13:50:57 | -1 to 琳"
+            }
+          ]
+        }
+      },
+      "score_array": [
+        [
+          47,
+          37,
+          69,
+          64,
+          57,
+          56,
+          54,
+          50,
+          36,
+          31,
+          30
+        ],
+        []
+      ]
+    },
+    {
+      "id": "57345f11-4940-4caa-9192-4c7dbfeb2a9e",
+      "name": "琳",
+      "password": "",
+      "score": 50,
+      "last_change": 0,
+      "owner": false,
+      "last_score": 50,
+      "logs": {
+        "settle_1": {
+          "round_1": [
+            {
+              "type": "out",
+              "timestamp": "12:50:28",
+              "from": "琳",
+              "to": "123",
+              "amount": 5,
+              "description": "12:50:28 | -5 to 123"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "out",
+              "timestamp": "12:55:56",
+              "from": "琳",
+              "to": "123",
+              "amount": 6,
+              "description": "12:55:56 | -6 to 123"
+            }
+          ],
+          "round_3": [
+            {
+              "type": "out",
+              "timestamp": "13:00:09",
+              "from": "琳",
+              "to": "hlc",
+              "amount": 3,
+              "description": "13:00:09 | -3 to hlc"
+            }
+          ],
+          "round_4": [
+            {
+              "type": "out",
+              "timestamp": "13:10:01",
+              "from": "琳",
+              "to": "黄了个大西瓜",
+              "amount": 4,
+              "description": "13:10:01 | -4 to 黄了个大西瓜"
+            }
+          ],
+          "round_5": [
+            {
+              "type": "out",
+              "timestamp": "13:13:37",
+              "from": "琳",
+              "to": "曹逸寒",
+              "amount": 3,
+              "description": "13:13:37 | -3 to 曹逸寒"
+            },
+            {
+              "type": "out",
+              "timestamp": "13:17:54",
+              "from": "琳",
+              "to": "曹逸寒",
+              "amount": 6,
+              "description": "13:17:54 | -6 to 曹逸寒"
+            }
+          ],
+          "round_6": [
+            {
+              "type": "out",
+              "timestamp": "13:23:31",
+              "from": "琳",
+              "to": "123",
+              "amount": 6,
+              "description": "13:23:31 | -6 to 123"
+            }
+          ],
+          "round_7": [
+            {
+              "type": "out",
+              "timestamp": "13:28:54",
+              "from": "琳",
+              "to": "viston",
+              "amount": 4,
+              "description": "13:28:54 | -4 to viston"
+            }
+          ],
+          "round_8": [
+            {
+              "type": "out",
+              "timestamp": "13:33:37",
+              "from": "琳",
+              "to": "曹逸寒",
+              "amount": 6,
+              "description": "13:33:37 | -6 to 曹逸寒"
+            }
+          ],
+          "round_9": [
+            {
+              "type": "out",
+              "timestamp": "13:38:51",
+              "from": "琳",
+              "to": "123",
+              "amount": 4,
+              "description": "13:38:51 | -4 to 123"
+            }
+          ],
+          "round_10": [
+            {
+              "type": "out",
+              "timestamp": "13:45:35",
+              "from": "琳",
+              "to": "123",
+              "amount": 5,
+              "description": "13:45:35 | -5 to 123"
+            }
+          ],
+          "round_11": [
+            {
+              "type": "in",
+              "timestamp": "13:50:49",
+              "from": "白客",
+              "to": "琳",
+              "amount": 3,
+              "description": "13:50:49 | +3 from 白客"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:50:51",
+              "from": "马了个jio",
+              "to": "琳",
+              "amount": 2,
+              "description": "13:50:51 | +2 from 马了个jio"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:50:54",
+              "from": "viston",
+              "to": "琳",
+              "amount": 4,
+              "description": "13:50:54 | +4 from viston"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:50:55",
+              "from": "黄了个大西瓜",
+              "to": "琳",
+              "amount": 12,
+              "description": "13:50:55 | +12 from 黄了个大西瓜"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:50:57",
+              "from": "hlc",
+              "to": "琳",
+              "amount": 1,
+              "description": "13:50:57 | +1 from hlc"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:51:13",
+              "from": "曹逸寒",
+              "to": "琳",
+              "amount": 2,
+              "description": "13:51:13 | +2 from 曹逸寒"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:51:14",
+              "from": "123",
+              "to": "琳",
+              "amount": 5,
+              "description": "13:51:14 | +5 from 123"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:51:46",
+              "from": "马了个jio",
+              "to": "琳",
+              "amount": 5,
+              "description": "13:51:46 | +5 from 马了个jio"
+            }
+          ]
+        }
+      },
+      "score_array": [
+        [
+          45,
+          39,
+          36,
+          32,
+          23,
+          17,
+          13,
+          7,
+          3,
+          -2,
+          32
+        ],
+        []
+      ]
+    },
+    {
+      "id": "09394b26-bb58-4a78-802f-e2e76d543653",
+      "name": "曹逸寒",
+      "password": "",
+      "score": 50,
+      "last_change": 0,
+      "owner": false,
+      "last_score": 50,
+      "logs": {
+        "settle_1": {
+          "round_1": [
+            {
+              "type": "out",
+              "timestamp": "12:50:08",
+              "from": "曹逸寒",
+              "to": "123",
+              "amount": 4,
+              "description": "12:50:08 | -4 to 123"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "out",
+              "timestamp": "12:55:52",
+              "from": "曹逸寒",
+              "to": "123",
+              "amount": 7,
+              "description": "12:55:52 | -7 to 123"
+            }
+          ],
+          "round_3": [
+            {
+              "type": "out",
+              "timestamp": "13:00:10",
+              "from": "曹逸寒",
+              "to": "hlc",
+              "amount": 6,
+              "description": "13:00:10 | -6 to hlc"
+            }
+          ],
+          "round_4": [
+            {
+              "type": "out",
+              "timestamp": "13:10:00",
+              "from": "曹逸寒",
+              "to": "黄了个大西瓜",
+              "amount": 8,
+              "description": "13:10:00 | -8 to 黄了个大西瓜"
+            }
+          ],
+          "round_5": [
+            {
+              "type": "in",
+              "timestamp": "13:13:31",
+              "from": "白客",
+              "to": "曹逸寒",
+              "amount": 5,
+              "description": "13:13:31 | +5 from 白客"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:13:32",
+              "from": "威",
+              "to": "曹逸寒",
+              "amount": 4,
+              "description": "13:13:32 | +4 from 威"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:13:34",
+              "from": "viston",
+              "to": "曹逸寒",
+              "amount": 2,
+              "description": "13:13:34 | +2 from viston"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:13:35",
+              "from": "马了个jio",
+              "to": "曹逸寒",
+              "amount": 6,
+              "description": "13:13:35 | +6 from 马了个jio"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:13:37",
+              "from": "琳",
+              "to": "曹逸寒",
+              "amount": 3,
+              "description": "13:13:37 | +3 from 琳"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:13:38",
+              "from": "hlc",
+              "to": "曹逸寒",
+              "amount": 1,
+              "description": "13:13:38 | +1 from hlc"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:13:46",
+              "from": "123",
+              "to": "曹逸寒",
+              "amount": 1,
+              "description": "13:13:46 | +1 from 123"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:14:07",
+              "from": "黄了个大西瓜",
+              "to": "曹逸寒",
+              "amount": 3,
+              "description": "13:14:07 | +3 from 黄了个大西瓜"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:17:51",
+              "from": "viston",
+              "to": "曹逸寒",
+              "amount": 2,
+              "description": "13:17:51 | +2 from viston"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:17:51",
+              "from": "hlc",
+              "to": "曹逸寒",
+              "amount": 6,
+              "description": "13:17:51 | +6 from hlc"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:17:54",
+              "from": "马了个jio",
+              "to": "曹逸寒",
+              "amount": 3,
+              "description": "13:17:54 | +3 from 马了个jio"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:17:54",
+              "from": "琳",
+              "to": "曹逸寒",
+              "amount": 6,
+              "description": "13:17:54 | +6 from 琳"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:17:55",
+              "from": "威",
+              "to": "曹逸寒",
+              "amount": 1,
+              "description": "13:17:55 | +1 from 威"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:17:56",
+              "from": "白客",
+              "to": "曹逸寒",
+              "amount": 4,
+              "description": "13:17:56 | +4 from 白客"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:17:57",
+              "from": "黄了个大西瓜",
+              "to": "曹逸寒",
+              "amount": 3,
+              "description": "13:17:57 | +3 from 黄了个大西瓜"
+            }
+          ],
+          "round_6": [
+            {
+              "type": "out",
+              "timestamp": "13:23:33",
+              "from": "曹逸寒",
+              "to": "123",
+              "amount": 2,
+              "description": "13:23:33 | -2 to 123"
+            }
+          ],
+          "round_7": [
+            {
+              "type": "out",
+              "timestamp": "13:28:54",
+              "from": "曹逸寒",
+              "to": "viston",
+              "amount": 4,
+              "description": "13:28:54 | -4 to viston"
+            }
+          ],
+          "round_8": [
+            {
+              "type": "in",
+              "timestamp": "13:33:26",
+              "from": "白客",
+              "to": "曹逸寒",
+              "amount": 2,
+              "description": "13:33:26 | +2 from 白客"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:33:30",
+              "from": "马了个jio",
+              "to": "曹逸寒",
+              "amount": 3,
+              "description": "13:33:30 | +3 from 马了个jio"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:33:30",
+              "from": "hlc",
+              "to": "曹逸寒",
+              "amount": 4,
+              "description": "13:33:30 | +4 from hlc"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:33:33",
+              "from": "黄了个大西瓜",
+              "to": "曹逸寒",
+              "amount": 3,
+              "description": "13:33:33 | +3 from 黄了个大西瓜"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:33:37",
+              "from": "威",
+              "to": "曹逸寒",
+              "amount": 2,
+              "description": "13:33:37 | +2 from 威"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:33:37",
+              "from": "琳",
+              "to": "曹逸寒",
+              "amount": 6,
+              "description": "13:33:37 | +6 from 琳"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:33:38",
+              "from": "viston",
+              "to": "曹逸寒",
+              "amount": 5,
+              "description": "13:33:38 | +5 from viston"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:33:42",
+              "from": "123",
+              "to": "曹逸寒",
+              "amount": 4,
+              "description": "13:33:42 | +4 from 123"
+            }
+          ],
+          "round_9": [
+            {
+              "type": "out",
+              "timestamp": "13:38:51",
+              "from": "曹逸寒",
+              "to": "123",
+              "amount": 4,
+              "description": "13:38:51 | -4 to 123"
+            },
+            {
+              "type": "out",
+              "timestamp": "13:38:51",
+              "from": "曹逸寒",
+              "to": "123",
+              "amount": 4,
+              "description": "13:38:51 | -4 to 123"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:39:16",
+              "from": "123",
+              "to": "曹逸寒",
+              "amount": 4,
+              "description": "13:39:16 | +4 from 123"
+            }
+          ],
+          "round_10": [
+            {
+              "type": "out",
+              "timestamp": "13:45:31",
+              "from": "曹逸寒",
+              "to": "123",
+              "amount": 3,
+              "description": "13:45:31 | -3 to 123"
+            }
+          ],
+          "round_11": [
+            {
+              "type": "out",
+              "timestamp": "13:51:13",
+              "from": "曹逸寒",
+              "to": "琳",
+              "amount": 2,
+              "description": "13:51:13 | -2 to 琳"
+            }
+          ]
+        }
+      },
+      "score_array": [
+        [
+          46,
+          39,
+          33,
+          25,
+          75,
+          73,
+          69,
+          98,
+          94,
+          91,
+          89
+        ],
+        []
+      ]
+    },
+    {
+      "id": "1cf86547-3b79-496d-a4f9-f87bba2caacd",
+      "name": "白客",
+      "password": "208982",
+      "score": 50,
+      "last_change": 0,
+      "owner": false,
+      "last_score": 50,
+      "logs": {
+        "settle_1": {
+          "round_1": [
+            {
+              "type": "out",
+              "timestamp": "12:50:02",
+              "from": "白客",
+              "to": "123",
+              "amount": 1,
+              "description": "12:50:02 | -1 to 123"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "out",
+              "timestamp": "12:56:02",
+              "from": "白客",
+              "to": "123",
+              "amount": 1,
+              "description": "12:56:02 | -1 to 123"
+            }
+          ],
+          "round_3": [
+            {
+              "type": "out",
+              "timestamp": "13:00:10",
+              "from": "白客",
+              "to": "hlc",
+              "amount": 1,
+              "description": "13:00:10 | -1 to hlc"
+            },
+            {
+              "type": "out",
+              "timestamp": "13:00:20",
+              "from": "白客",
+              "to": "hlc",
+              "amount": 1,
+              "description": "13:00:20 | -1 to hlc"
+            }
+          ],
+          "round_4": [
+            {
+              "type": "out",
+              "timestamp": "13:10:00",
+              "from": "白客",
+              "to": "黄了个大西瓜",
+              "amount": 2,
+              "description": "13:10:00 | -2 to 黄了个大西瓜"
+            }
+          ],
+          "round_5": [
+            {
+              "type": "out",
+              "timestamp": "13:13:31",
+              "from": "白客",
+              "to": "曹逸寒",
+              "amount": 5,
+              "description": "13:13:31 | -5 to 曹逸寒"
+            },
+            {
+              "type": "out",
+              "timestamp": "13:17:56",
+              "from": "白客",
+              "to": "曹逸寒",
+              "amount": 4,
+              "description": "13:17:56 | -4 to 曹逸寒"
+            }
+          ],
+          "round_6": [
+            {
+              "type": "out",
+              "timestamp": "13:23:29",
+              "from": "白客",
+              "to": "123",
+              "amount": 4,
+              "description": "13:23:29 | -4 to 123"
+            }
+          ],
+          "round_7": [
+            {
+              "type": "out",
+              "timestamp": "13:28:56",
+              "from": "白客",
+              "to": "viston",
+              "amount": 6,
+              "description": "13:28:56 | -6 to viston"
+            }
+          ],
+          "round_8": [
+            {
+              "type": "out",
+              "timestamp": "13:33:26",
+              "from": "白客",
+              "to": "曹逸寒",
+              "amount": 2,
+              "description": "13:33:26 | -2 to 曹逸寒"
+            }
+          ],
+          "round_9": [
+            {
+              "type": "out",
+              "timestamp": "13:38:47",
+              "from": "白客",
+              "to": "123",
+              "amount": 4,
+              "description": "13:38:47 | -4 to 123"
+            }
+          ],
+          "round_10": [
+            {
+              "type": "out",
+              "timestamp": "13:45:29",
+              "from": "白客",
+              "to": "123",
+              "amount": 3,
+              "description": "13:45:29 | -3 to 123"
+            }
+          ],
+          "round_11": [
+            {
+              "type": "out",
+              "timestamp": "13:50:49",
+              "from": "白客",
+              "to": "琳",
+              "amount": 3,
+              "description": "13:50:49 | -3 to 琳"
+            }
+          ]
+        }
+      },
+      "score_array": [
+        [
+          49,
+          48,
+          46,
+          44,
+          35,
+          31,
+          25,
+          23,
+          19,
+          16,
+          13
+        ],
+        []
+      ]
+    },
+    {
+      "id": "b3b87955-0b5d-4dc5-89ec-802939d2177e",
+      "name": "黄了个大西瓜",
+      "password": "526457",
+      "score": 50,
+      "last_change": 0,
+      "owner": false,
+      "last_score": 50,
+      "logs": {
+        "settle_1": {
+          "round_1": [
+            {
+              "type": "out",
+              "timestamp": "12:50:15",
+              "from": "黄了个大西瓜",
+              "to": "123",
+              "amount": 3,
+              "description": "12:50:15 | -3 to 123"
+            }
+          ],
+          "round_2": [
+            {
+              "type": "out",
+              "timestamp": "12:55:39",
+              "from": "黄了个大西瓜",
+              "to": "123",
+              "amount": 4,
+              "description": "12:55:39 | -4 to 123"
+            }
+          ],
+          "round_3": [
+            {
+              "type": "out",
+              "timestamp": "13:00:11",
+              "from": "黄了个大西瓜",
+              "to": "hlc",
+              "amount": 4,
+              "description": "13:00:11 | -4 to hlc"
+            }
+          ],
+          "round_4": [
+            {
+              "type": "in",
+              "timestamp": "13:09:59",
+              "from": "马了个jio",
+              "to": "黄了个大西瓜",
+              "amount": 2,
+              "description": "13:09:59 | +2 from 马了个jio"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:10:00",
+              "from": "白客",
+              "to": "黄了个大西瓜",
+              "amount": 2,
+              "description": "13:10:00 | +2 from 白客"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:10:00",
+              "from": "曹逸寒",
+              "to": "黄了个大西瓜",
+              "amount": 8,
+              "description": "13:10:00 | +8 from 曹逸寒"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:10:01",
+              "from": "琳",
+              "to": "黄了个大西瓜",
+              "amount": 4,
+              "description": "13:10:01 | +4 from 琳"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:10:02",
+              "from": "viston",
+              "to": "黄了个大西瓜",
+              "amount": 6,
+              "description": "13:10:02 | +6 from viston"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:10:12",
+              "from": "威",
+              "to": "黄了个大西瓜",
+              "amount": 2,
+              "description": "13:10:12 | +2 from 威"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:10:16",
+              "from": "123",
+              "to": "黄了个大西瓜",
+              "amount": 4,
+              "description": "13:10:16 | +4 from 123"
+            },
+            {
+              "type": "in",
+              "timestamp": "13:10:45",
+              "from": "hlc",
+              "to": "黄了个大西瓜",
+              "amount": 5,
+              "description": "13:10:45 | +5 from hlc"
+            }
+          ],
+          "round_5": [
+            {
+              "type": "out",
+              "timestamp": "13:14:07",
+              "from": "黄了个大西瓜",
+              "to": "曹逸寒",
+              "amount": 3,
+              "description": "13:14:07 | -3 to 曹逸寒"
+            },
+            {
+              "type": "out",
+              "timestamp": "13:17:57",
+              "from": "黄了个大西瓜",
+              "to": "曹逸寒",
+              "amount": 3,
+              "description": "13:17:57 | -3 to 曹逸寒"
+            }
+          ],
+          "round_6": [
+            {
+              "type": "out",
+              "timestamp": "13:25:08",
+              "from": "黄了个大西瓜",
+              "to": "123",
+              "amount": 3,
+              "description": "13:25:08 | -3 to 123"
+            }
+          ],
+          "round_7": [
+            {
+              "type": "out",
+              "timestamp": "13:29:25",
+              "from": "黄了个大西瓜",
+              "to": "viston",
+              "amount": 3,
+              "description": "13:29:25 | -3 to viston"
+            }
+          ],
+          "round_8": [
+            {
+              "type": "out",
+              "timestamp": "13:33:33",
+              "from": "黄了个大西瓜",
+              "to": "曹逸寒",
+              "amount": 3,
+              "description": "13:33:33 | -3 to 曹逸寒"
+            }
+          ],
+          "round_9": [
+            {
+              "type": "out",
+              "timestamp": "13:38:50",
+              "from": "黄了个大西瓜",
+              "to": "123",
+              "amount": 2,
+              "description": "13:38:50 | -2 to 123"
+            }
+          ],
+          "round_10": [
+            {
+              "type": "out",
+              "timestamp": "13:45:35",
+              "from": "黄了个大西瓜",
+              "to": "123",
+              "amount": 1,
+              "description": "13:45:35 | -1 to 123"
+            }
+          ],
+          "round_11": [
+            {
+              "type": "out",
+              "timestamp": "13:50:55",
+              "from": "黄了个大西瓜",
+              "to": "琳",
+              "amount": 12,
+              "description": "13:50:55 | -12 to 琳"
+            }
+          ]
+        }
+      },
+      "score_array": [
+        [
+          47,
+          43,
+          39,
+          72,
+          66,
+          63,
+          60,
+          57,
+          55,
+          54,
+          42
+        ],
+        []
+      ]
+    }
+  ],
+  "baseline": {
+    "a7e4b2be-cdf0-4797-8146-bdcafce18f28": 50,
+    "2ee8ab34-1faa-474a-b131-afebdde5d84e": 50,
+    "8b1a7779-cdf6-40bb-96bc-0ce6f1810573": 50,
+    "7d9cc483-9837-4e71-92b9-dd5cb798c900": 50,
+    "0a3819a1-ec60-4e38-bbb7-244086749207": 50,
+    "57345f11-4940-4caa-9192-4c7dbfeb2a9e": 50,
+    "09394b26-bb58-4a78-802f-e2e76d543653": 50,
+    "1cf86547-3b79-496d-a4f9-f87bba2caacd": 50,
+    "b3b87955-0b5d-4dc5-89ec-802939d2177e": 50
+  },
+  "settlement_reports": [
+    {
+      "count": 1,
+      "timestamp": "2025-04-19 13:51:50",
+      "report": "【结算汇总】<br>\n• 总结算积分：178 积分<br>\n• 盈利玩家：2 人<br>\n• 亏损玩家：7 人<br>\n• 陪玩玩家：0 人<br>\n<br>\n【盈利玩家】<br>\n• 123：+139 积分<br>\n• 曹逸寒：+39 积分<br>\n<br>\n【亏损玩家】<br>\n• 马了个jio：-48 积分<br>\n• 白客：-37 积分<br>\n• 威：-35 积分<br>\n• hlc：-20 积分<br>\n• 琳：-18 积分<br>\n• viston：-12 积分<br>\n• 黄了个大西瓜：-8 积分<br>\n<br>\n【转账明细】<br>\n• 马了个jio 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 123 转账 48 积分<br>\n• 白客 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 123 转账 37 积分<br>\n• 威 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 123 转账 35 积分<br>\n• hlc 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 123 转账 19 积分<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 曹逸寒 转账 1 积分<br>\n• 琳 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 曹逸寒 转账 18 积分<br>\n• viston 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 曹逸寒 转账 12 积分<br>\n• 黄了个大西瓜 需要：<br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 给 曹逸寒 转账 8 积分<br>\n<br>\n结算时间：2025-04-19 13:51:50"
+    }
+  ],
+  "settlement_count": 1,
+  "can_next_round": false,
+  "can_settle": false
+}

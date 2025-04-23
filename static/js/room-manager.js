@@ -3,7 +3,7 @@
  */
 
 // 轮询间隔（毫秒）
-const POLLING_INTERVAL = 5000;
+const POLLING_INTERVAL = 1000;
 
 // 全局变量
 let updateInterval;
